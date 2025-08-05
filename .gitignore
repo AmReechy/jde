@@ -9,6 +9,5 @@ node_modules/
 staticfiles/
 *.log
 package-lock.json
-tailwind.config.js
 package.json
 
