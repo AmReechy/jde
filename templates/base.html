@@ -8,10 +8,345 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 		<link rel="stylesheet" href="{% static 'css/styles.css' %}?v=2" type="text/css" media="screen" title="no title" charset="utf-8">
 		<title>{% block title %}{% endblock title %}</title>
+		<style type="text/css" media="screen">
+			/* Hidden state before scrolling into view */
+.jump-in {
+  opacity: 0;
+  transform: translateY(80px);
+  transition: all 0.8s ease-out;
+}
+
+.jump-in2 {
+  opacity: 0;
+  transform: scale(0.3);
+  transition: all 1.2s ease-in-out;
+}
+
+.jump-in2.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Final state after scroll trigger */
+.jump-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+			@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+  80% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes animMenu {
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 100%;
+	}
+}
+
+.anim-menu {
+	animation: animMenu 0.3s ease-out
+}
+
+@keyframes revanimMenu {
+	0% {
+		width: 100%;
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.3;
+	}
+	100% {
+		width: 0;
+		opacity: 0;
+	}
+}
+
+.rev-anim-menu {
+	animation: revanimMenu 0.3s
+}
+
+@keyframes prevHero {
+	0% {
+		right: 0;
+	}
+	100% {
+		right: 100%;
+	}
+}
+
+.prev-hero {
+	animation: prevHero 0.7s ease-out
+}
+
+@keyframes currHero {
+	0% {
+		left: 100%;
+	}
+	100% {
+		left: 0;
+	}
+}
+
+.curr-hero {
+	animation: currHero 0.7s ease-out
+}
+
+.bounce-in {
+  opacity: 0;
+}
+
+.bounce-in.show {
+  animation: bounceIn 0.8s ease-out forwards;
+}
+			#sidebarMenu a {
+				@apply py-10
+			}
+
+
+			.triangle {
+				clip-path: polygon(50% 0, 100% 80%, 50 100%, 0 80%)
+			}
+
+
+			.scroll-wrapper {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  scrollbar-width: thin; /* Optional: slim scrollbar for Firefox */
+}
+
+.item {
+  min-width: 200px;
+  flex-shrink: 0;
+  background: #aee;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+/* Optional: show scrollbar always for desktop users */
+.scroll-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+.scroll-wrapper::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 4px;
+}
+
+		</style>
 	</head>
 	<body>
-		<div class="md:w-4/5 xl:w-3/4 mx-auto ">
+
+		<!--<div class="relative inline-block">
+  <button id="dropdownToggle" class="px-4 py-2 bg-green-600 text-white rounded-md shadow">
+    ☰ Menu
+  </button>
+
+  <div id="dropdownMenu"
+       class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 scale-y-0 origin-top transform transition-all duration-300 z-50 pointer-events-none">
+    <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Home</a>
+    <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Topics</a>
+    <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Polls</a>
+    <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Logout</a>
+  </div>
+		</div>-->
+<div class="bg-stone-50  border-teal-200 sticky top-0 z-50 shadow-md">
+	<div class="py-2 text-center relative ">
+		<span class="inline-block w-20 h-20 rounded-full bg-blue-900">LOGO</span>
+
+		<!-- Toggle Button -->
+		<button id="openSidebar"
+        class="absolute top-1/2 -translate-y-1/2 left-4 z-30 p-2 text-black text-3xl font-black text-teal-500">
+			☰
+		</button>
+		<button id="closeSidebar" class="hidden absolute top-1/2 -translate-y-1/2 left-4 z-30 p-2 text-5xl font-normal text-teal-500">&times;</button>
+	</div>
+
+	<!-- Sidebar -->
+	<div class="relative" class="">
+		<div id="sidebarMenu"
+				 class="absolute hidden w-full top-0 left-0  bg-stone-100  transform -translate-x-full transition-all backdrop-opacity-50 duration-500 z-40 flex flex-col px-6 pb-20 shadow-md shadow-teal-200 max-h-[80vh] overflow-y-auto">
+		<!--<p class="text-end">
+			<button id="closeSidebar2" class="inline-block text-4xl font-black text-gray-700 ">&times;</button>
+		</p>-->
+			<a href="#" class="text-gray-800 hover:text-green-700">Home</a>
+			<a href="#" class="text-gray-800 hover:text-green-700">Topics</a>
+			<a href="#" class="text-gray-800 hover:text-green-700">Polls</a>
+			<a href="#" class="text-gray-800 hover:text-green-700 border-b-0">Logout</a>
+		</div>
+	</div>
+
+	<div class="w-full h-2 bg-gradient-to-r from-teal-200 via-white to-teal-200">
+	</div>
+</div>
+
+<div id="content">
+			<div>
+			{% block heroes %}
+			{% endblock heroes %}	
+			</div>
+
+
+
+
+
+		<div class="pb-20">
 			{% block content %} {% endblock content %}			
 		</div>
+
+	
+</div>
+
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-gray-900 text-white text-sm p-4 shadow-lg flex justify-between items-start z-50 hidden transition-opacity">
+  <div class="max-w-4xl mx-auto w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+    <p class="flex-1">
+      We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies. 
+      <a href="/privacy-policy" class="underline text-blue-400">Learn more</a>.
+    </p>
+    <div class="flex gap-2">
+      <button id="accept-cookies" class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded">Accept</button>
+      <button id="decline-cookies" class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded">Decline</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Check if consent is already given
+  const banner = document.getElementById('cookie-banner');
+  const accepted = localStorage.getItem('cookie_consent');
+
+  if (!accepted) {
+		setTimeout(() => {
+    	banner.classList.remove('hidden');
+			banner.style.opacity = "1";
+
+		},2000)
+  }
+
+  // Set acceptance or decline
+  document.getElementById('accept-cookies').addEventListener('click', () => {
+    localStorage.setItem('cookie_consent', 'accepted');
+    banner.classList.add('hidden');
+    // Optional: initialize analytics or tracking here
+  });
+
+  document.getElementById('decline-cookies').addEventListener('click', () => {
+    localStorage.setItem('cookie_consent', 'declined');
+    banner.classList.add('hidden');
+  });
+</script>
+
+
+
+
+		<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const jumpElements = document.querySelectorAll('.jump-in, .jump-in2');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          //observer.unobserve(entry.target); // optional: animate only once
+					/*setTimeout(() => {
+          	entry.target.classList.remove('show');
+					}, 1000)*/
+				} else {
+          entry.target.classList.remove('show');
+				}
+      });
+    }, {
+      threshold: 0.2  // Trigger when 20% of the element is visible
+    });
+
+    jumpElements.forEach(el => observer.observe(el));
+  });
+</script>
+
+
+<script>
+const dropdownToggle = document.getElementById('dropdownToggle');
+const dropdownMenu = document.getElementById('dropdownMenu');
+
+dropdownToggle.addEventListener('click', () => {
+  dropdownMenu.classList.toggle('scale-y-100');
+  dropdownMenu.classList.toggle('opacity-100');
+  dropdownMenu.classList.toggle('pointer-events-auto');
+});
+</script>
+
+<script>
+const openSidebar = document.getElementById('openSidebar');
+const closeSidebar = document.getElementById('closeSidebar');
+const sidebarMenu = document.getElementById('sidebarMenu');
+const content = document.getElementById('content');
+
+openSidebar.addEventListener('click', () => {
+  sidebarMenu.classList.remove('-translate-x-full');
+  //sidebarMenu.classList.remove('w-0');
+  sidebarMenu.classList.add('anim-menu');
+	sidebarMenu.style.display = "flex";
+	openSidebar.style.display = "none";
+	closeSidebar.style.display = "inline-block";
+	content.style.filter = "blur(4px)"
+});
+
+closeSidebar.addEventListener('click', () => {
+  sidebarMenu.classList.add('-translate-x-full');
+  //sidebarMenu.classList.add('w-0');
+  sidebarMenu.classList.remove('anim-menu');
+  sidebarMenu.classList.add('rev-anim-menu');
+	setTimeout(() => {
+		sidebarMenu.style.display = "none";
+  	sidebarMenu.classList.remove('rev-anim-menu');
+	}, 300)
+	openSidebar.style.display = "inline-block";
+	closeSidebar.style.display = "none";
+	content.style.filter = "blur(0px)"
+});
+</script>
+
+<script charset="utf-8">
+	let i = 0
+	const heroes = document.querySelectorAll("#heroes-cont .hero")
+	let heroesCount = heroes.length
+
+	function scrollHero() {
+		let goingHero = heroes[i % heroesCount]
+		let comingHero = heroes[(i+1) % heroesCount]
+		goingHero.classList.remove("curr-hero");
+		goingHero.classList.add("prev-hero");
+		comingHero.classList.add("curr-hero");
+		goingHero.style.zIndex = 3;
+		comingHero.style.zIndex = 3;
+		i++;
+		setTimeout(() => {
+		goingHero.classList.remove("prev-hero");
+		comingHero.classList.add("curr-hero");
+		goingHero.style.zIndex = 1;
+		}, 700)
+	}
+	setInterval( () => { scrollHero() }, 6000)
+
+</script>
 	</body>
 </html>
