@@ -326,19 +326,19 @@ closeSidebar.addEventListener('click', () => {
 </script>
 
 <script charset="utf-8">
-	let i = 0
+	let k = 0
 	const heroes = document.querySelectorAll("#heroes-cont .hero")
 	let heroesCount = heroes.length
 
 	function scrollHero() {
-		let goingHero = heroes[i % heroesCount]
-		let comingHero = heroes[(i+1) % heroesCount]
+		let goingHero = heroes[k % heroesCount]
+		let comingHero = heroes[(k+1) % heroesCount]
 		goingHero.classList.remove("curr-hero");
 		goingHero.classList.add("prev-hero");
 		comingHero.classList.add("curr-hero");
 		goingHero.style.zIndex = 3;
 		comingHero.style.zIndex = 3;
-		i++;
+		k++;
 		setTimeout(() => {
 		goingHero.classList.remove("prev-hero");
 		comingHero.classList.add("curr-hero");
