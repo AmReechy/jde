@@ -105,13 +105,14 @@ THIS IS THE HOMEPAGE OF JDE CONSULTE
 
 
 
-<div class="my-12">
+<div class="my-12 w-full ">
 	<div class="pb-4 px-4 text-center font-black text-3xl text-teal-500 text-pretty leading-6">
 		<p class="drop-shadow-md">Our Partners</p>
 		<p class="inline-block w-1/5 border-b-4 border-teal-500"></p>
 	</div>
 
-	<div class=" p-6 bg-stone-100 scroll-wrapper w-full" id="scrollBox">
+	<div class="w-full overflow-x-auto p-6 bg-stone-100">
+	<div class="scroll-wrapper w-max flex flex-row flex-nowrap bg-green-500" id="scrollBox">
 		<div class="invisible rounded-2xl bg-white border border-stone-200  p-4  border-teal-200 ump-in2 relative">
 			<div class="text-center">
 				<p class="inline-block py-2 bg-white text-amber-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">Partner 1</p>
@@ -190,6 +191,8 @@ THIS IS THE HOMEPAGE OF JDE CONSULTE
 			</div>
 		</div>
 	</div>
+		
+	</div>
 
 	<div>
 		<p class=" flex justify-center gap-3" id="scrollIndCont"></p>
@@ -230,15 +233,16 @@ function startAutoScroll() {
 	autoScrollInterval = setInterval(() => {
 		let newInd = i % partnersCount
 		let nextP = partners[newInd]
-		const containerRect = scrollIndicatorCont.getBoundingClientRect();
+		const containerRect = scrollBox.getBoundingClientRect();
   	const childRect = nextP.getBoundingClientRect();
 
   	// Calculate how much to scroll so that the child is centered
-  	const scrollOffset = nextP.offsetLeft - (scrollIndicatorCont.clientWidth / 2) + (nextP.clientWidth / 2);
-		nextP.scrollTo({
+  	const scrollOffset = nextP.offsetLeft - (scrollBox.clientWidth / 2) + (nextP.clientWidth / 2);
+		scrollBox.scrollTo({
     left: scrollOffset,
     behavior: 'smooth'
   });
+		//alert(scrollOffset)
 
 		//nextP.scrollIntoView({behavior: "smooth", inline:"center"})
 		indicators.forEach((ind, n) => {

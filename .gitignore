@@ -10,4 +10,5 @@ staticfiles/
 *.log
 package-lock.json
 package.json
+*.swp
 
