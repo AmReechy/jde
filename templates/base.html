@@ -168,61 +168,112 @@
     <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Logout</a>
   </div>
 		</div>-->
-<div class="bg-stone-50  border-teal-200 sticky top-0 z-50 shadow-md">
+<div>
+<div class="sticky top-0 z-50 bg-stone-100">
+<div class=" w-full lg:w-4/5 mx-auto lg:flex lg:items-center flex-row gap-20">
 	<div class="py-2 text-center relative ">
-		<span class="inline-block w-20 h-20 rounded-full bg-blue-900">LOGO</span>
+		<!-- <span class="inline-block w-20 h-20 rounded-full bg-blue-900">LOGO</span> -->
+        <a href="/">
+            <span class="inline-block rounded-full w-max h-max">
+            <img src="{% static 'jde_assets/jde_logo_resized.jpg' %}" class="w-28 h-28 inline-block rounded-full border-2 border-lime-500" alt="">
+            </span>
+        </a>
 
 		<!-- Toggle Button -->
 		<button id="openSidebar"
-        class="absolute top-1/2 -translate-y-1/2 left-4 z-30 p-2 text-black text-3xl font-black text-teal-500">
+        class="absolute lg:hidden top-1/2 -translate-y-1/2 left-4 z-30 p-2 text-black text-3xl font-black">
 			☰
 		</button>
-		<button id="closeSidebar" class="hidden absolute top-1/2 -translate-y-1/2 left-4 z-30 p-2 text-5xl font-normal text-teal-500">&times;</button>
+		<button id="closeSidebar" class="hidden absolute top-1/2 -translate-y-1/2 left-4 z-30 p-2 text-5xl font-semibold text-red-500">&times;</button>
 	</div>
 
 	<!-- Sidebar -->
-	<div class="relative" class="">
+	<div class="relative">
 		<div id="sidebarMenu"
-				 class="absolute hidden w-full top-0 left-0  bg-stone-100  transform -translate-x-full transition-all backdrop-opacity-50 duration-500 z-40 flex flex-col px-6 pb-20 shadow-md shadow-teal-200 max-h-[80vh] overflow-y-auto">
+				 class="absolute bg-stone-100 lg:bg-inherit lg:relative hidden sm:flex w-full lg:w-max sm:top-0 sm:left-0   transform sm:-translate-x-full lg:translate-x-0 transition-all duration-500 z-40 
+                flex-col lg:flex-row lg:gap-6 px-6 pb-20 lg:pb-0 overflow-y-auto">
 		<!--<p class="text-end">
 			<button id="closeSidebar2" class="inline-block text-4xl font-black text-gray-700 ">&times;</button>
 		</p>-->
-			<a href="#" class="text-gray-800 hover:text-green-700">Home</a>
-			<a href="#" class="text-gray-800 hover:text-green-700">Topics</a>
+			<a href="#" class="text-amber-500 hover:text-green-700">Home</a>
+			<a href="#" class="text-black hover:text-green-700">Topics</a>
 			<a href="#" class="text-gray-800 hover:text-green-700">Polls</a>
 			<a href="#" class="text-gray-800 hover:text-green-700 border-b-0">Logout</a>
 		</div>
+        
 	</div>
-
-	<div class="w-full h-2 bg-gradient-to-r from-teal-200 via-white to-teal-200">
-	</div>
+	
+</div>
+        <div class="w-full h-2 bg-gradient-to-r from-teal-300 via-teal-100 to-teal-300">
+	    </div>
 </div>
 
-<div id="content">
-			<div>
+            
+<div id="content" class="lg:w-4/5 xl:w-3/4 mx-auto lg:border-x border-teal-200">
+			
+            <div>
 			{% block heroes %}
 			{% endblock heroes %}	
 			</div>
 
-
-
-
-
 		<div class="pb-20">
 			{% block content %} {% endblock content %}			
 		</div>
+</div>
 
-	
+<footer class="w-full bg-gradient-to-br from-teal-950 via-teal-700 to-teal-950 mt-12 py-8">
+    <div class="md:grid md:grid-cols-2 gap-4 lg:gap-6 px-4 lg:w-4/5 xl:w-3/4 mx-auto">
+        <div>
+            <div class="text-center">
+            <a href="/">
+            <span class="inline-block rounded-full w-max h-max">
+            <img src="{% static 'jde_assets/jde_logo_resized.jpg' %}" class="w-32 h-32 inline-block rounded-full border-2 border-lime-500" alt="">
+            </span>
+            </a>
+            </div>
+            <p class="font-semibold text-white lg:text-lg py-2">
+                <span class="font-black text-lime-200">JDE CONSULTE SAS</span> is a professional service provider based in France, offering
+comprehensive support for individuals and businesses. Our expertise spans translation,
+interpreting, administrative assistance, consultancy, and data management services, all tailored to
+meet diverse needs with precision and confidentiality.
+            </p>
+            <p><span><i class="fa-brands fa-x-twitter"></i></span>
+                <span><i class="fa-brands fa-instagram"></i></span>
+                <span><i class="fa-brands fa-facebook"></i></span>
+                <span><i class="fa-brands fa-youtube"></i></span>
+                <span><i class="fa-brands fa-linkedin"></i></span>
+
+            </p>
+            <p class="w-3/5 border-b-4 border-teal-200 mx-auto py-4 md:hidden"></p>
+        </div>
+        <div>
+            <p class="footer-nav-items-cont flex flex-wrap gap-x-2 md:gap-x-3" id="footer-nav-items-parent"><span>Home</span>
+                <span>About Us</span>
+                <span>Services</span>
+                <span>Projects</span>
+                <span>Contact Us</span>
+                <span>FAQs</span>
+                <span>Apply for Our Service</span>
+                <span>Book Appointment</span>
+                <span>Login</span>
+                <span>Register</span>
+
+            </p>
+            <p class="w-3/5 border-b-4 border-teal-200 mx-auto py-4"></p>
+        </div>
+    </div>
+    <div></div>
+</footer>
 </div>
 
 <!-- Cookie Consent Banner -->
-<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-gray-900 text-white text-sm p-4 shadow-lg flex justify-between items-start z-50 hidden transition-opacity">
-  <div class="max-w-4xl mx-auto w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-    <p class="flex-1">
+<div id="cookie-banner" class="fixed w-full bottom-0 left-0 right-0 bg-gray-900 text-white text-sm p-6 md:p-8 shadow-lg flex justify-between items-start z-50 hidden transition-opacity">
+  <div class="max-w-4xl mx-auto w-full  flex-col md:flex-row justify-between items-start md:items-center gap-2">
+    <p class="flex-1 text-base lg:text-lg">
       We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies. 
       <a href="/privacy-policy" class="underline text-blue-400">Learn more</a>.
     </p>
-    <div class="flex gap-2">
+    <div class="flex justify-center gap-4 pt-2">
       <button id="accept-cookies" class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded">Accept</button>
       <button id="decline-cookies" class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded">Decline</button>
     </div>

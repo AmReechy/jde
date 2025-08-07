@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.circle-vary {
+	border-radius: 50%;          /* Makes the shape a circle */
+	vertical-align: middle;      /* Align with surrounding text, if     any */
+	display: flex;               /* Enable flexbox for centering */
+	align-items: center;         /* Vertically center the content */
+	justify-content: center;     /* Horizontally center the content*/
+}
+
+
+/* styles.css */
+.white-shadow {
+  text-shadow: 2px 2px 2px rgba(50, 50, 50, 0.7), -2px -2px 2px rgba(50, 50, 50, 0.7), 2px 2px 4px rgba(50, 50, 50, 0.7), 2px 2px 4px rgba(50, 50, 50, 0.7);
+}
+
+.white-shadow-small {
+  text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.4), -1px -1px 1px rgba(50, 50, 50, 0.4), 1px 1px 2px rgba(50, 50, 50, 0.4), 1px 1px 2px rgba(50, 50, 50, 0.4);
+}
+
+#sidebarMenu a {
+	@apply py-4 text-center font-bold text-xl lg:text-2xl border-b-2 lg:border-b-0 border-teal-200 rounded-2xl
+}
+
+#heroes-cont .hero {
+	@apply absolute top-0 w-full h-full  overflow-x-hidden 
+}
+.hero-service-title {
+    @apply absolute top-12 left-1/2 -translate-x-1/2 inline-block text-nowrap p-2 mx-auto bg-gray-500/30 text-center text-3xl lg:text-4xl
+}
+.hero-service-description {
+    @apply absolute bottom-8 md:bottom-1/3 left-0 w-full text-center px-6 md:px-12 text-lime-200 italic font-bold text-2xl lg:text-3xl
+}
+#services-cont .service {
+	@apply bg-gradient-to-br from-lime-300 via-lime-400 to-lime-300 rounded-xl shadow-lg
+}
+.partner {
+	@apply flex-shrink-0 w-[200px] md:w-[250px] h-auto rounded-lg
+}
+.partner-scroll-indicator {
+	@apply circle-vary w-3 h-3
+}
+.service-list-item {
+    @apply inline-block text-nowrap px-3 py-1 rounded-full bg-teal-50 border border-teal-100 text-teal-950
+}
+
+.service-heading-parent {
+    @apply py-4 px-3 text-center
+}
+
+.service-heading {
+    @apply inline-block bg-gradient-to-r from-lime-100 via-white to-lime-100 border-2 border-stone-200 px-4 py-2 text-2xl lg:text-3xl font-black tracking-wide text-black rounded-md
+}
+
+.detailed-services-cont {
+    @apply w-4/5 md:w-full mx-auto list-outside list-disc font-bold text-lg lg:text-xl md:pl-3 lg:pl-8
+}
+
+#footer-nav-items-parent span {
+    @apply inline-block text-nowrap px-3 py-1 text-lime-200 font-bold text-base lg:text-lg 
+}
+.contact-para {
+    @apply text-lg lg:text-xl font-bold text-white
+}
+.contact-icon {
+    @apply inline-block text-lime-200 pr-3
+}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}JDE CONSULTE{% endblock %}
 
 
@@ -7,25 +7,89 @@
 
 <!--HERO SECTION -->
 <div class="mb-10">
-<div class="relative bg-gray-500 h-72 w-full overflow-x-hidden" id="heroes-cont">
+<div class="relative bg-gray-500 h-72 md:h-96 lg:h-[540px] w-full overflow-x-hidden" id="heroes-cont">
 
-<div class="hero  p-4 rid items-center bg-red-100 text-xl text-red-500 font-black border-green-500 ">
-THIS IS THE HOMEPAGE OF JDE CONSULTE 1
+<div class="hero  rid items-center bg-red-100 text-xl text-red-500 font-black border-green-500 z-30">
+    <div class="relative w-full h-full">
+    <img src="{% static 'jde_assets/translation_image.jpg' %}" class="w-full h-full" alt="">
+    <div class="absolute top-0 left-0 bg-gray-700/40 w-full h-full grid grid-cols-1 items-center text-center white-shadow text-lime-500 font-black text-3xl lg:text-3xl">
+        <p class="hero-service-title">Translation Services</p>
+        <p class="hero-service-description">Multilingual translations with certified
+accuracy for legal, business, and personal needs.</p>
+    </div>
+    </div>
 </div>
-<div class="hero  p-4 rid items-center bg-green-100  text-xl text-green-500 font-black border-green-500 ">
-THIS IS THE HOMEPAGE OF JDE CONSULTE 2
+<div class="hero   rid items-center bg-green-100  text-xl text-green-500 font-black border-green-500 ">
+    <div class="relative w-full h-full">
+    <img src="{% static 'jde_assets/headphone.jpg' %}" class="w-full h-full" alt="">
+    <div class="absolute top-0 left-0 bg-gray-700/40 w-full h-full grid grid-cols-1 items-center text-center white-shadow text-lime-500 font-black text-3xl lg:text-3xl">
+       <p class="hero-service-title">Interpretation Services</p>
+        <p class="hero-service-description">Professional interpreters for meetings,
+conferences, and events. Both onsite and remote
+options are available.</p>
+    </div>
+    </div>
 </div>
-<div class="hero  p-4 rid items-center bg-amber-100  text-xl text-amber-500 font-black border-green-500 ">
-THIS IS THE HOMEPAGE OF JDE CONSULTE 3
+<div class="hero   rid items-center bg-lime-100  text-xl text-lime-500 font-black border-green-500 ">
+    <div class="relative w-full h-full">
+    <img src="{% static 'jde_assets/france_landscape.jpg' %}" class="w-full h-full" alt="">
+    <div class="absolute top-0 left-0 bg-gray-700/40 w-full h-full grid grid-cols-1 items-center text-center white-shadow text-lime-500 font-black text-3xl lg:text-3xl">
+        <p class="hero-service-title">Administrative Assistance</p>
+        <p class="hero-service-description">Guidance through French administrative
+systems, including forms, appointments, and
+compliance management.</p>
+    </div>
+    </div>
 </div>
-<div class="hero p-4 rid items-center bg-blue-100 text-xl text-blue-500 font-black border-green-500">
-THIS IS THE HOMEPAGE OF JDE CONSULTE 4
+<div class="hero  rid items-center bg-blue-100 text-xl text-blue-500 font-black border-green-500">
+    <div class="relative w-full h-full">
+    <img src="{% static 'jde_assets/beautiful_nature1.png' %}" class="w-full h-full" alt="">
+    <img src="{% static 'jde_assets/nimc_square_image.jpg' %}" class="absolute top-5 left-5 inline-block w-[100px] h-[100px] lg:w-[200px] lg:h-[200px] rounded-full bg-black" alt="">
+    <div class="absolute top-0 left-0 bg-gray-700/40 w-full h-full grid grid-cols-1 items-center text-center white-shadow text-lime-500 font-black text-3xl lg:text-3xl">
+        <p class="hero-service-title">Accredited NIN
+Agent Services</p>
+        <p class="hero-service-description">Accredited agents to assist with securing your
+National Identification Number (NIN) and related
+administrative services in France.</p>
+    </div>
+        
+    </div>
 </div>
-<div class="hero  p-4 rid items-center bg-yellow-100 text-xl text-yellow-500 font-black border-green-500">
-THIS IS THE HOMEPAGE OF JDE CONSULTE 5
+<div class="hero   rid items-center bg-yellow-100 text-xl text-yellow-500 font-black border-green-500">
+    <div class="relative w-full h-full">
+    <img src="{% static 'jde_assets/office_consultancy.jpg' %}" class="w-full h-full" alt="">
+    <div class="absolute top-0 left-0 bg-gray-700/40 w-full h-full grid grid-cols-1 items-center text-center white-shadow text-lime-500 font-black text-3xl lg:text-3xl">
+       <p class="hero-service-title">Consultancy
+Services</p>
+    <p class="hero-service-description">Expert advice for business strategy,
+compliance with French regulations, and navigating
+cultural nuances in international markets.</p>
+    </div>
+    </div>
 </div>	
-<div class="hero p-4 rid items-center bg-red-100 text-xl text-red-500 font-black border-green-500">
-THIS IS THE HOMEPAGE OF JDE CONSULTE 6
+<div class="hero  rid items-center bg-red-100 text-xl text-red-500 font-black border-green-500">
+    <div class="relative w-full h-full">
+    <img src="{% static 'jde_assets/office_two_people.jpg' %}" class="w-full h-full" alt="">
+    <div class="absolute top-0 left-0 bg-gray-700/40 w-full h-full grid grid-cols-1 items-center text-center white-shadow text-lime-500 font-black text-3xl lg:text-3xl">
+        <p class="hero-service-title">Data Management
+Services</p>
+        <p class="hero-service-description">Streamlined data handling services, from input
+and organization to compliance with data privacy
+regulations like GDPR.</p>
+    </div>
+    </div>
+</div>
+<div class="hero  rid items-center bg-red-100 text-xl text-red-500 font-black border-green-500">
+    <div class="relative w-full h-full">
+    <img src="{% static 'jde_assets/masterclass.jpg' %}" class="w-full h-full" alt="">
+    <div class="absolute top-0 left-0 bg-gray-700/40 w-full h-full grid grid-cols-1 items-center text-center white-shadow text-lime-500 font-black text-2xl lg:text-3xl">
+        
+            <p class="hero-service-title">Financial advise </p>
+            <p class="hero-service-description"> Business investment & Development opportunities ( in Nigeria) for Nigerians in diaspora. Mentorship program ( one-on-one), Master Class
+            </p>
+            
+    </div>
+    </div>
 </div>
 
 </div>	
@@ -35,37 +99,116 @@ THIS IS THE HOMEPAGE OF JDE CONSULTE 6
 
 {% block content %}
 
+<div class="my-12 text-center">
+    <p class="text-center flex justify-center gap-4 items-center text-teal-500 tracking-wider jump-in2"><span class="text-2xl lg:text-3xl font-black">Welcome</span> <span class="text-xl lg:text-2xl font-bold text-lime-500 font-serif">to</span> <span class="text-2xl lg:text-3xl font-black ">JDE CONSULTE SAS</span></p>
+    <P class="m-4 py-4 text-center italic font-black text-xl lg:text-2xl text-pretty px-4 text-white  leading-6 tracking-wide inline-block rounded-md transition-colors duration-1000 white-shadow-small" id="slogan">" Your gateway to seamless communication and hassle free administration "</P>
+    <!-- <P class="text-left font-bold p-6 bg-lime-100/70 text-lg lg:text-xl flex flex-wrap items-center gap-x-4 gap-y-2 lg:px-12"><span class="text-xl lg:text-2xl inline-block pr-2">We specialize in</span> <span class="service-list-item"> Translation Services</span> <span class="service-list-item">Interpretation Services</span> <span class="service-list-item">Administrative Assistance</span>
+        <span class="service-list-item">Consultancy Services</span> <span class="service-list-item">Data Management Services</span> <span class="service-list-item">Financial Advice</span> <span class="service-list-item">Business Investment and Development Opportunities</span>
+        </P> -->
+</div>
+
 <div>
 	<div class="pb-4 px-4 text-center font-black text-3xl text-teal-500 text-pretty leading-6">
 		<p>Our Services</p>
-		<p class="inline-block w-1/5 border-b-4 border-teal-500"></p>
+		<p class="inline-block w-[100px] border-b-4 border-lime-500"></p>
 	</div>
 	
-<div class="bg-teal-100 p-4 grid grid-cols-1 md:grid-cols-2 gap-x-2 md:gap-x-4 gap-y-6" id="services-cont">
-<div class="service p-4 items-center g-amber-100 rounded-xl  text-amber-500 font-black border-green-500 jump-in">
-THIS IS THE HOMEPAGE OF JDE CONSULTE other
+<div class="bg-slate-100 p-4 grid grid-cols-1 md:grid-cols-2 gap-x-2 md:gap-x-4 gap-y-6" id="services-cont">
+<div class="service p-4 items-center g-lime-100 rounded-xl  jump-in">
+    <div class="service-heading-parent">
+        <p class="service-heading">Translation Services</p>
+    </div>
+    <div>
+        <ul class="detailed-services-cont">
+            <li>General Document Translation</li>
+            <li>Legal and Certified Translations</li>
+            <li>Website and Marketing Materials</li>
+        </ul>
+    </div>
 </div>
-<div class="service p-4 tems-center g-blue-100 rounded-xl  text-blue-500 font-black border-green-500 jump-in">
-THIS IS THE HOMEPAGE OF JDE CONSULTE
+<div class="service p-4 tems-center g-blue-100 rounded-xl  jump-in">
+    <div class="service-heading-parent">
+        <p class="service-heading">Translation Services</p>
+    </div>
+    <div>
+        <ul class="detailed-services-cont">
+            <li>General Document Translation</li>
+            <li>Legal and Certified Translations</li>
+            <li>Website and Marketing Materials</li>
+        </ul>
+    </div>
 </div>
-<div class="service p-4  tems-center g-yellow-100 rounded-xl  text-yellow-500 font-black border-green-500 jump-in">
-THIS IS THE HOMEPAGE OF JDE CONSULTE
+<div class="service p-4  tems-center g-yellow-100 rounded-xl jump-in">
+    <div class="service-heading-parent">
+        <p class="service-heading">Interpreting Services</p>
+    </div>
+    <div>
+        <ul class="detailed-services-cont">
+            <li>Consecutive Interpreting</li>
+            <li>Simultaneous Interpreting</li>
+            <li>Remote/Online Interpreting</li>
+        </ul>
+    </div>
 </div>
 
-<div class="service p-4 tems-center g-red-100 rounded-xl  text-red-500 font-black border-green-500 jump-in">
-THIS IS THE HOMEPAGE OF JDE CONSULTE
+<div class="service p-4 tems-center g-red-100 rounded-xl   jump-in">
+    <div class="service-heading-parent">
+        <p class="service-heading">Administrative Assistance</p>
+    </div>
+    <div>
+        <ul class="detailed-services-cont">
+            <li>Document Filing and Processing</li>
+            <li>Visa and Residency Support</li>
+            <li>Company Registration Assistance</li>
+        </ul>
+    </div>
 </div>
-<div class="service p-4 tems-center g-green-100 rounded-xl  text-green-500 font-black border-green-500 jump-in">
-THIS IS THE HOMEPAGE OF JDE CONSULTE
+<div class="service p-4 tems-center g-green-100 rounded-xl jump-in">
+    <div class="service-heading-parent">
+        <p class="service-heading">Accredited NIN Agent Services</p>
+    </div>
+    <div>
+        <ul class="detailed-services-cont">
+            <li>NIN Number Applications</li>
+            <li>Assistance with URSSAF, CPAM, and CAF Applications</li>
+        </ul>
+    </div>
 </div>
-<div class="service p-4 tems-center g-amber-100 rounded-xl  text-amber-500 font-black border-green-500 jump-in">
-THIS IS THE HOMEPAGE OF JDE CONSULTE
+<div class="service p-4 tems-center g-lime-100 rounded-xl jump-in">
+    <div class="service-heading-parent">
+        <p class="service-heading">Consultancy Services</p>
+    </div>
+    <div>
+        <ul class="detailed-services-cont">
+            <li>Business Setup and Planning</li>
+            <li>Legal and Regulatory Advisory</li>
+            <li>Cross-Cultural Business Guidance</li>
+        </ul>
+    </div>
 </div>
-<div class="service p-4 tems-center g-blue-100 rounded-xl  text-blue-500 font-black border-green-500 jump-in">
-THIS IS THE HOMEPAGE OF JDE CONSULTE
+<div class="service p-4 tems-center g-blue-100 rounded-xl  jump-in">
+    <div class="service-heading-parent">
+        <p class="service-heading">Data Management Services</p>
+    </div>
+    <div>
+        <ul class="detailed-services-cont">
+            <li>Data Entry and Analysis</li>
+            <li>Database Creation and Maintenance</li>
+            <li>GDPR Compliance Consultation</li>
+        </ul>
+    </div>
 </div>
-<div class="service p-4 tems-center g-yellow-100 rounded-xl  text-yellow-500 font-black border-green-500 jump-in">
-THIS IS THE HOMEPAGE OF JDE CONSULTE
+<div class="service p-4 tems-center g-yellow-100 rounded-xl  jump-in">
+    <div class="service-heading-parent">
+        <p class="service-heading">Other Services</p>
+    </div>
+    <div>
+        <ul class="detailed-services-cont">
+            <li>Financial Advice</li>
+            <li>Business Investment and Development Opportunities (in Nigeria) for Nigerians in diaspora</li>
+            <li>Mentorship Program (one-on-one), Master class</li>
+        </ul>
+    </div>
 </div>
 
 </div>
@@ -73,27 +216,49 @@ THIS IS THE HOMEPAGE OF JDE CONSULTE
 
 <div class="my-12">
 	<div class="pb-4 px-4 text-center font-black text-3xl text-teal-500 text-pretty leading-6">
-		<p class="drop-shadow-md">Using Our Services</p>
-		<p class="inline-block w-1/5 border-b-4 border-teal-500"></p>
+		<p class="drop-shadow-md">How to Use Our Services</p>
+		<p class="inline-block w-[100px] border-b-4 border-lime-500"></p>
 	</div>
 
-	<div class=" p-2 md:p-6 grid grid-cols-2 gap-2 md:gap-4">
+	<div class=" p-2 md:p-6 grid grid-cols-2 gap-2 md:gap-4 bg-lime-100">
 		<div class="apply-step rounded-tl-[40px] rounded-br-[40px] bg-gradient-to-br from-teal-500 via-teal-600 to-teal-500 p-4  border-teal-200 jump-in2 relative">
 			<div class="text-center">
-				<p class="inline-block py-2 bg-white text-amber-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">STEP 1</p>
+				<p class="inline-block py-2 bg-black text-lime-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">STEP 1</p>
 			</div>
-			<div class="p-4 md:p-6 text-white font-bold">
+			<div class="p-4 md:p-6 text-lime-100 font-bold">
 				<ul class="list-outside list-disc">
 					<li>Login to your account </li>
 					<li>If you don't have an account, register  an account, it's very easy to do.</li>
 				</ul>
 			</div>
 		</div>
-		<div class="apply-step rounded-tl-[40px] rounded-br-[40px] bg-gradient-to-tr from-teal-500 via-teal-600 to-teal-500 p-4  border-teal-200 jump-in2 relative">
+		<div class="apply-step rounded-tl-[40px] rounded-br-[40px] bg-gradient-to-br from-teal-500 via-teal-600 to-teal-500 p-4  border-teal-200 jump-in2 relative">
 			<div class="text-center">
-				<p class="inline-block py-2 bg-white text-amber-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">STEP 1</p>
+				<p class="inline-block py-2 bg-black text-lime-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">STEP 2</p>
 			</div>
-			<div class="p-4 md:p-6 text-white font-bold">
+			<div class="p-4 md:p-6 text-lime-100 font-bold">
+				<ul class="list-outside list-disc">
+					<li>Login to your account </li>
+					<li>If you don't have an account, register  an account, it's very easy to do.</li>
+				</ul>
+			</div>
+		</div>
+        <div class="apply-step rounded-tl-[40px] rounded-br-[40px] bg-gradient-to-br from-teal-500 via-teal-600 to-teal-500 p-4  border-teal-200 jump-in2 relative">
+			<div class="text-center">
+				<p class="inline-block py-2 bg-black text-lime-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">STEP 3</p>
+			</div>
+			<div class="p-4 md:p-6 text-lime-100 font-bold">
+				<ul class="list-outside list-disc">
+					<li>Login to your account </li>
+					<li>If you don't have an account, register  an account, it's very easy to do.</li>
+				</ul>
+			</div>
+		</div>
+        <div class="apply-step rounded-tl-[40px] rounded-br-[40px] bg-gradient-to-br from-teal-500 via-teal-600 to-teal-500 p-4  border-teal-200 jump-in2 relative">
+			<div class="text-center">
+				<p class="inline-block py-2 bg-black text-lime-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">STEP 4</p>
+			</div>
+			<div class="p-4 md:p-6 text-lime-100 font-bold">
 				<ul class="list-outside list-disc">
 					<li>Login to your account </li>
 					<li>If you don't have an account, register  an account, it's very easy to do.</li>
@@ -108,14 +273,14 @@ THIS IS THE HOMEPAGE OF JDE CONSULTE
 <div class="my-12 w-full ">
 	<div class="pb-4 px-4 text-center font-black text-3xl text-teal-500 text-pretty leading-6">
 		<p class="drop-shadow-md">Our Partners</p>
-		<p class="inline-block w-1/5 border-b-4 border-teal-500"></p>
+		<p class="inline-block w-[100px] border-b-4 border-lime-500"></p>
 	</div>
 
-	<div class="w-full overflow-x-auto p-6 bg-stone-100">
-	<div class="scroll-wrapper w-max flex flex-row flex-nowrap bg-green-500" id="scrollBox">
-		<div class="invisible rounded-2xl bg-white border border-stone-200  p-4  border-teal-200 ump-in2 relative">
+	<div class="w-full overflow-x-auto p-6 lg:p-8 bg-lime-500">
+	<div class="scroll-wrapper w-max flex flex-row flex-nowrap gap-4 lg:gap-8 " id="scrollBox">
+		<!-- <div class="invisible rounded-2xl bg-white border border-stone-200   border-teal-200 ump-in2 relative">
 			<div class="text-center">
-				<p class="inline-block py-2 bg-white text-amber-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">Partner 1</p>
+				<p class="inline-block py-2 bg-white text-lime-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">Partner 1</p>
 			</div>
 			<div class="p-4 md:p-6 text-teal-600 font-bold">
 				<ul class="list-outside list-disc">
@@ -123,10 +288,52 @@ THIS IS THE HOMEPAGE OF JDE CONSULTE
 					<li>If you don't have an account, register  an account, it's very easy to do.</li>
 				</ul>
 			</div>
+		</div> -->
+		<div class="partner rounded-2xl   border-stone-200    border-teal-200 ump-in2 relative">
+			
+			<div class=" text-teal-600 font-bold">
+				<img src="{% static 'jde_assets/partner_ambassade_de_france.jpg' %}" class="w-full h-auto" alt="">
+			</div>
 		</div>
-		<div class="partner rounded-2xl bg-white border border-stone-200  p-4  border-teal-200 ump-in2 relative">
+		<div class="partner rounded-2xl   border-stone-200    border-teal-200 ump-in2 relative">
+			
+			<div class=" text-teal-600 font-bold">
+				<img src="{% static 'jde_assets/partner_consulat_france.jpg' %}" class="w-full h-auto" alt="">
+			</div>
+		</div>
+		<div class="partner rounded-2xl   border-stone-200   border-teal-200 ump-in2 relative">
+			
+			<div class=" text-teal-600 font-bold">
+				<img src="{% static 'jde_assets/partner_federal_gov_nigeria.jpg' %}" class="w-full h-auto" alt="">
+			</div>
+		</div>
+		<div class="partner rounded-2xl  border-stone-200  border-teal-200 ump-in2 relative">
+			
+			<div class=" text-teal-600 font-bold">
+				<img src="{% static 'jde_assets/nimc_square_image.jpg' %}" class="w-full h-auto" alt="">
+			</div>
+		</div>
+		<div class="partner rounded-2xl   border-stone-200    border-teal-200 ump-in2 relative">
+			
+			<div class=" text-teal-600 font-bold">
+				<img src="{% static 'jde_assets/partner_ministry_foreign_logo.png' %}" class="w-full h-auto" alt="">
+			</div>
+		</div>
+        <div class="partner rounded-2xl  border-stone-200    border-teal-200 ump-in2 relative">
+			
+			<div class=" text-teal-600 font-bold">
+				<img src="{% static 'jde_assets/partner_dawari_consult.jpg' %}" class="w-full h-auto" alt="">
+			</div>
+		</div>
+        <div class="partner rounded-2xl   border-stone-200    border-teal-200 ump-in2 relative">
+			
+			<div class=" text-teal-600 font-bold">
+				<img src="{% static 'jde_assets/partner_cpss_training.jpg' %}" class="w-full h-auto" alt="">
+			</div>
+		</div>
+		<!-- <div class="invisible rounded-2xl bg-white border border-stone-200    border-teal-200 ump-in2 relative">
 			<div class="text-center">
-				<p class="inline-block w-[70vw] py-2 bg-white text-amber-500 font-black text-xl text-nowrap mx-auto px-6 rounded-full">Partner 1</p>
+				<p class="inline-block py-2 bg-white text-lime-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">Partner 1</p>
 			</div>
 			<div class="p-4 md:p-6 text-teal-600 font-bold">
 				<ul class="list-outside list-disc">
@@ -134,62 +341,7 @@ THIS IS THE HOMEPAGE OF JDE CONSULTE
 					<li>If you don't have an account, register  an account, it's very easy to do.</li>
 				</ul>
 			</div>
-		</div>
-		<div class="partner rounded-2xl bg-amber-100 border border-stone-200  p-4  border-teal-200 ump-in2 relative">
-			<div class="text-center">
-				<p class="inline-block py-2 bg-teal-100 text-amber-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">Partner 2</p>
-			</div>
-			<div class="p-4 md:p-6 text-teal-600 font-bold">
-				<ul class="list-outside list-disc">
-					<li>Login to your account </li>
-					<li>If you don't have an account, register  an account, it's very easy to do.</li>
-				</ul>
-			</div>
-		</div>
-		<div class="partner rounded-2xl bg-bue-100 border border-stone-200  p-4  border-teal-200 ump-in2 relative">
-			<div class="text-center">
-				<p class="inline-block py-2 bg-white text-amber-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">Partner 3</p>
-			</div>
-			<div class="p-4 md:p-6 text-teal-600 font-bold">
-				<ul class="list-outside list-disc">
-					<li>Login to your account </li>
-					<li>If you don't have an account, register  an account, it's very easy to do.</li>
-				</ul>
-			</div>
-		</div>
-		<div class="partner rounded-2xl bg-red-100 border border-stone-200  p-4  border-teal-200 ump-in2 relative">
-			<div class="text-center">
-				<p class="inline-block py-2 bg-white text-amber-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">Partner 4</p>
-			</div>
-			<div class="p-4 md:p-6 text-teal-600 font-bold">
-				<ul class="list-outside list-disc">
-					<li>Login to your account </li>
-					<li>If you don't have an account, register  an account, it's very easy to do.</li>
-				</ul>
-			</div>
-		</div>
-		<div class="partner rounded-2xl bg-lime-100 border border-stone-200  p-4  border-teal-200 ump-in2 relative">
-			<div class="text-center">
-				<p class="inline-block py-2 bg-white text-amber-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">Partner 5</p>
-			</div>
-			<div class="p-4 md:p-6 text-teal-600 font-bold">
-				<ul class="list-outside list-disc">
-					<li>Login to your account </li>
-					<li>If you don't have an account, register  an account, it's very easy to do.</li>
-				</ul>
-			</div>
-		</div>
-		<div class="invisible rounded-2xl bg-white border border-stone-200  p-4  border-teal-200 ump-in2 relative">
-			<div class="text-center">
-				<p class="inline-block py-2 bg-white text-amber-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">Partner 1</p>
-			</div>
-			<div class="p-4 md:p-6 text-teal-600 font-bold">
-				<ul class="list-outside list-disc">
-					<li>Login to your account </li>
-					<li>If you don't have an account, register  an account, it's very easy to do.</li>
-				</ul>
-			</div>
-		</div>
+		</div> -->
 	</div>
 		
 	</div>
@@ -238,10 +390,11 @@ function startAutoScroll() {
 
   	// Calculate how much to scroll so that the child is centered
   	const scrollOffset = nextP.offsetLeft - (scrollBox.clientWidth / 2) + (nextP.clientWidth / 2);
-		scrollBox.scrollTo({
+		/*scrollBox.scrollTo({
     left: scrollOffset,
     behavior: 'smooth'
-  });
+  });*/
+  scrollBox.scrolleft -= 200
 		//alert(scrollOffset)
 
 		//nextP.scrollIntoView({behavior: "smooth", inline:"center"})
@@ -279,7 +432,18 @@ scrollBox.addEventListener('touchstart', stopAutoScrollTemporarily);
 scrollBox.addEventListener('mousedown', stopAutoScrollTemporarily);
 
 
-
+// Keep changing slogan background color
+const sloganColors = ["red", "maroon","teal","green", "blue", "lime","purple", 'black']
+let color_i = 0;
+let totalColors = sloganColors.length
+const sloganElem = document.getElementById("slogan")
+if (sloganElem) {
+    setInterval(() => {
+        sloganElem.style.backgroundColor = sloganColors[color_i]
+        color_i++
+        if (color_i == totalColors) color_i = 0
+    }, 1500)
+}
 </script>
 
 {% endblock %}	
