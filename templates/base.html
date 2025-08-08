@@ -169,44 +169,57 @@
   </div>
 		</div>-->
 <div>
-<div class="sticky top-0 z-50 bg-stone-100">
-<div class=" w-full lg:w-4/5 mx-auto lg:flex lg:items-center flex-row gap-20">
-	<div class="py-2 text-center relative ">
-		<!-- <span class="inline-block w-20 h-20 rounded-full bg-blue-900">LOGO</span> -->
-        <a href="/">
-            <span class="inline-block rounded-full w-max h-max">
-            <img src="{% static 'jde_assets/jde_logo_resized.jpg' %}" class="w-28 h-28 inline-block rounded-full border-2 border-lime-500" alt="">
-            </span>
-        </a>
+    <div class="sticky top-0 z-50 bg-stone-100 w-full">
+        <div class=" w-full lg:flex lg:items-center flex-row gap-10 px-4 md:px-8">
+	        <div class="py-2 text-center relative ">
+                <!-- <span class="inline-block w-20 h-20 rounded-full bg-blue-900">LOGO</span> -->
+                <a href="/">
+                    <span class="inline-block rounded-full w-max h-max">
+                    <img src="{% static 'jde_assets/jde_logo_resized.jpg' %}" class="w-28 h-28 inline-block rounded-full border-2 border-lime-500" alt="">
+                    </span>
+                </a>
 
-		<!-- Toggle Button -->
-		<button id="openSidebar"
-        class="absolute lg:hidden top-1/2 -translate-y-1/2 left-4 z-30 p-2 text-black text-3xl font-black">
-			☰
-		</button>
-		<button id="closeSidebar" class="hidden absolute top-1/2 -translate-y-1/2 left-4 z-30 p-2 text-5xl font-semibold text-red-500">&times;</button>
-	</div>
+                <!-- Toggle Button -->
+                <button id="openSidebar"
+                class="absolute lg:hidden top-1/2 -translate-y-1/2 left-4 z-30 p-2 text-black text-3xl font-black">
+                    ☰
+                </button>
+                <button id="closeSidebar" class="hidden absolute top-1/2 -translate-y-1/2 left-4 z-30 p-2 text-5xl font-semibold text-red-500">&times;</button>
+            </div>
 
-	<!-- Sidebar -->
-	<div class="relative">
-		<div id="sidebarMenu"
-				 class="absolute bg-stone-100 lg:bg-inherit lg:relative hidden sm:flex w-full lg:w-max sm:top-0 sm:left-0   transform sm:-translate-x-full lg:translate-x-0 transition-all duration-500 z-40 
-                flex-col lg:flex-row lg:gap-6 px-6 pb-20 lg:pb-0 overflow-y-auto">
-		<!--<p class="text-end">
-			<button id="closeSidebar2" class="inline-block text-4xl font-black text-gray-700 ">&times;</button>
-		</p>-->
-			<a href="#" class="text-amber-500 hover:text-green-700">Home</a>
-			<a href="#" class="text-black hover:text-green-700">Topics</a>
-			<a href="#" class="text-gray-800 hover:text-green-700">Polls</a>
-			<a href="#" class="text-gray-800 hover:text-green-700 border-b-0">Logout</a>
-		</div>
-        
-	</div>
+            <!-- Sidebar -->
+            <div class="relative">
+                <div id="sidebarMenu"
+                        class="absolute bg-stone-100 lg:bg-inherit lg:relative hidden sm:flex w-full lg:w-max sm:top-0 sm:left-0   transform sm:-translate-x-full lg:translate-x-0 transition-all duration-500 z-40 
+                        flex-col lg:flex-row lg:gap-6 px-6 lg:px-0 pb-20 lg:pb-0 overflow-y-auto">
+                <!--<p class="text-end">
+                    <button id="closeSidebar2" class="inline-block text-4xl font-black text-gray-700 ">&times;</button>
+                </p>-->
+                    <a href="#" class="text-amber-500 font-bold">Home</a>
+                    <a href="#" class=" ">About</a>
+                    <a href="#" class=" ">Services</a>
+                    <!--<a href="#" class="text-gray-800 hover:text-green-700">Apply for a Service</a>
+                    <a href="#" class="text-amber-500 hover:text-green-700">Book an Appointment</a> -->
+                    <a href="#" class=" ">Contact Us</a>
+                    <a href="#" class=" ">Projects</a>
+                    <a href="#" class=" ">FAQs</a>
+                    
+                    {% if user.is_authenticated %}
+                    <a href="#" class=" ">Logout</a>
+                    {% else %}
+                    <a href="#" class="">Login</a>
+                    <a href="#" class="">Register</a>
+                    {% endif %}
+                        
+                    
+                </div>
+                
+            </div>
 	
-</div>
+        </div>
         <div class="w-full h-2 bg-gradient-to-r from-teal-300 via-teal-100 to-teal-300">
 	    </div>
-</div>
+    </div>
 
             
 <div id="content" class="lg:w-4/5 xl:w-3/4 mx-auto lg:border-x border-teal-200">
@@ -244,7 +257,7 @@ meet diverse needs with precision and confidentiality.
                 <span><i class="fa-brands fa-linkedin"></i></span>
 
             </p>
-            <p class="w-3/5 border-b-4 border-teal-200 mx-auto py-4 md:hidden"></p>
+            <p class="w-3/5 border-b-4 border-teal-200 mx-auto py-3 md:hidden"></p>
         </div>
         <div>
             <p class="footer-nav-items-cont flex flex-wrap gap-x-2 md:gap-x-3" id="footer-nav-items-parent"><span>Home</span>
@@ -259,7 +272,13 @@ meet diverse needs with precision and confidentiality.
                 <span>Register</span>
 
             </p>
-            <p class="w-3/5 border-b-4 border-teal-200 mx-auto py-4"></p>
+            <p class="w-3/5 border-b-4 border-teal-200 mx-auto py-3"></p>
+            <p>Feel Free to Reach Us:</p>
+            <div>
+                <p class="contact-para"><span class="contact-icon"><i class="fa-solid fa-location-dot"></i></span> 20 Rue Corentin Quideau 95340, Persan-France.</p>
+                <p class="contact-para"><span class="contact-icon"><i class="fa-solid fa-envelope"></i></span> jdeconsulte@gmail.com</p>
+                <p class="contact-para"><span class="contact-icon"><i class="fa-solid fa-phone-volume"></i></span> +33 (0) 613566153, +33 (0) 788159528, +234 (0) 7058909088</p>
+            </div>
         </div>
     </div>
     <div></div>
