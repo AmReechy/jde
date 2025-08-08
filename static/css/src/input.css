@@ -22,7 +22,8 @@
 }
 
 #sidebarMenu a {
-	@apply py-4 text-center font-semibold text-lg lg:text-xl border-b-2 lg:border-b-0 border-teal-200 rounded-2xl text-gray-700 hover:text-amber-500
+	@apply py-4 text-center font-bold text-lg lg:text-xl border-b-2 lg:border-b-0 border-teal-200 rounded-2xl relative
+    text-gray-700 hover:text-amber-500 transition
 }
 
 #heroes-cont .hero {
@@ -35,7 +36,7 @@
     @apply absolute bottom-8 md:bottom-1/3 left-0 w-full text-center px-6 md:px-12 text-lime-200 italic font-bold text-2xl lg:text-3xl
 }
 #services-cont .service {
-	@apply bg-lime-400 rounded-xl shadow-lg
+	@apply bg-gradient-to-br from-lime-400 via-lime-500 to-lime-400 rounded-xl 
 }
 .partner {
 	@apply flex-shrink-0 w-[200px] md:w-[250px] h-auto rounded-lg
@@ -52,7 +53,7 @@
 }
 
 .service-heading {
-    @apply inline-block bg-gradient-to-r from-lime-100 via-white to-lime-100 border-2 border-stone-200 px-4 py-2 text-2xl lg:text-3xl font-bold tracking-wide text-black rounded-md
+    @apply inline-block bg-gradient-to-r from-lime-100 via-white to-lime-100 border-2 border-stone-200 px-4 py-2 text-xl lg:text-2xl font-black tracking-wide text-teal-500 rounded-md
 }
 
 .detailed-services-cont {
@@ -63,7 +64,7 @@
     @apply inline-block text-nowrap px-3 py-1 text-lime-200 font-bold text-base lg:text-lg 
 }
 .contact-para {
-    @apply text-lg lg:text-xl font-bold text-white
+    @apply text-lg font-semibold text-white
 }
 .contact-icon {
     @apply inline-block text-lime-200 pr-3

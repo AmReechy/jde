@@ -170,8 +170,8 @@
 		</div>-->
 <div>
     <div class="sticky top-0 z-50 bg-stone-100 w-full">
-        <div class=" w-full lg:flex lg:items-center flex-row gap-10 px-4 md:px-8">
-	        <div class="py-2 text-center relative ">
+        <div class=" w-full lg:flex lg:items-center flex-row gap-10">
+	        <div class="py-2 text-center relative lg:pl-12">
                 <!-- <span class="inline-block w-20 h-20 rounded-full bg-blue-900">LOGO</span> -->
                 <a href="/">
                     <span class="inline-block rounded-full w-max h-max">
@@ -190,7 +190,8 @@
             <!-- Sidebar -->
             <div class="relative">
                 <div id="sidebarMenu"
-                        class="absolute bg-stone-100 lg:bg-inherit lg:relative hidden sm:flex w-full lg:w-max sm:top-0 sm:left-0   transform sm:-translate-x-full lg:translate-x-0 transition-all duration-500 z-40 
+                        class="absolute bg-stone-100 lg:bg-inherit lg:relative hidden sm:flex w-full lg:w-max sm:top-0 sm:left-0   
+                        transform -translate-x-full lg:translate-x-0 transition-all duration-500 z-40 
                         flex-col lg:flex-row lg:gap-6 px-6 lg:px-0 pb-20 lg:pb-0 overflow-y-auto">
                 <!--<p class="text-end">
                     <button id="closeSidebar2" class="inline-block text-4xl font-black text-gray-700 ">&times;</button>
@@ -210,32 +211,47 @@
                     <a href="#" class="">Login</a>
                     <a href="#" class="">Register</a>
                     {% endif %}
-                        
-                    
                 </div>
                 
             </div>
-	
         </div>
+
         <div class="w-full h-2 bg-gradient-to-r from-teal-300 via-teal-100 to-teal-300">
 	    </div>
     </div>
 
             
-<div id="content" class="lg:w-4/5 xl:w-3/4 mx-auto lg:border-x border-teal-200">
+    <div id="content" class="lg:w-4/5 xl:w-3/4 mx-auto lg:border-x border-teal-200">
 			
             <div>
 			{% block heroes %}
 			{% endblock heroes %}	
 			</div>
 
-		<div class="pb-20">
-			{% block content %} {% endblock content %}			
-		</div>
-</div>
+		<div class="pb-8">
+			{% block content %} {% endblock content %}
+            
+            <!-- YOUTUBE VIDEO Content-->
+            <div class="lg:w-4/5 xl:w-3/4 my-16 mx-auto">
+            <div class="pb-4 px-4 text-center font-black text-3xl text-teal-500 text-pretty leading-6">
+		<p>Video Content (IYE WAKA)</p>
+		<p class="inline-block w-[100px] border-b-4 border-lime-500"></p>
+	</div>
+            <div class="youtube-wrapper mx-auto p-6">
+                <iframe src="https://www.youtube.com/embed/twCpijr_GeQ" frameborder="0" allowfullscreen class="w-full h-[350px]"></iframe>
+            </div>
 
-<footer class="w-full bg-gradient-to-br from-teal-950 via-teal-700 to-teal-950 mt-12 py-8">
-    <div class="md:grid md:grid-cols-2 gap-4 lg:gap-6 px-4 lg:w-4/5 xl:w-3/4 mx-auto">
+            </div>
+		</div>
+
+        
+    </div>
+
+
+    
+
+<footer class="w-full bg-gradient-to-br from-teal-950 via-teal-700 to-teal-950 mt-12">
+    <div class="md:grid md:grid-cols-2 gap-4 lg:gap-6 px-4 lg:w-4/5  mx-auto py-6 lg:py-10">
         <div>
             <div class="text-center">
             <a href="/">
@@ -250,16 +266,11 @@ comprehensive support for individuals and businesses. Our expertise spans transl
 interpreting, administrative assistance, consultancy, and data management services, all tailored to
 meet diverse needs with precision and confidentiality.
             </p>
-            <p><span><i class="fa-brands fa-x-twitter"></i></span>
-                <span><i class="fa-brands fa-instagram"></i></span>
-                <span><i class="fa-brands fa-facebook"></i></span>
-                <span><i class="fa-brands fa-youtube"></i></span>
-                <span><i class="fa-brands fa-linkedin"></i></span>
-
-            </p>
+            
             <p class="w-3/5 border-b-4 border-teal-200 mx-auto py-3 md:hidden"></p>
         </div>
         <div>
+            <p class="text-xl lg:text-2xl font-bold text-white white-shadow-small mt-6 mb-3">Main Pages on this Website :</p>
             <p class="footer-nav-items-cont flex flex-wrap gap-x-2 md:gap-x-3" id="footer-nav-items-parent"><span>Home</span>
                 <span>About Us</span>
                 <span>Services</span>
@@ -270,18 +281,29 @@ meet diverse needs with precision and confidentiality.
                 <span>Book Appointment</span>
                 <span>Login</span>
                 <span>Register</span>
+                <span>T & C</span>
+                <span>Privacy Policy</span>
 
             </p>
-            <p class="w-3/5 border-b-4 border-teal-200 mx-auto py-3"></p>
-            <p>Feel Free to Reach Us:</p>
+            <p class="w-3/5 border-b-4 border-teal-200 mx-auto my-6"></p>
+            <p class="text-xl lg:text-2xl font-bold text-white white-shadow-small mt-6 mb-3">Want to get in touch ?</p>
             <div>
                 <p class="contact-para"><span class="contact-icon"><i class="fa-solid fa-location-dot"></i></span> 20 Rue Corentin Quideau 95340, Persan-France.</p>
                 <p class="contact-para"><span class="contact-icon"><i class="fa-solid fa-envelope"></i></span> jdeconsulte@gmail.com</p>
                 <p class="contact-para"><span class="contact-icon"><i class="fa-solid fa-phone-volume"></i></span> +33 (0) 613566153, +33 (0) 788159528, +234 (0) 7058909088</p>
             </div>
+            <p class="text-lime-200 text-lg lg:text-xl flex justify-center gap-4 md:gap-6"><span><i class="fa-brands fa-x-twitter"></i></span>
+                <span><i class="fa-brands fa-instagram"></i></span>
+                <span><i class="fa-brands fa-facebook"></i></span>
+                <span><i class="fa-brands fa-youtube"></i></span>
+                <span><i class="fa-brands fa-linkedin"></i></span>
+
+            </p>
         </div>
     </div>
-    <div></div>
+    <div class="w-full py-6 bg-gradient-to-r from-black via-gray-800 to-black text-center text-white font-semibold text-sm lg:text-base">
+        <p>Copyright &copy; 2025 JSE CONSULTE SAS. All Rights Reserved.</p>
+    </div>
 </footer>
 </div>
 
@@ -290,7 +312,7 @@ meet diverse needs with precision and confidentiality.
   <div class="max-w-4xl mx-auto w-full  flex-col md:flex-row justify-between items-start md:items-center gap-2">
     <p class="flex-1 text-base lg:text-lg">
       We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies. 
-      <a href="/privacy-policy" class="underline text-blue-400">Learn more</a>.
+      <a href="/privacy-policy" class="underline text-blue-400">Learn more</a> about our Privacy Policy.
     </p>
     <div class="flex justify-center gap-4 pt-2">
       <button id="accept-cookies" class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded">Accept</button>
