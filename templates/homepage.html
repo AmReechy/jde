@@ -29,7 +29,7 @@
 		<!-- Navigation -->
 		<header class="bg-white shadow-md z-40">
 			<div
-				class="container mx-auto px-4 py-4 flex justify-between items-center relative"
+				class="mx-auto px-4 py-4 flex justify-between items-center relative"
 			>
 				<div class="text-2xl font-bold text-green-600 inline-block relative ">
 					<img
@@ -121,7 +121,7 @@
         </section>
 
         <!-- Services -->
-        <section id="servicesScroll" class="container mx-auto py-10">
+        <section id="servicesScroll" class="lg:w-[90%] mx-auto py-10">
             <div class="px-4">
                 <div class="service-scroll-parent flex flex-nowrap w-full overflow-x-hidden h-[370px] lg:h-[450px]">
                     <!-- <div class="par-serv-scroll">
@@ -147,11 +147,11 @@
                     </div> -->
                     
                     {% for service in services %}
-                    <input type="hidden" name="" value="{% cycle 'scale-[1]' 'scale-[0.65]' 'scale-[0.8]' as scale_size %}">
+                    <input type="hidden" name="" value="{% cycle 'scale-[1]' 'scale-[0.65]' as scale_size %}">
                     
                     <div class="par-serv-scroll relative">
                         <div class="w-full h-full transform relative {{scale_size}}">
-                            <img src="{% static 'jde_assets' %}/{{service.image}}" class="w-full h-full" alt="">
+                            <img src="{% static 'jde_assets' %}/{{service.image}}" class="object-cover w-full h-full inline-block" alt="">
                         </div>
                         <div class="service-scroll absolute top-0 left-0 right-0 h-full">{{service.title}} </div>
                     </div>

@@ -1,1 +1,1 @@
-vim -p base.html index.html
+vim -p base.html homepage.html new_index.html index.html ../static/css/src/input.css
