@@ -27,16 +27,17 @@
 	</head>
 	<body class="font-sans text-gray-800">
 		<!-- Navigation -->
-		<header class="bg-white fixed top-0 left-0 right-0 shadow-md z-40">
+		<header class="bg-white shadow-md z-40">
 			<div
 				class="container mx-auto px-4 py-4 flex justify-between items-center relative"
 			>
-				<div class="text-2xl font-bold text-green-600">
+				<div class="text-2xl font-bold text-green-600 inline-block relative ">
 					<img
 						src="{% static 'jde_assets/jde_logo_resized.jpg' %}"
 						class="w-20 h-20 inline-block rounded-full border-2 border-lime-500"
 						alt=""
 					/>
+                    <span class="text-base font-bold text-green-700 absolute top-1/2 -translate-y-1/2 left-full text-nowrap inline-block pl-2">JDE CONSULTE SAS</span>
 				</div>
                 <!-- NAVIGATION FOR LARGE SCREEN -->
 				<nav class="space-x-4 hidden lg:block">
@@ -58,19 +59,19 @@
 				</nav>
                 <!-- NAVIGATION FOR SMALLER SCREENS -->
                 <nav id="sidebar-Menu" class="fixed z-40 lg:hidden transform translate-x-full transition-all duration-500 top-0 left-0 right-0 h-full text-right bg-opacity-65 ">
-                    <div class="inline-block h-full w-1/2 md:w-2/5 text-left pl-4  py-4 relative bg-white">
-                        <button id="closeSidebar" class="absolute top-4 right-4
+                    <div class="inline-block h-full w-1/2 md:w-2/5 text-left pl-6  py-4 relative bg-white">
+                        <button id="closeSidebar" class="absolute top-1 right-1
                             pr-6 text-3xl font-semibold text-black">
                             &times;
                         </button>
-                        <div class="py-3">
+                        <div class="py-3 text-center">
                             <img
                                 src="{% static 'jde_assets/jde_logo_resized.jpg' %}"
                                 class="w-16 h-16 inline-block rounded-full border-2 border-lime-500"
                                 alt=""
 					        />
                         </div>
-                        <div class="flex flex-col gap-4">
+                        <div class="flex flex-col gap-4 text-lg" id="side-menu-cont">
                             <a href="#" class="text-green-500 font-bold">Home</a>
                             <a href="#" class=" ">About</a>
                             <a href="#" class=" ">Services</a>
@@ -91,27 +92,27 @@
                     
                 </nav>
                 <button id="openSidebar"
-                    class="lg:hidden text-black text-xl font-semibold inline-block p-2 border border-gray-100 shadow-sm">
+                    class="lg:hidden text-gray-800 text-xl font-semibold inline-block p-2 border border-gray-100 shadow-md">
                         MENU ☰
                 </button>
 			</div>
 		</header>
 
         <!-- Hero section -->
-        <section class="pt-24 bg-green-50">
-            <div class="container mx-auto px-4 lg:px-12 py-20 text-center ">
+        <section class="">
+            <div class="container mx-auto px-4 lg:px-12 py-10 text-center ">
                 <div class="jump-in">
                     <p class="text-center font-semibold text-lg text-green-600 pb-2 jump-in2">WELCOME TO JDE CONSULTE SAS</p>
-                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6">
+                    <!-- <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6">
                         Certified Translators & Interpreters
-                    </h1>
-                    <p class="text-xl md:text-2xl text-gray-700 mb-8 italic font-serif tracking-wide">
+                    </h1> -->
+                    <p class="text-3xl md:text-4xl text-gray-800 mb-8 font-semibold">
                         Your gateway to seamless communication and hassle-free administration.
                     </p>
                 </div>
                 
             
-                <div class="flex justify-center flex-wrap space-x-4 md:space-x-6 gap-y-4 text-lg md:text-xl font-semibold pt-6">
+                <div class="flex justify-center flex-wrap space-x-4 md:space-x-6 gap-y-4 text-base md:text-lg pt-4">
                     <a href="#services" class="bg-green-500 text-white px-6 py-3 rounded shadow hover:bg-green-700 jump-small">Request a Service</a>
                     <a href="#appointment" class="bg-green-500 text-white px-6 py-3 rounded shadow hover:bg-green-700 jump-small">Book an Appointment</a>
                     <a href="#contact-us" class="bg-green-500 text-white px-6 py-3 rounded shadow hover:bg-green-700 jump-small">Contact Us</a>
@@ -120,10 +121,10 @@
         </section>
 
         <!-- Services -->
-        <section id="servicesScroll" class="container mx-auto py-16">
+        <section id="servicesScroll" class="container mx-auto py-10">
             <div class="px-4">
-                <div class="service-scroll-parent flex flex-nowrap w-full overflow-x-hidden h-[450px]">
-                    <div class="par-serv-scroll">
+                <div class="service-scroll-parent flex flex-nowrap w-full overflow-x-hidden h-[370px] lg:h-[450px]">
+                    <!-- <div class="par-serv-scroll">
                         <div class="service-scroll scale-[0.85]">Service 1</div>
                     </div>
                     <div class="par-serv-scroll">
@@ -143,7 +144,19 @@
                     </div>
                     <div class="par-serv-scroll">
                         <div class="service-scroll">Service 7</div>
+                    </div> -->
+                    
+                    {% for service in services %}
+                    <input type="hidden" name="" value="{% cycle 'scale-[1]' 'scale-[0.65]' 'scale-[0.8]' as scale_size %}">
+                    
+                    <div class="par-serv-scroll relative">
+                        <div class="w-full h-full transform relative {{scale_size}}">
+                            <img src="{% static 'jde_assets' %}/{{service.image}}" class="w-full h-full" alt="">
+                        </div>
+                        <div class="service-scroll absolute top-0 left-0 right-0 h-full">{{service.title}} </div>
                     </div>
+                    {% endfor %}
+                        
                 </div>
             </div>
         </section>
@@ -245,11 +258,11 @@
             <!-- YOUTUBE VIDEO Content-->
             <div class="lg:w-4/5 xl:w-3/4 my-10 mx-auto">
                 <div class="text-2xl md:text-3xl font-semibold text-center text-gray-800 py-4">
-                    <p>Video Content (IYE WAKA)</p>
+                    <p>Video Contents (IYE WAKA)</p>
                     <!-- <p class="inline-block w-[100px] border-b-4 border-lime-500"></p> -->
                 </div>
                 <div class="youtube-wrapper mx-auto p-6">
-                    <iframe src="https://www.youtube.com/embed/twCpijr_GeQ" frameborder="0" allowfullscreen class="w-full lg:w-3/5 h-[350px] mx-auto" ></iframe>
+                    <iframe src="https://www.youtube.com/embed/twCpijr_GeQ" frameborder="0" allowfullscreen class="w-full lg:w-3/5 aspect-video mx-auto" ></iframe>
                 </div>
 
             </div>
@@ -262,7 +275,7 @@
                     <!-- <p class="inline-block w-[100px] border-b-4 border-lime-500"></p> -->
                 </div>
 
-                <div class="w-full overflow-x-auto p-6 lg:p-8 bg-green-100 text-center">
+                <div class="w-full overflow-x-auto p-6 lg:p-8 bg-green-50 text-center">
                 <div class="scroll-wrapper w-max inline-flex flex-row flex-nowrap gap-4 lg:gap-8 " id="scrollBox">
                     <!-- <div class="invisible rounded-2xl bg-white border border-stone-200   border-teal-200 ump-in2 relative">
                         <div class="text-center">

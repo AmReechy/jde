@@ -94,3 +94,6 @@
 .jump-small {
     @apply transform duration-150 hover:-translate-y-[4px]
 }
+#side-menu-cont a {
+    @apply border-b border-gray-400
+}

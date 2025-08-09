@@ -664,16 +664,24 @@ video {
   left: 1.25rem;
 }
 
+.left-full {
+  left: 100%;
+}
+
 .right-0 {
   right: 0px;
 }
 
-.right-4 {
-  right: 1rem;
+.right-1 {
+  right: 0.25rem;
 }
 
 .top-0 {
   top: 0px;
+}
+
+.top-1 {
+  top: 0.25rem;
 }
 
 .top-1\/2 {
@@ -682,10 +690,6 @@ video {
 
 .top-12 {
   top: 3rem;
-}
-
-.top-4 {
-  top: 1rem;
 }
 
 .top-5 {
@@ -805,6 +809,10 @@ video {
   display: none;
 }
 
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
 .h-16 {
   height: 4rem;
 }
@@ -845,8 +853,8 @@ video {
   height: 350px;
 }
 
-.h-\[450px\] {
-  height: 450px;
+.h-\[370px\] {
+  height: 370px;
 }
 
 .h-auto {
@@ -990,6 +998,18 @@ video {
 .scale-\[1\] {
   --tw-scale-x: 1;
   --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.scale-\[0\.65\] {
+  --tw-scale-x: 0.65;
+  --tw-scale-y: 0.65;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.scale-\[0\.8\] {
+  --tw-scale-x: 0.8;
+  --tw-scale-y: 0.8;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1193,6 +1213,10 @@ video {
   border-width: 2px;
 }
 
+.border-b {
+  border-bottom-width: 1px;
+}
+
 .border-b-2 {
   border-bottom-width: 2px;
 }
@@ -1209,6 +1233,11 @@ video {
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+}
+
+.border-gray-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity, 1));
 }
 
 .border-green-200 {
@@ -1576,8 +1605,12 @@ video {
   padding-bottom: 2rem;
 }
 
-.pl-4 {
-  padding-left: 1rem;
+.pl-2 {
+  padding-left: 0.5rem;
+}
+
+.pl-6 {
+  padding-left: 1.5rem;
 }
 
 .pr-2 {
@@ -1600,8 +1633,8 @@ video {
   padding-top: 6rem;
 }
 
-.pt-6 {
-  padding-top: 1.5rem;
+.pt-4 {
+  padding-top: 1rem;
 }
 
 .text-left {
@@ -1759,6 +1792,11 @@ video {
   color: rgb(22 163 74 / var(--tw-text-opacity, 1));
 }
 
+.text-green-700 {
+  --tw-text-opacity: 1;
+  color: rgb(21 128 61 / var(--tw-text-opacity, 1));
+}
+
 .text-green-900 {
   --tw-text-opacity: 1;
   color: rgb(20 83 45 / var(--tw-text-opacity, 1));
@@ -1836,12 +1874,6 @@ video {
 .shadow-md {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.shadow-sm {
-  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
@@ -2309,6 +2341,12 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+#side-menu-cont a {
+  border-bottom-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity, 1));
+}
+
 .hover\:-translate-y-\[4px\]:hover {
   --tw-translate-y: -4px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -2460,11 +2498,6 @@ video {
     padding-left: 0.75rem;
   }
 
-  .md\:text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
   .md\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
@@ -2478,6 +2511,11 @@ video {
   .md\:text-5xl {
     font-size: 3rem;
     line-height: 1;
+  }
+
+  .md\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
   }
 
   .md\:text-xl {
@@ -2505,6 +2543,10 @@ video {
 
   .lg\:h-\[200px\] {
     height: 200px;
+  }
+
+  .lg\:h-\[450px\] {
+    height: 450px;
   }
 
   .lg\:h-\[540px\] {
