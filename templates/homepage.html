@@ -1,0 +1,418 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Translation & Interpretation — Home</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="{% static 'css/styles.css' %}?v=2"
+			type="text/css"
+			media="screen"
+			title="no title"
+			charset="utf-8"
+		/>
+
+		<!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.2.0/dist/tailwind.min.css" rel="stylesheet"> -->
+		<style>
+			/* Custom styling if needed */
+		</style> 
+	</head>
+	<body class="font-sans text-gray-800">
+		<!-- Navigation -->
+		<header class="bg-white fixed top-0 left-0 right-0 shadow-md z-40">
+			<div
+				class="container mx-auto px-4 py-4 flex justify-between items-center relative"
+			>
+				<div class="text-2xl font-bold text-green-600">
+					<img
+						src="{% static 'jde_assets/jde_logo_resized.jpg' %}"
+						class="w-20 h-20 inline-block rounded-full border-2 border-lime-500"
+						alt=""
+					/>
+				</div>
+                <!-- NAVIGATION FOR LARGE SCREEN -->
+				<nav class="space-x-4 hidden lg:block">
+					<a href="#" class="text-green-500 font-bold">Home</a>
+                    <a href="#" class=" ">About</a>
+                    <a href="#" class=" ">Services</a>
+                    <!--<a href="#" class="text-gray-800 hover:text-green-700">Apply for a Service</a>
+                    <a href="#" class="text-amber-500 hover:text-green-700">Book an Appointment</a> -->
+                    <a href="#" class=" ">Contact Us</a>
+                    <a href="#" class=" ">Projects</a>
+                    <a href="#" class=" ">FAQs</a>
+                    
+                    {% if user.is_authenticated %}
+                    <a href="#" class=" ">Logout</a>
+                    {% else %}
+                    <a href="#" class="">Login</a>
+                    <a href="#" class="">Register</a>
+                    {% endif %}
+				</nav>
+                <!-- NAVIGATION FOR SMALLER SCREENS -->
+                <nav id="sidebar-Menu" class="fixed z-40 lg:hidden transform translate-x-full transition-all duration-500 top-0 left-0 right-0 h-full text-right bg-opacity-65 ">
+                    <div class="inline-block h-full w-1/2 md:w-2/5 text-left pl-4  py-4 relative bg-white">
+                        <button id="closeSidebar" class="absolute top-4 right-4
+                            pr-6 text-3xl font-semibold text-black">
+                            &times;
+                        </button>
+                        <div class="py-3">
+                            <img
+                                src="{% static 'jde_assets/jde_logo_resized.jpg' %}"
+                                class="w-16 h-16 inline-block rounded-full border-2 border-lime-500"
+                                alt=""
+					        />
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <a href="#" class="text-green-500 font-bold">Home</a>
+                            <a href="#" class=" ">About</a>
+                            <a href="#" class=" ">Services</a>
+                            <!--<a href="#" class="text-gray-800 hover:text-green-700">Apply for a Service</a>
+                            <a href="#" class="text-amber-500 hover:text-green-700">Book an Appointment</a> -->
+                            <a href="#" class=" ">Contact Us</a>
+                            <a href="#" class=" ">Projects</a>
+                            <a href="#" class=" ">FAQs</a>
+                            
+                            {% if user.is_authenticated %}
+                            <a href="#" class=" ">Logout</a>
+                            {% else %}
+                            <a href="#" class="">Login</a>
+                            <a href="#" class="">Register</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                </nav>
+                <button id="openSidebar"
+                    class="lg:hidden text-black text-xl font-semibold inline-block p-2 border border-gray-100 shadow-sm">
+                        MENU ☰
+                </button>
+			</div>
+		</header>
+
+        <!-- Hero section -->
+        <section class="pt-24 bg-green-50">
+            <div class="container mx-auto px-4 lg:px-12 py-20 text-center ">
+                <div class="jump-in">
+                    <p class="text-center font-semibold text-lg text-green-600 pb-2 jump-in2">WELCOME TO JDE CONSULTE SAS</p>
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6">
+                        Certified Translators & Interpreters
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-700 mb-8 italic font-serif tracking-wide">
+                        Your gateway to seamless communication and hassle-free administration.
+                    </p>
+                </div>
+                
+            
+                <div class="flex justify-center flex-wrap space-x-4 md:space-x-6 gap-y-4 text-lg md:text-xl font-semibold pt-6">
+                    <a href="#services" class="bg-green-500 text-white px-6 py-3 rounded shadow hover:bg-green-700 jump-small">Request a Service</a>
+                    <a href="#appointment" class="bg-green-500 text-white px-6 py-3 rounded shadow hover:bg-green-700 jump-small">Book an Appointment</a>
+                    <a href="#contact-us" class="bg-green-500 text-white px-6 py-3 rounded shadow hover:bg-green-700 jump-small">Contact Us</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section id="servicesScroll" class="container mx-auto py-16">
+            <div class="px-4">
+                <div class="service-scroll-parent flex flex-nowrap w-full overflow-x-hidden h-[450px]">
+                    <div class="par-serv-scroll">
+                        <div class="service-scroll scale-[0.85]">Service 1</div>
+                    </div>
+                    <div class="par-serv-scroll">
+                        <div class="service-scroll scale-[0.7]">Service 2</div>
+                    </div>
+                    <div class="par-serv-scroll">
+                        <div class="service-scroll scale-[1]">Service 3</div>
+                    </div>
+                    <div class="par-serv-scroll">
+                        <div class="service-scroll scale-[0.7]">Service 4</div>
+                    </div>
+                    <div class="par-serv-scroll">
+                        <div class="service-scroll scale-[0.85]">Service 5</div>
+                    </div>
+                    <div class="par-serv-scroll">
+                        <div class="service-scroll">Service 6</div>
+                    </div>
+                    <div class="par-serv-scroll">
+                        <div class="service-scroll">Service 7</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="w-full mx-auto my-6 py-4 bg-lime-50">
+            <div class="w-full lg:w-[90%] mx-auto ">
+                <div class="md:grid md:grid-cols-2 lg:grid-cols-2 items-center p-8">
+                    <div class="text-4xl lg:text-5xl font-extrabold text-green-900 my-6">
+                        Our Services
+                    </div>
+                    <div class="text-lg lg:text-xl">
+                        Here is a comprehensive list of our various services spanning translation, interpretation, 
+                        administrative assistance, consultancy, official document processing and data management services.
+
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:grid-cols-3 p-8 ">
+                    
+                    {% for service in services %}
+                    <div class="service-details transform duration-200 ">
+                        <div class="service-detail-inner">
+                            <p class="serve-title">{{service}} </p>
+                            <div class="service-items">This will be an itemized display of sub-services under {{service}} </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </section>
+
+        <section id="why-choose-us" class="py-16">
+            
+            <div class="px-4 bg-gray-100">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 py-10">
+                    Why Choose Us?
+                </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 container mx-auto pb-10 px-6">
+                
+                <!-- Point 1 -->
+                <div class="bg-white p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
+                <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-100">
+                    <span class="text-green-600 text-2xl">✅</span>
+                </div>
+                <h3 class="text-lg font-bold text-center text-gray-800">
+                    Certified & Accredited
+                </h3>
+                <p class="text-gray-600 text-center mt-2 text-lg">
+                    Trusted by government institutions and private enterprises.
+                </p>
+                </div>
+                
+                <!-- Point 2 -->
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+                <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-100">
+                    <span class="text-green-600 text-2xl">🌍</span>
+                </div>
+                <h3 class="text-lg font-bold text-center text-gray-800">
+                    Multi-Field Expertise
+                </h3>
+                <p class="text-gray-600 text-center mt-2 text-lg">
+                    From language services to business consultancy and data management.
+                </p>
+                </div>
+                
+                <!-- Point 3 -->
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+                <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-100">
+                    <span class="text-green-600 text-2xl">🎯</span>
+                </div>
+                <h3 class="text-lg font-bold text-center text-gray-800">
+                    Personalized Solutions
+                </h3>
+                <p class="text-gray-600 text-center mt-2 text-lg">
+                    Tailored services to meet individual and corporate needs.
+                </p>
+                </div>
+                
+                <!-- Point 4 -->
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+                <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-100">
+                    <span class="text-green-600 text-2xl">💰</span>
+                </div>
+                <h3 class="text-lg font-bold text-center text-gray-800">
+                    Affordable & Transparent
+                </h3>
+                <p class="text-gray-600 text-center mt-2 text-lg">
+                    Competitive rates without hidden costs.
+                </p>
+                </div>
+
+            </div>
+            </div>
+        </section>
+
+
+        <section>
+            <!-- YOUTUBE VIDEO Content-->
+            <div class="lg:w-4/5 xl:w-3/4 my-10 mx-auto">
+                <div class="text-2xl md:text-3xl font-semibold text-center text-gray-800 py-4">
+                    <p>Video Content (IYE WAKA)</p>
+                    <!-- <p class="inline-block w-[100px] border-b-4 border-lime-500"></p> -->
+                </div>
+                <div class="youtube-wrapper mx-auto p-6">
+                    <iframe src="https://www.youtube.com/embed/twCpijr_GeQ" frameborder="0" allowfullscreen class="w-full lg:w-3/5 h-[350px] mx-auto" ></iframe>
+                </div>
+
+            </div>
+        </section>
+
+        <section>
+            <div class="my-10 w-full ">
+                <div class="text-2xl md:text-3xl font-semibold text-center text-gray-800 py-4">
+                    <p class="">Our Partners</p>
+                    <!-- <p class="inline-block w-[100px] border-b-4 border-lime-500"></p> -->
+                </div>
+
+                <div class="w-full overflow-x-auto p-6 lg:p-8 bg-green-100 text-center">
+                <div class="scroll-wrapper w-max inline-flex flex-row flex-nowrap gap-4 lg:gap-8 " id="scrollBox">
+                    <!-- <div class="invisible rounded-2xl bg-white border border-stone-200   border-teal-200 ump-in2 relative">
+                        <div class="text-center">
+                            <p class="inline-block py-2 bg-white text-lime-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">Partner 1</p>
+                        </div>
+                        <div class="p-4 md:p-6 text-teal-600 font-bold">
+                            <ul class="list-outside list-disc">
+                                <li>Login to your account </li>
+                                <li>If you don't have an account, register  an account, it's very easy to do.</li>
+                            </ul>
+                        </div>
+                    </div> -->
+                    <div class="partner rounded-2xl   border-stone-200    border-teal-200 ump-in2 relative">
+                        
+                        <div class=" text-teal-600 font-bold">
+                            <img src="{% static 'jde_assets/partner_ambassade_de_france.jpg' %}" class="w-full h-auto" alt="">
+                        </div>
+                    </div>
+                    <div class="partner rounded-2xl   border-stone-200    border-teal-200 ump-in2 relative">
+                        
+                        <div class=" text-teal-600 font-bold">
+                            <img src="{% static 'jde_assets/partner_consulat_france.jpg' %}" class="w-full h-auto" alt="">
+                        </div>
+                    </div>
+                    <div class="partner rounded-2xl   border-stone-200   border-teal-200 ump-in2 relative">
+                        
+                        <div class=" text-teal-600 font-bold">
+                            <img src="{% static 'jde_assets/partner_federal_gov_nigeria.jpg' %}" class="w-full h-auto" alt="">
+                        </div>
+                    </div>
+                    <div class="partner rounded-2xl  border-stone-200  border-teal-200 ump-in2 relative">
+                        
+                        <div class=" text-teal-600 font-bold">
+                            <img src="{% static 'jde_assets/nimc_square_image.jpg' %}" class="w-full h-auto" alt="">
+                        </div>
+                    </div>
+                    <div class="partner rounded-2xl   border-stone-200    border-teal-200 ump-in2 relative">
+                        
+                        <div class=" text-teal-600 font-bold">
+                            <img src="{% static 'jde_assets/partner_ministry_foreign_logo.png' %}" class="w-full h-auto" alt="">
+                        </div>
+                    </div>
+                    <div class="partner rounded-2xl  border-stone-200    border-teal-200 ump-in2 relative">
+                        
+                        <div class=" text-teal-600 font-bold">
+                            <img src="{% static 'jde_assets/partner_dawari_consult.jpg' %}" class="w-full h-auto" alt="">
+                        </div>
+                    </div>
+                    <div class="partner rounded-2xl   border-stone-200    border-teal-200 ump-in2 relative">
+                        
+                        <div class=" text-teal-600 font-bold">
+                            <img src="{% static 'jde_assets/partner_cpss_training.jpg' %}" class="w-full h-auto" alt="">
+                        </div>
+                    </div>
+                    <!-- <div class="invisible rounded-2xl bg-white border border-stone-200    border-teal-200 ump-in2 relative">
+                        <div class="text-center">
+                            <p class="inline-block py-2 bg-white text-lime-500 font-black text-xl text-wrap mx-auto px-6 rounded-full">Partner 1</p>
+                        </div>
+                        <div class="p-4 md:p-6 text-teal-600 font-bold">
+                            <ul class="list-outside list-disc">
+                                <li>Login to your account </li>
+                                <li>If you don't have an account, register  an account, it's very easy to do.</li>
+                            </ul>
+                        </div>
+                    </div> -->
+                </div>
+                    
+                </div>
+                <!-- 
+                <div>
+                    <p class=" flex justify-center gap-3" id="scrollIndCont"></p>
+                </div> -->
+            </div>
+
+        </section>
+
+
+        <footer class="w-full bg-gradient-to-br from-green-950 via-green-800 to-green-950 mt-12 ounded-t-[50px]">
+            <div class="md:grid md:grid-cols-2 gap-4 lg:gap-6 px-4 lg:w-4/5  mx-auto py-6 lg:py-10">
+                <div>
+                    <div class="text-center">
+                    <a href="/">
+                    <span class="inline-block rounded-full w-max h-max">
+                    <img src="{% static 'jde_assets/jde_logo_resized.jpg' %}" class="w-32 h-32 inline-block rounded-full border-2 border-lime-500" alt="">
+                    </span>
+                    </a>
+                    </div>
+                    <p class="font-semibold text-white lg:text-lg py-2">
+                        <span class="font-black text-lime-200">JDE CONSULTE SAS</span> is a professional service provider based in France, offering
+                        comprehensive support for individuals and businesses. Our expertise spans translation,
+                        interpreting, administrative assistance, consultancy, and data management services, all tailored to
+                        meet diverse needs with precision and confidentiality.
+                    </p>
+                    
+                    <p class="w-3/5 border-b-2 border-green-200 mx-auto py-3 md:hidden"></p>
+                </div>
+                <div>
+                    <p class="text-lg lg:text-xl font-bold text-white white-shadow-small mt-6 mb-3">Main Pages on this Website :</p>
+                    <p class="footer-nav-items-cont grid grid-cols-3 gap-x-2 md:gap-x-3" id="footer-nav-items-parent"><span>Home</span>
+                        <span>About Us</span>
+                        <span>Services</span>
+                        <span>Projects</span>
+                        <span>Contact Us</span>
+                        <span>FAQs</span>
+                        <span>Request a Service</span>
+                        <span>Book Appointment</span>
+                        <span>Login</span>
+                        <span>Register</span>
+                        <span>T & C</span>
+                        <span>Privacy Policy</span>
+
+                    </p>
+                    <p class="w-3/5 border-b-2 border-green-200 mx-auto my-6"></p>
+                    <p class="text-lg lg:text-xl font-bold text-white white-shadow-small mt-6 mb-3">Want to get in touch ?</p>
+                    <div>
+                        <p class="contact-para"><span class="contact-icon"><i class="fa-solid fa-location-dot"></i></span> 20 Rue Corentin Quideau 95340, Persan-France.</p>
+                        <p class="contact-para"><span class="contact-icon"><i class="fa-solid fa-envelope"></i></span> jdeconsulte@gmail.com</p>
+                        <p class="contact-para"><span class="contact-icon"><i class="fa-solid fa-phone-volume"></i></span> +33 (0) 613566153, +33 (0) 788159528, +234 (0) 7058909088</p>
+                    </div>
+                    <p class="text-lime-200 text-xl lg:text-2xl flex justify-start items-center gap-4 md:gap-6 py-2">
+                        <span class="text-white text-base lg:text-lg font-semibold white-shadow-small">Follow us on Social Media</span>
+                        <span><i class="fa-solid fa-arrow-right text-white inline-block pr-2"></i></span>
+                        <span><i class="fa-brands fa-x-twitter"></i></span>
+                        <span><i class="fa-brands fa-instagram"></i></span>
+                        <span><i class="fa-brands fa-facebook"></i></span>
+                        <span><i class="fa-brands fa-youtube"></i></span>
+                        <span><i class="fa-brands fa-linkedin"></i></span>
+
+                    </p>
+                </div>
+            </div>
+            <div class="w-full py-6 bg-gradient-to-r from-black via-gray-800 to-black text-center text-white font-semibold text-sm lg:text-base">
+                <p>Copyright &copy; 2025 JDE CONSULTE SAS. All Rights Reserved.</p>
+            </div>
+        </footer>
+
+        <script>
+            const openSidebar = document.getElementById('openSidebar');
+            const closeSidebar = document.getElementById('closeSidebar');
+            const sidebarMenu = document.getElementById('sidebar-Menu');
+
+            openSidebar.addEventListener('click', () => {
+                sidebarMenu.classList.remove('translate-x-full');
+                setTimeout(() => sidebarMenu.classList.add('bg-black'), 300)
+            });
+
+            closeSidebar.addEventListener('click', () => {
+                sidebarMenu.classList.remove('bg-black');
+                setTimeout(() => sidebarMenu.classList.add('translate-x-full'), 200)
+            });
+        </script>
+	</body>
+</html>
