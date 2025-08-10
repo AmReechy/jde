@@ -20,7 +20,7 @@ def homepage(request):
         {"title": "Consultancy Services", "image": "office_consultancy.jpg" },
         {"title": "Administrative Support", "image": "france_landscape.jpg" },
         {"title": "Procurration of Documents", "image": "beautiful_nature1.png" },
-        {"title": "Nigerian Passport Application Support (Online Processing)", "image":  "office_administrative"},
+        {"title": "Nigerian Passport Application Support (Online Processing)", "image":  "partner_federal_gov_nigeria.jpg"},
         {"title": "Document Preparation Services", "image": "office_two_people.jpg" },
         {"title": "Business Investment & Development Opportunities", "image": "business.jpg" },
         {"title": "Mentorship Program Master Class", "image": "masterclass.jpg" }
