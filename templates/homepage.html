@@ -405,11 +405,38 @@
             </div>
         </footer>
 
+			<!-- Navigate back up-->
+			<span class="fixed bottom-20 right-0 lg:right-[10%] xl:right-[13%] block w-max pr-5 z-50" id="nav-up">
+			<button class="inline-block "><span class="circle-vary w-12 h-12 bg-green-500 inline-block"><i class="fa-solid fa-arrow-up font-black text-white text-2xl"></i></span></button>
+			</span>
+
+
+
         <script>
             let conta = document.querySelector("#pa");
             function sc() {
                 const elems = document.querySelectorAll(".ch");
             }
+			
+			//CODE TO NAVIGATE BACK UP
+			const navUp = document.querySelector("#nav-up");
+			let lastScrollPosit = window.scrollY;
+			window.addEventListener("scroll", function(){
+				const currentScrollPos = window.scrollY;
+
+				if ( currentScrollPos < lastScrollPosit && currentScrollPos > 250 ){
+					navUp.style.display = "block";
+				}else {
+					navUp.style.display = "none";
+				}
+
+				lastScrollPosit = currentScrollPos;
+				setTimeout(()=>{},1000)
+			})
+			navUp.addEventListener("click", function(){
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			})
+
         </script>
 
         <script>
