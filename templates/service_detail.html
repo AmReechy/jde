@@ -1,0 +1,151 @@
+{% extends "jde_base.html" %}
+
+{% load static %}
+
+{% block title %}Services – Translation{% endblock %}
+
+
+
+{% block content %}
+<section class="relative h-[150px] lg:h-[200px]">
+  <img src="{% static 'jde_assets' %}/translation_image.jpg" class="object-cover h-full w-full block" alt="">
+	<div class="grid text-center items-center absolute left-0 top-0 h-full w-full bg-black bg-opacity-40">
+		<div class="text-center font-black text-3xl lg:text-4xl text-white px-4 white-shadow tracking-wide">
+			<p>Translation of Official Documents</p>
+			
+		</div>
+	</div>
+
+</section>
+
+<div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
+    <h1 class="text-2xl font-bold mb-4">Request Translation Service</h1>
+
+    <form id="translationForm" method="post" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+
+        <div id="documents-container" class="space-y-4">
+            <!-- First document upload block -->
+            <div class="document-item flex flex-col sm:flex-row sm:items-center sm:space-x-4 p-4 border rounded-lg bg-lime-50 ">
+                <div class="flex-1">
+                    <label class="block font-semibold mb-1">Document Type</label>
+                    <select name="document_type" class="w-full border rounded p-2">
+                        <option value="">Select document type</option>
+                        <option>Birth Certificate / Attestation of Birth</option>
+                        <option>Spinster/Bachelorhood Certificate</option>
+                        <option>Marriage Certificate</option>
+                        <option>Divorce Certificate</option>
+                        <option>Adoption Certificate</option>
+                        <option>Police Character Certificate / Report</option>
+                        <option>Legal Document</option>
+                        <option>Court Affidavit</option>
+                        <option>Transcript / Diploma</option>
+                        <option>Driving License</option>
+                    </select>
+                </div>
+
+                <div class="flex-1 mt-4 sm:mt-0">
+                    <label class="block font-semibold mb-1">Upload Document File</label>
+                    <input type="file" name="document_file" class="w-full border rounded p-2 bg-white">
+                </div>
+            </div>
+        </div>
+
+        <!-- Add another document button -->
+        <button type="button" id="addDocumentBtn"
+            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+            + Add Another Document
+        </button>
+
+        <!-- Display total fee -->
+        <div class="mt-4">
+            <p class="text-xl font-semibold text-amber-500">Total Fee:
+                <span id="totalFee" class="text-green-600">€40</span>
+            </p>
+        </div>
+
+        <!-- Payment section -->
+        <div class="mt-6 p-4 border rounded-lg bg-gray-50">
+            <p class="mb-2 font-medium">Make Payment:</p>
+            <button type="button" id="payBtn"
+                class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                Pay Now
+            </button>
+            <p id="paymentStatus" class="text-sm text-red-600 mt-2">Payment not yet made.</p>
+        </div>
+
+				<div class="mx-auto text-center py-4">
+        <!-- Submit button (disabled until payment) -->
+        <button type="submit" id="submitBtn"
+            class="bg-gray-400 text-white px-6 py-2 rounded cursor-not-allowed"
+            disabled>
+            Submit Service Request
+        </button>
+					
+				</div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const feePerDoc = 40;
+    const documentsContainer = document.getElementById("documents-container");
+    const addDocumentBtn = document.getElementById("addDocumentBtn");
+    const totalFeeEl = document.getElementById("totalFee");
+    const payBtn = document.getElementById("payBtn");
+    const paymentStatus = document.getElementById("paymentStatus");
+    const submitBtn = document.getElementById("submitBtn");
+
+    function updateTotalFee() {
+        const docCount = documentsContainer.querySelectorAll(".document-item").length;
+        totalFeeEl.textContent = `€${docCount * feePerDoc}`;
+    }
+
+
+		function addRemoveButton(docBlock) {
+        // Create remove button
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.textContent = "×";
+        removeBtn.className = "absolute top-0 right-4 text-red-500 hover:text-red-700 font-bold text-2xl";
+
+        // Add click event to remove document block
+        removeBtn.addEventListener("click", function () {
+            docBlock.remove();
+            updateTotalFee();
+        });
+
+        // Position the button inside the document block
+        docBlock.classList.add("relative");
+        docBlock.appendChild(removeBtn);
+    }
+
+    addDocumentBtn.addEventListener("click", function () {
+        const newDoc = documentsContainer.querySelector(".document-item").cloneNode(true);
+        newDoc.querySelectorAll("input, select").forEach(input => {
+            input.value = "";
+        });
+				addRemoveButton(newDoc);
+        documentsContainer.appendChild(newDoc);
+        updateTotalFee();
+    });
+
+    payBtn.addEventListener("click", function () {
+        // Simulate successful payment
+        paymentStatus.textContent = "Payment successful ✔";
+        paymentStatus.classList.remove("text-red-600");
+        paymentStatus.classList.add("text-green-600");
+
+        submitBtn.disabled = false;
+        submitBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+        submitBtn.classList.add("bg-green-500", "hover:bg-green-700");
+    });
+
+    updateTotalFee();
+});
+</script>
+{% endblock %}
+

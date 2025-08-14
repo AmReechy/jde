@@ -8,4 +8,5 @@ urlpatterns = [
         #path("old", views.home, name="home"),
         #path("new", views.new_home, name="new-home"),
         path("", views.homepage, name="homepage"),
+        path("/<str:service_category>", views.service_page, name="service-page"),
         ]

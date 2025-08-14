@@ -69,7 +69,7 @@
             
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 container mx-auto py-10 px-6">
                     <!-- Step 1 -->
-                    <div class="bg-white p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
+                    <div class="bg-lime-50 p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
                         <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-500">
                             <span class="text-white text-2xl">1</span>
                         </div>
@@ -82,7 +82,7 @@
                         <!-- <p><a href=""><button class="inline-block px-4 py-2 border-2 border-green-500 text-center text-green-500">Click to Register</button></a></p> -->
                     </div>
                     <!-- Step 1 -->
-                    <div class="bg-white p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
+                    <div class="bg-lime-50 p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
                         <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-500">
                             <span class="text-white text-2xl">2</span>
                         </div>
@@ -94,7 +94,7 @@
                         </p>
                         <!-- <p><a href=""><button class="inline-block px-4 py-2 border-2 border-green-500 text-center text-green-500">Click to Register</button></a></p> -->
                     </div>
-                    <div class="bg-white p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
+                    <div class="bg-lime-50 p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
                         <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-500">
                             <span class="text-white text-2xl">3</span>
                         </div>
@@ -102,11 +102,11 @@
                             Process Begins
                         </h3>
                         <p class="text-gray-600 text-justify my-4 text-lg">
-                            Once payment for the selected service is received together with all the relevant information, we assign your service request to one of our partners/consultants and work starts
+                            Once payment for the selected service is received together with all the relevant information, we assign your service request to one of our partners /consultants and work starts
                         </p>
                         <!-- <p><a href=""><button class="inline-block px-4 py-2 border-2 border-green-500 text-center text-green-500">Click to Register</button></a></p> -->
                     </div>
-                    <div class="bg-white p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
+                    <div class="bg-lime-50 p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
                         <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-500">
                             <span class="text-white text-2xl">4</span>
                         </div>
@@ -119,7 +119,7 @@
                         <!-- <p><a href=""><button class="inline-block px-4 py-2 border-2 border-green-500 text-center text-green-500">Click to Register</button></a></p> -->
                     </div>
                 </div>
-                <p class="text-lg lg:text-xl font-semibold container lg:w-3/4 mx-auto text-black px-6 flex gap-4 "><span class="text-red-500 font-bold">NB:</span>Kindly note that, in the event of any delay arising from circumstances beyond our control, 
+                <p class="bg-white text-lg lg:text-xl font-semibold container lg:w-3/4 mx-auto text-black p-4 flex gap-4 rounded-lg"><span class="text-red-500 font-bold">NB:</span>Kindly note that, in the event of any delay arising from circumstances beyond our control, 
                     you will be promptly informed and advised on the revised timeframe.
                 </p>
             </div>
@@ -140,20 +140,29 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:grid-cols-3 p-8 ">
-                    <div class="service-details min-h-[400px] relative">
-                        <img src="{% static 'jde_assets' %}/translation_image.jpg" class="object-cover h-full w-full inline-block" alt="">
+                    <div class="service-details min-h-[500px] relative">
+                        <img src="{% static 'jde_assets' %}/translation_image.jpg" class="h-full w-full inline-block" alt="">
                         <div class="service-detail-inner absolute top-0 left-0 right-0 h-full px-2">
-                            <p class="serve-title py-4">Translation Services</p>
-                            <div class="service-items mt-16 p-3 text-left text-lg lg:text-xl text-lime-100 font-normal inline-block bg-black bg-opacity-50">We provide accurate,certified translations of official documents for personal, legal, academics and business purposes. Our translators ensure your contents is linguistically precise, culturally appropriate, and officially compliant.</div>
+                            <p class="serve-title py-4">Translation of Official Documents</p>
+                            <div class="service-items mt-16 p-3 text-left text-lg lg:text-xl text-lime-100 font-semibold inline-block bg-black bg-opacity-30 tracking-wide">Certified translations of legal, academic, personal, and professional documents. Includes quality review and optional follow-up.
+														</div>
+														<p class="text-center font-semibold text-lg text-white pt-4"><span class="inline-block pr-4 font-bold text-amber-500">FEE :</span><span>From €40 per page</span></p>
                         </div>
+												<p class="my-4 text-center absolute left-0 bottom-6 right-0"><a href="{% url 'base:service-page' 'translation-services' %}">
+												<button class="bg-lime-100 inline-block px-4 py-2 rounded-full border border-black text-black text-base font-semibold">Request a Service</button>
+												</a>
+												</p>
                     </div>
                     {% for service in services %}
-                    <div class="service-details min-h-[400px] relative">
+                    <div class="service-details min-h-[500px] relative">
                         <img src="{% static 'jde_assets' %}/{% cycle 'image1_man_woman_stand.jpg' 'image2_woman_flags.jpg' 'image3_woman_naija_flag.jpg' %}" class=" h-auto w-full inline-block" alt="">
                         <div class="service-detail-inner absolute top-0 left-0 right-0 h-full px-2">
                             <p class="serve-title py-4">{{service.title}} </p>
-                            <div class="service-items mt-16 p-3 text-left text-lg lg:text-xl text-lime-100 font-normal inline-block bg-black bg-opacity-50">{{service.desc}} </div>
+                            <div class="service-items mt-16 p-3 text-left text-lg lg:text-xl text-lime-100 font-semibold inline-block bg-black bg-opacity-30 tracking-wide">{{service.desc}} </div>
+														<p class="text-center font-semibold text-lg text-white pt-4"><span class="inline-block pr-4 font-bold text-amber-500">FEE :</span><span>{{service.fee}}</span></p>
+
                         </div>
+												<!--<p class="my-4 text-center absolute left-0 bottom-4 right-0"><button class="bg-lime-100 inline-block px-4 py-2 rounded-full border border-black text-black text-base font-semibold">Request a Service</button></p>-->
                     </div>
                     {% endfor %}
                     
@@ -337,4 +346,8 @@
 
 
         {% endblock content %}
-        
+ 
+{% block scripts %}
+
+
+{% endblock %}

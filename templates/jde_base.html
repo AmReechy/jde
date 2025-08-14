@@ -50,14 +50,15 @@
 				</div>
                 <!-- NAVIGATION FOR LARGE SCREEN -->
 				<nav class="space-x-3 hidden lg:block lg:text-lg xl:text-xl" id="block-menu">
-					<span class="font-bold text-green-500">Home</span>
+					<input type="hidden" name="" value="{{current_page}}" id="current-page">
+					<a href="/" class="" id=""><span id="home">Home</span></a>
                     <a href="#" class=" ">About</a>
-                    <a href="#" class=" ">Services</a>
+                    <a href="#" class=" " id=""><span id="services">Services</span></a>
                     <!--<a href="#" class="text-gray-800 hover:text-green-700">Apply for a Service</a>
                     <a href="#" class="text-amber-500 hover:text-green-700">Book an Appointment</a> -->
                     <a href="#" class=" ">Contact Us</a>
                     <a href="#" class=" ">Projects</a>
-                    <a href="#videos" class=" ">Videos</a>
+                    <a href="/#videos" class=" ">Videos</a>
                     {% if user.is_authenticated %}
                     <a href="#" class=" ">Logout</a>
                     {% else %}
@@ -66,7 +67,7 @@
                     {% endif %}
 				</nav>
                 <!-- NAVIGATION FOR SMALLER SCREENS -->
-                <nav id="sidebar-Menu" class="fixed z-40 lg:hidden transform translate-x-full transition-all duration-500 top-0 left-0 right-0 h-full text-right bg-opacity-65 ">
+                <nav id="sidebar-Menu" class="fixed z-40 lg:hidden transform translate-x-full transition-all duration-500 top-0 left-0 right-0 h-full text-right bg-opacity-70 ">
                     <div class="inline-block h-full w-1/2 md:w-2/5 text-left px-6  py-4 relative bg-white">
                         <button id="closeSidebar" class="absolute top-1 right-1
                             pr-6 text-3xl font-semibold text-black">
@@ -80,14 +81,14 @@
 					        />
                         </div>
                         <div class="flex flex-col text-lg" id="side-menu-cont">
-                            <a href="#" class="text-green-500 font-bold">Home</a>
+                            <a href="/" class="">Home</a>
                             <a href="#" class=" ">About</a>
                             <a href="#" class=" ">Services</a>
                             <!--<a href="#" class="text-gray-800 hover:text-green-700">Apply for a Service</a>
                             <a href="#" class="text-amber-500 hover:text-green-700">Book an Appointment</a> -->
                             <a href="#" class=" ">Contact Us</a>
                             <a href="#" class=" ">Projects</a>
-                            <a href="#videos" class=" ">Videos</a>
+                            <a href="/#videos" class=" " id="videos-nav">Videos</a>
                             
                             {% if user.is_authenticated %}
                             <a href="#" class=" ">Logout</a>
@@ -183,7 +184,7 @@
 
 			<!-- Navigate back up-->
 			<span class="fixed bottom-20 right-0 block w-max pr-5 md:pr-10 lg:pr-16 z-50" id="nav-up">
-			<button class="inline-block "><span class="circle-vary w-12 h-12 bg-green-500 inline-block"><i class="fa-solid fa-arrow-up font-black text-white text-2xl"></i></span></button>
+			<button class="inline-block "><span class="circle-vary w-12 h-12 bg-green-500 inline-block shadow-md"><i class="fa-solid fa-arrow-up font-black text-white text-2xl"></i></span></button>
 			</span>
 
 
@@ -329,5 +330,19 @@ function scrollService() {
 updateScales();
 setInterval(scrollService, 3000);*/
 </script>
+<script charset="utf-8">
+	const videosNav = document.querySelector("#videos-nav")
+  const closeSidebar1 = document.getElementById('closeSidebar');
+	videosNav.addEventListener("click", function() {
+		closeSidebar1.click()
+	})
+
+	const currPageVal = document.querySelector("#current-page").value
+	const currNav = document.querySelector(`#${currPageVal}`)
+	currNav.style.fontWeight = "800";
+	currNav.style.color = "green";
+</script>
+      {% block scripts %}
+      {% endblock scripts %}
 	</body>
 </html>

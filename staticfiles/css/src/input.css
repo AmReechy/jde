@@ -64,13 +64,13 @@
 }
 
 #footer-nav-items-parent span {
-    @apply inline-block mr-2 text-nowrap text-green-300 font-semibold text-base lg:text-lg hover:text-green-500 hover:underline underline-offset-2 cursor-pointer
+    @apply inline-block mr-2 text-nowrap text-green-200 font-semibold text-base lg:text-lg hover:text-green-500 hover:underline underline-offset-2 cursor-pointer
 }
 .contact-para {
-    @apply text-lg font-semibold text-white
+    @apply flex text-base lg:text-lg font-semibold text-white
 }
 .contact-icon {
-    @apply inline-block  text-green-200 pr-3 
+    @apply inline-block  text-green-200 pr-3 text-lg
 }
 
 .service-scroll {
@@ -83,10 +83,10 @@
     @apply bg-white relative rounded-2xl overflow-hidden
 }
 .serve-title {
-    @apply  text-white text-2xl font-bold mx-auto mb-6 text-center white-shadow-small
+    @apply  text-white text-2xl font-bold mx-auto mb-6 text-center white-shadow-small tracking-wide
 }
 .service-detail-inner {
-    @apply  bg-black bg-opacity-65 w-full h-full p-4
+    @apply  bg-black bg-opacity-50 w-full h-full p-4
 }
 
 .jump-small {
