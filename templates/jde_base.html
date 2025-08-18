@@ -33,37 +33,49 @@
 	</head>
 	<body class="font-sans text-gray-800">
 		<!-- Navigation -->
-		<header class="bg-white shadow-md z-40">
+		<header class="bg-white shadow-md z-40  pb-4 pt-2">
 			<div
-				class="mx-auto px-4 md:px-8 xl:px-12 py-4 flex justify-between items-center relative"
+				class="mx-auto px-4 md:px-8 xl:px-12 py-3 flex justify-between items-center relative"
 			>
+
+                    
+                    <span class="absolute top-0 right-5 inline-block pr-10">Welcome {{user.first_name}}</span>
 				<div class="text-2xl font-bold text-green-600 inline-block relative ">
+                    <a href="/">
 					<img
 						src="{% static 'jde_assets/jde_logo_resized.jpg' %}"
 						class="w-[86px] h-[86px] inline-block rounded-full border-2 border-lime-500"
 						alt=""
 					/>
+                    </a>
                     <p class="absolute top-1/2 -translate-y-1/2 left-full inline-flex flex-col pl-2">
                     <span class="text-base font-bold text-green-700 text-nowrap inline-block">JDE CONSULTE SAS</span>
-                    <span class="bsolute op-full left-0 text-sm lg:text-sm text-gray-800 inline-block text-nowrap font-semibold italic lowercase">CERTIFIED TRANSLATORS & INTERPRETERS</span>
+                    
                     </p>
-				</div>
+                    <span class="absolute top-full left-0 text-xs lg:text-sm text-gray-800 inline-block text-nowrap font-semibold italic lowercase pt-1">CERTIFIED TRANSLATORS, INTERPRETERS & CONSULTANTS</span>
+				</div> 
                 <!-- NAVIGATION FOR LARGE SCREEN -->
-				<nav class="space-x-3 hidden lg:block lg:text-lg xl:text-xl" id="block-menu">
+				<nav class="space-x-3 hidden lg:block lg:text-lg xl:text-xl relative" id="block-menu">
+                    
+                    
+                        
 					<input type="hidden" name="" value="{{current_page}}" id="current-page">
 					<a href="/jde-consulte" class="" id=""><span id="home">Home</span></a>
                     <a href="#" class=" ">About</a>
                     <a href="#" class=" " id=""><span id="services">Services</span></a>
                     <!--<a href="#" class="text-gray-800 hover:text-green-700">Apply for a Service</a>
                     <a href="#" class="text-amber-500 hover:text-green-700">Book an Appointment</a> -->
+                    <a href="https://calendly.com/ksq-europe/paris?month=2025-08" class=" ">NIN Booking</a>
+                    <a href="/iye-waka" class=" ">Iye Waka</a>
+                    <a href="/jde-consulte/#testimonials" class=" ">Testimonials</a>
+                    <a href="#" class=" "></a>
                     <a href="#" class=" ">Contact Us</a>
-                    <a href="#" class=" ">Projects</a>
-                    <a href="/jde-consulte#videos" class=" ">Videos</a>
+                    <!-- <a href="#" class=" ">Projects</a> -->
+                    <!-- <a href="/jde-consulte#videos" class=" ">Videos</a> -->
                     {% if user.is_authenticated %}
-                    <a href="#" class=" ">Logout</a>
+                    <a href="#" class=" relative">Account <span></span></a>
                     {% else %}
-                    <a href="#" class="">Login</a>
-                    <a href="#" class="">Register</a>
+                    <a href="#" class="">Login/Register</a>
                     {% endif %}
 				</nav>
                 <!-- NAVIGATION FOR SMALLER SCREENS -->
@@ -86,15 +98,17 @@
                             <a href="#" class=" ">Services</a>
                             <!--<a href="#" class="text-gray-800 hover:text-green-700">Apply for a Service</a>
                             <a href="#" class="text-amber-500 hover:text-green-700">Book an Appointment</a> -->
+                            <a href="https://calendly.com/ksq-europe/paris?month=2025-08" class=" ">NIN Booking</a>
+                            <a href="#" class=" ">Iye Waka</a>
+                            <a href="#" class=" ">Testimonials</a>
                             <a href="#" class=" ">Contact Us</a>
-                            <a href="#" class=" ">Projects</a>
-                            <a href="/jde-consulte#videos" class=" " id="videos-nav">Videos</a>
+                            <!-- <a href="#" class=" ">Projects</a> -->
+                            <!-- <a href="/jde-consulte#videos" class=" " id="videos-nav">Videos</a> -->
                             
                             {% if user.is_authenticated %}
                             <a href="#" class=" ">Logout</a>
                             {% else %}
-                            <a href="#" class="">Login</a>
-                            <a href="#" class="">Register</a>
+                            <a href="#" class="">Login / Register</a>
                             {% endif %}
                         </div>
                     </div>

@@ -2,31 +2,35 @@
 
 {% load static %}
 
-{% block title %}Services – Translation{% endblock %}
+{% block title %}{{service.title}} {% endblock %}
 
 
 
 {% block content %}
-<section class="relative h-[150px] lg:h-[200px]">
-  <img src="{% static 'jde_assets' %}/translation_image.jpg" class="object-cover h-full w-full block" alt="">
-	<div class="grid text-center items-center absolute left-0 top-0 h-full w-full bg-black bg-opacity-40">
-		<div class="text-center font-black text-3xl lg:text-4xl text-white px-4 white-shadow tracking-wide">
-			<p>Translation of Official Documents</p>
-			
-		</div>
-	</div>
+<section class="relative h-[200px] lg:h-[250px]">
+    <div class="relative h-full w-full lg:w-3/4 mx-auto">
+        <img src="{% static 'jde_assets' %}/{{service.image}}" class="object-cover h-full w-full block" alt="">
+        <div class="grid text-center items-center absolute left-0 top-0 h-full w-full">
+            <div class="text-center font-black text-3xl lg:text-4xl text-white px-4 white-shadow tracking-wider">
+                <p class="inline-block bg-black bg-opacity-60 p-2">{{service.title}} </p>
+                
+            </div>
+        </div>
+    </div>
 
-</section>
+</section> 
 
 <div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
-    <h1 class="text-2xl font-bold mb-4">Request Translation Service</h1>
+    <h1 class="text-2xl font-bold mb-4">Request a Service</h1>
 
     <form id="translationForm" method="post" enctype="multipart/form-data" class="space-y-6">
         {% csrf_token %}
 
+        
+        {% if user.is_authenticated %}
         <div id="documents-container" class="space-y-4">
             <!-- First document upload block -->
-            <div class="document-item flex flex-col sm:flex-row sm:items-center sm:space-x-4 p-4 border rounded-lg bg-lime-50 ">
+            <div class="document-item flex flex-col sm:flex-row sm:items-center sm:space-x-4 p-4 border border-lime-200 rounded-lg bg-lime-50 ">
                 <div class="flex-1">
                     <label class="block font-semibold mb-1">Document Type</label>
                     <select name="document_type" class="w-full border rounded p-2">
@@ -49,13 +53,13 @@
                     <input type="file" name="document_file" class="w-full border rounded p-2 bg-white">
                 </div>
             </div>
-        </div>
-
+        </div> 
         <!-- Add another document button -->
         <button type="button" id="addDocumentBtn"
             class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
             + Add Another Document
         </button>
+        {% endif %}
 
         <!-- Display total fee -->
         <div class="mt-4">

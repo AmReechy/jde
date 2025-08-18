@@ -1,0 +1,41 @@
+{% extends "jde_base.html" %}
+
+{% load static %}
+
+{% block title %}Iye Waka{% endblock %}
+
+
+
+{% block content %}
+<section class="relative h-[200px] lg:h-[250px]">
+    <div class="relative h-full w-full mx-auto bg-gradient-to-r from-lime-500 via-green-500 to-lime-500  text-center">
+        <div class="h-full flex flex-wrap justify-evenly items-center ">
+        <img src="{% static 'jde_assets' %}/video_play_image.png" class="inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
+        <img src="{% static 'jde_assets' %}/video_play_image.png" class="inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
+        <img src="{% static 'jde_assets' %}/video_play_image.png" class="inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
+        <img src="{% static 'jde_assets' %}/video_play_image.png" class="hidden md:inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
+        </div>
+        <div class="grid text-center items-center absolute left-0 top-0 h-full w-full">
+            <div class="text-center font-extrabold text-3xl lg:text-4xl text-lime-100 px-4 white-shadow tracking-wider">
+                <p class="inline-block bg-black bg-opacity-60 p-2">Iye Waka</p>
+                
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section id="videos">
+    <div class="lg:w-4/5 xl:w-3/4 my-10 mx-auto">
+        <div class="text-2xl md:text-3xl font-bold text-center text-gray-800 py-4">
+            <p>Watch Our Videos (IYE WAKA)</p>
+                <!-- <p class="inline-block w-[100px] border-b-4 border-lime-500"></p> -->
+        </div>
+        <div class="youtube-wrapper mx-auto p-6">
+            <iframe src="https://www.youtube.com/embed/twCpijr_GeQ" frameborder="0" allowfullscreen class="w-full lg:w-3/5 aspect-video mx-auto" ></iframe>
+        </div>
+
+    </div>
+</section>
+{% endblock content %}

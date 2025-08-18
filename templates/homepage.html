@@ -17,31 +17,39 @@
                 <div class="jump-in">
                     <p class="text-center font-semibold text-lg lg:text-xl text-green-600 pb-2 jump-in2">WELCOME TO JDE CONSULTE SAS</p>
                     <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
-                        Certified Translators & Interpreters
+                        Certified Translators, Interpreters & Consultants
                     </h1>
                     <p class="text-2xl md:text-3xl text-gray-800 mb-8 font-semibold italic">
                         Your gateway to seamless communication and hassle-free administration.
                     </p>
                 </div>
-                
+                 
             
                 <div class="flex justify-center flex-wrap space-x-4 md:space-x-6 gap-y-4 text-base md:text-lg pt-4">
-                    <a href="#services" class="bg-green-500 text-white px-6 py-3 rounded shadow hover:bg-green-700 jump-small">Request a Service</a>
-                    <a href="#appointment" class="bg-green-500 text-white px-6 py-3 rounded shadow hover:bg-green-700 jump-small">Book an Appointment</a>
-                    <a href="#contact-us" class="bg-green-500 text-white px-6 py-3 rounded shadow hover:bg-green-700 jump-small">Contact Us</a>
+                    
+                    <div class="inline-block w-max group relative bg-green-500 text-white px-6 py-3 z-50 rounded shadow hover:bg-green-700 jump-small cursor-pointer">Request a Service
+                        <p class="absolute hidden top-full left-0 group-hover:inline-flex flex-col text-left text-lime-950 font-medium z-50 w-max gap-2 p-4 bg-lime-50 border border-lime-500">
+                            {% for serv in services %}
+                                <a href="{% url 'base:service-page' serv.slug %}">{{serv.title}}</a>
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <a href="#appointment" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Book Consultation Appointment</a>
+                    <a href="https://calendly.com/ksq-europe/paris?month=2025-08" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Book Appointment for NIN</a>
+                    <a href="#contact-us" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Contact Us</a>
                 </div>
             </div>
         </section>
 
         <!-- Services -->
-        <section id="servicesScroll" class="lg:w-[90%] mx-auto py-10">
+        <!-- <section id="servicesScroll" class="lg:w-[90%] mx-auto py-10">
             <div class="px-4">
                 <div class="service-scroll-parent flex flex-nowrap w-full mx-auto overflow-x-hidden h-[380px] lg:h-[450px]" id="par-serv-container">
                     
     
                     
                     {% for service in services %}
-                    <!-- <input type="hidden" name="" value="{% cycle 'scale-[1]' 'scale-[0.70]' 'scale-[0.85]' as scale_size %}"> -->
+                    
                     
                     <div class="par-serv-scroll relative px-10 md:px-0 mx-auto transform">
                         <div class="w-full mx-auto h-full transform relative ">
@@ -56,75 +64,24 @@
                         
                 </div>
             </div>
-        </section>
-
-        <!-- STEPS FOR USING OUR SERVICES -->
-        <section>
-
-            <div class="px-4 bg-gray-100 my-20 py-10">
-                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 pb-4">
-                    How it Works
-                </h2>
-                <p class="text-center font-semibold text-green-900 text-xl md:text-2xl">We have a 4-step approach to providing our services</p>
-            
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 container mx-auto py-10 px-6">
-                    <!-- Step 1 -->
-                    <div class="bg-lime-50 p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
-                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-500">
-                            <span class="text-white text-2xl">1</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-center text-gray-800">
-                            User Registration
-                        </h3>
-                        <p class="text-gray-600 text-justify my-4 text-lg">
-                            As a customer, you would need to register on our website and then be logged in to your account to request any of our services.
-                        </p>
-                        <!-- <p><a href=""><button class="inline-block px-4 py-2 border-2 border-green-500 text-center text-green-500">Click to Register</button></a></p> -->
-                    </div>
-                    <!-- Step 1 -->
-                    <div class="bg-lime-50 p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
-                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-500">
-                            <span class="text-white text-2xl">2</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-center text-gray-800">
-                            Service Selection and Payment
-                        </h3>
-                        <p class="text-gray-600 text-justify my-4 text-lg">
-                            Select the service you want us to render, make an appropriate payment for that service, and provide all the relevant information and details required. 
-                        </p>
-                        <!-- <p><a href=""><button class="inline-block px-4 py-2 border-2 border-green-500 text-center text-green-500">Click to Register</button></a></p> -->
-                    </div>
-                    <div class="bg-lime-50 p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
-                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-500">
-                            <span class="text-white text-2xl">3</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-center text-gray-800">
-                            Process Begins
-                        </h3>
-                        <p class="text-gray-600 text-justify my-4 text-lg">
-                            Once payment for the selected service is received together with all the relevant information, we assign your service request to one of our partners /consultants and work starts
-                        </p>
-                        <!-- <p><a href=""><button class="inline-block px-4 py-2 border-2 border-green-500 text-center text-green-500">Click to Register</button></a></p> -->
-                    </div>
-                    <div class="bg-lime-50 p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
-                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-500">
-                            <span class="text-white text-2xl">4</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-center text-gray-800">
-                            Service Rendered
-                        </h3>
-                        <p class="text-gray-600 text-justify my-4 text-lg">
-                            We provide the service results and feedback to you on the stipulated time frame.
-                        </p>
-                        <!-- <p><a href=""><button class="inline-block px-4 py-2 border-2 border-green-500 text-center text-green-500">Click to Register</button></a></p> -->
-                    </div>
+        </section> -->
+        
+        <section class="my-16">
+            <div class="grid grid-cols-2 lg:w-3/5 mx-auto relative">
+                <div class="bg-black text-center ">
+                    <img src="{% static 'jde_assets' %}/display_image_1_woman_naija_flag.jpg" class="inline-block w-full  h-auto" alt="">
                 </div>
-                <p class="bg-white text-lg lg:text-xl font-semibold container lg:w-3/4 mx-auto text-black p-4 flex gap-4 rounded-lg"><span class="text-red-500 font-bold">NB:</span>Kindly note that, in the event of any delay arising from circumstances beyond our control, 
-                    you will be promptly informed and advised on the revised timeframe.
-                </p>
+                <div class="bg-black text-center ">
+                    <img src="{% static 'jde_assets' %}/display_image_2_man_standing.jpg" class="inline-block w-full  h-auto" alt="">
+                </div>
+                <div class="absolute top-0 left-0 w-full h-full grid text-center items-center px-10 md:px-16 lg:px-20">
+                    <span class="inline-block p-4 bg-black bg-opacity-65 text-2xl text-red-500 font-black">THE TWO IMAGES NEED TO BE OF THE SAME DIMENSIONS!</span>
+                </div>
+            
             </div>
         </section>
 
+        
 
         <section class="w-full mx-auto my-6 py-4 bg-lime-50">
             <div class="w-full lg:w-[90%] mx-auto ">
@@ -139,9 +96,9 @@
 
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:grid-cols-3 p-8 ">
-                    <div class="service-details min-h-[500px] relative">
-                        <img src="{% static 'jde_assets' %}/translation_image.jpg" class="h-full w-full inline-block" alt="">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 xl:grid-cols-3 p-8 ">
+                    <!-- <div class="service-details min-h-[500px] relative">
+                        <img src="{% static 'jde_assets' %}/new_translation_service_img.jpg" class="h-full w-full inline-block" alt="">
                         <div class="service-detail-inner absolute top-0 left-0 right-0 h-full px-2">
                             <p class="serve-title py-4">Translation of Official Documents</p>
                             <div class="service-items mt-16 p-3 text-left text-lg lg:text-xl text-lime-100 font-semibold inline-block bg-black bg-opacity-30 tracking-wide">Certified translations of legal, academic, personal, and professional documents. Includes quality review and optional follow-up.
@@ -152,17 +109,34 @@
 												<button class="bg-lime-100 inline-block px-4 py-2 rounded-full border border-black text-black text-base font-semibold">Request a Service</button>
 												</a>
 												</p>
-                    </div>
+                    </div> -->
                     {% for service in services %}
-                    <div class="service-details min-h-[500px] relative">
-                        <img src="{% static 'jde_assets' %}/{% cycle 'image1_man_woman_stand.jpg' 'image2_woman_flags.jpg' 'image3_woman_naija_flag.jpg' %}" class=" h-auto w-full inline-block" alt="">
-                        <div class="service-detail-inner absolute top-0 left-0 right-0 h-full px-2">
-                            <p class="serve-title py-4">{{service.title}} </p>
-                            <div class="service-items mt-16 p-3 text-left text-lg lg:text-xl text-lime-100 font-semibold inline-block bg-black bg-opacity-30 tracking-wide">{{service.desc}} </div>
+                    <div class=" bg-gradient-to-r from-green-900 via-lime-900 to-green-900 relative rounded-2xl border border-green-500 group transform delay-75 duration-150 hover:scale-110 overflow-hidden">
+                        <p class="grid text-center items-center bg-gradient-to-r from-lime-900 via-green-900 to-lime-900 text-white white-shadow text-2xl font-bold p-4 tracking-wide">{{service.title}} </p>
+                        <div class="relative">
+                            <img src="{% static 'jde_assets' %}/{{service.image}}" class=" h-auto w-full block" alt="">
+                            <div class="absolute top-0 left-0 right-0 bottom-0 hidden transition-all delay-150 group-hover:grid text-center items-center p-6 bg-black bg-opacity-10">
+                                <div class="inline-block text-left bg-black bg-opacity-75 transform duration-100 over:scale-110 text-xl font-semibold text-lime-200 white-shadow p-2 rounded-md leading-6">{{service.desc}}</div>
+                            </div>
+                        </div>
+                        <!-- <div class="">
+                            
+                            <div class="service-items mt-16 p-3 text-left text-lg lg:text-xl text-lime-100 font-semibold inline-block bg-black bg-opacity-30 tracking-wide"> </div>
 														<p class="text-center font-semibold text-lg text-white pt-4"><span class="inline-block pr-4 font-bold text-amber-500">FEE :</span><span>{{service.fee}}</span></p>
 
-                        </div>
+                        </div> -->
 												<!--<p class="my-4 text-center absolute left-0 bottom-4 right-0"><button class="bg-lime-100 inline-block px-4 py-2 rounded-full border border-black text-black text-base font-semibold">Request a Service</button></p>-->
+                        <div class="grid text-center items-center bg-gradient-to-r from-green-900 via-lime-900 to-green-900 p-4">
+                            <p class="text-center font-semibold text-lg text-white">
+                                <span class="inline-block bg-black bg-opacity-60 py-1 px-3 rounded-[4px]">
+                                    <span class="inline-block pr-4 font-bold text-amber-500">FEE :</span><span>{{service.fee}}</span>
+                                </span>
+                            </p>
+                            <p class="mt-4 text-center"><a href="{% url 'base:service-page' service.slug %}">
+												<button class="bg-white hover:bg-lime-200 transform duration-100 hover:scale-110 inline-block px-4 py-2 rounded-full border border-black text-black text-base font-semibold">Request a Service</button>
+												</a>
+												</p>
+                        </div>
                     </div>
                     {% endfor %}
                     
@@ -170,9 +144,78 @@
             </div>
         </section>
 
-        <section id="why-choose-us" class="py-16">
+
+        <!-- STEPS FOR USING OUR SERVICES -->
+        <section>
+
+            <div class="px-4 bg-gray-50 my-20 py-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 pb-4">
+                    How it Works
+                </h2>
+                <p class="text-center font-semibold text-green-900 text-xl md:text-2xl">We have a 4-step approach to providing our services</p>
             
-            <div class="px-4 bg-gray-100">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 container mx-auto py-10 px-6">
+                    <!-- Step 1 -->
+                    <div class="bg-white p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-500">
+                            <span class="text-white text-2xl">1</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-center text-gray-800">
+                            User Registration
+                        </h3>
+                        <p class="text-gray-600 text-justify my-4 text-lg">
+                            As a customer, you would need to register on our website and then be logged in to your account to request any of our services.
+                        </p>
+                        <!-- <p><a href=""><button class="inline-block px-4 py-2 border-2 border-green-500 text-center text-green-500">Click to Register</button></a></p> -->
+                    </div>
+                    <!-- Step 1 -->
+                    <div class="bg-white p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-500">
+                            <span class="text-white text-2xl">2</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-center text-gray-800">
+                            Service Selection and Payment
+                        </h3>
+                        <p class="text-gray-600 text-justify my-4 text-lg">
+                            Select the service you want us to render, make an appropriate payment for that service, and provide all the relevant information and details required. 
+                        </p>
+                        <!-- <p><a href=""><button class="inline-block px-4 py-2 border-2 border-green-500 text-center text-green-500">Click to Register</button></a></p> -->
+                    </div>
+                    <div class="bg-white p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-500">
+                            <span class="text-white text-2xl">3</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-center text-gray-800">
+                            Process Begins
+                        </h3>
+                        <p class="text-gray-600 text-justify my-4 text-lg">
+                            Once payment for the selected service is received together with all the relevant information, we assign your service request to one of our partners /consultants and work starts
+                        </p>
+                        <!-- <p><a href=""><button class="inline-block px-4 py-2 border-2 border-green-500 text-center text-green-500">Click to Register</button></a></p> -->
+                    </div>
+                    <div class="bg-white p-6 lg:px-4 rounded-lg shadow hover:shadow-lg transition">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-green-500">
+                            <span class="text-white text-2xl">4</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-center text-gray-800">
+                            Service Rendered
+                        </h3>
+                        <p class="text-gray-600 text-justify my-4 text-lg">
+                            We provide the service results and feedback to you on the stipulated time frame.
+                        </p>
+                        <!-- <p><a href=""><button class="inline-block px-4 py-2 border-2 border-green-500 text-center text-green-500">Click to Register</button></a></p> -->
+                    </div>
+                </div>
+                <!-- <p class="bg-white text-lg lg:text-xl font-semibold container lg:w-3/4 mx-auto text-black p-4 flex gap-4 rounded-lg"><span class="text-red-500 font-bold">NB:</span>Kindly note that, in the event of any delay arising from circumstances beyond our control, 
+                    you will be promptly informed and advised on the revised timeframe.
+                </p> -->
+            </div>
+        </section>
+
+
+        <section id="why-choose-us" class="py-10">
+            
+            <div class="px-4 bg-lime-50">
                 <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 py-10">
                     Why Choose Us?
                 </h2>
@@ -236,26 +279,151 @@
         </section>
 
 
-        <section id="videos">
-            <!-- YOUTUBE VIDEO Content-->
+        <section class="bg-gray-50 py-16" id="testimonials">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Happy Clients Testimonials</h2>
+            <p class="inline-block px-6 py-2 bg-green-500 text-black rounded-full font-bold text-xl my-4">500+ happy clients !</p>
+            <p class="mt-4 text-gray-800 max-w-2xl mx-auto text-lg lg:text-xl">
+                See what just a few of our satisfied clients have to say about our various services.
+            </p>
+            </div>
+
+            <!-- Testimonies Grid -->
+            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Testimony Card -->
+            <div class="bg-white shadow-lg rounded-2xl p-6 hover:shadow-xl transition">
+                <p class="text-gray-700 mb-4">“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at dictum risus, nec malesuada quam.”</p>
+                <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-green-200 flex items-center justify-center font-bold text-green-800">A</div>
+                <div class="ml-3">
+                    <h4 class="font-semibold text-gray-900">Augustine Chinwe</h4>
+                    <span class="text-sm text-gray-500">Business Owner</span>
+                </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-2xl p-6 hover:shadow-xl transition">
+                <p class="text-gray-700 mb-4">“Praesent euismod, justo quis ornare consequat, arcu orci posuere urna, nec blandit libero odio at nunc.”</p>
+                <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-green-200 flex items-center justify-center font-bold text-green-800">F</div>
+                <div class="ml-3">
+                    <h4 class="font-semibold text-gray-900">Folashade Aluko</h4>
+                    <span class="text-sm text-gray-500">Entrepreneur</span>
+                </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-2xl p-6 hover:shadow-xl transition">
+                <p class="text-gray-700 mb-4">“Sed lacinia nisl sit amet risus dapibus, et malesuada massa pulvinar. Donec non leo sed lorem varius facilisis.”</p>
+                <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-green-200 flex items-center justify-center font-bold text-green-800">I</div>
+                <div class="ml-3">
+                    <h4 class="font-semibold text-gray-900">Ibrahim Musa</h4>
+                    <span class="text-sm text-gray-500">Consultant</span>
+                </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-2xl p-6 hover:shadow-xl transition">
+                <p class="text-gray-700 mb-4">“Vivamus ullamcorper, justo in posuere consequat, nisi sapien elementum mauris, nec malesuada libero erat ut nisl.”</p>
+                <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-green-200 flex items-center justify-center font-bold text-green-800">J</div>
+                <div class="ml-3">
+                    <h4 class="font-semibold text-gray-900">James Komolafe</h4>
+                    <span class="text-sm text-gray-500">NGO Director</span>
+                </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-2xl p-6 hover:shadow-xl transition">
+                <p class="text-gray-700 mb-4">“Mauris et lacus nec velit aliquet tristique sit amet a nulla. Fusce euismod, justo et varius ornare, arcu eros ultricies dui.”</p>
+                <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-green-200 flex items-center justify-center font-bold text-green-800">E</div>
+                <div class="ml-3">
+                    <h4 class="font-semibold text-gray-900">Emma Chukwudi</h4>
+                    <span class="text-sm text-gray-500">Researcher</span>
+                </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-2xl p-6 hover:shadow-xl transition">
+                <p class="text-gray-700 mb-4">“Curabitur sagittis purus a est dictum, non bibendum magna vulputate. Integer nec eros vitae urna laoreet bibendum.”</p>
+                <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-green-200 flex items-center justify-center font-bold text-green-800">D</div>
+                <div class="ml-3">
+                    <h4 class="font-semibold text-gray-900">Daniel Lee</h4>
+                    <span class="text-sm text-gray-500">Tech Startup Founder</span>
+                </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-2xl p-6 hover:shadow-xl transition">
+                <p class="text-gray-700 mb-4">“Suspendisse potenti. Proin ac risus eu lacus pharetra fringilla. Nulla facilisi. Donec blandit elit sit amet orci luctus.”</p>
+                <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-green-200 flex items-center justify-center font-bold text-green-800">C</div>
+                <div class="ml-3">
+                    <h4 class="font-semibold text-gray-900">Chloe Anderson</h4>
+                    <span class="text-sm text-gray-500">University Lecturer</span>
+                </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-2xl p-6 hover:shadow-xl transition">
+                <p class="text-gray-700 mb-4">“Donec ac nisi id massa suscipit convallis. Morbi porttitor arcu vel nisi vulputate, et aliquet nibh porttitor.”</p>
+                <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-green-200 flex items-center justify-center font-bold text-green-800">F</div>
+                <div class="ml-3">
+                    <h4 class="font-semibold text-gray-900">Fatima Abubakar</h4>
+                    <span class="text-sm text-gray-500">Legal Advisor</span>
+                </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-2xl p-6 hover:shadow-xl transition">
+                <p class="text-gray-700 mb-4">“Pellentesque a massa non nisl elementum egestas. Vivamus at elit a erat malesuada posuere et eu velit.”</p>
+                <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-green-200 flex items-center justify-center font-bold text-green-800">P</div>
+                <div class="ml-3">
+                    <h4 class="font-semibold text-gray-900">Priscilla Omotayo</h4>
+                    <span class="text-sm text-gray-500">Nigerian Living in France</span>
+                </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-2xl p-6 hover:shadow-xl transition">
+                <p class="text-gray-700 mb-4">“Nam eget turpis nec elit gravida rhoncus. Etiam convallis dui sit amet suscipit bibendum. In bibendum arcu eget arcu tempor.”</p>
+                <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-green-200 flex items-center justify-center font-bold text-green-800">N</div>
+                <div class="ml-3">
+                    <h4 class="font-semibold text-gray-900">Noah Walker</h4>
+                    <span class="text-sm text-gray-500">Corporate Manager</span>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </section>
+
+
+        <!-- <section id="videos">
+            YOUTUBE VIDEO Content
             <div class="lg:w-4/5 xl:w-3/4 my-10 mx-auto">
                 <div class="text-2xl md:text-3xl font-bold text-center text-gray-800 py-4">
                     <p>Watch Our Videos (IYE WAKA)</p>
-                    <!-- <p class="inline-block w-[100px] border-b-4 border-lime-500"></p> -->
+                     <p class="inline-block w-[100px] border-b-4 border-lime-500"></p>
                 </div>
                 <div class="youtube-wrapper mx-auto p-6">
                     <iframe src="https://www.youtube.com/embed/twCpijr_GeQ" frameborder="0" allowfullscreen class="w-full lg:w-3/5 aspect-video mx-auto" ></iframe>
                 </div>
 
             </div>
-        </section>
+        </section> -->
 
-        <section>
+        <section class="my-20">
             <div class="my-10 w-full bg-lime-50">
-                <div class="text-2xl md:text-3xl font-semibold text-center text-gray-800 py-4">
-                    <p class="">Our Partners</p>
-                    <!-- <p class="inline-block w-[100px] border-b-4 border-lime-500"></p> -->
-                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 py-6 text-center">Our Partners</h2>
 
                 <div class="w-full overflow-x-auto p-6 lg:p-8  text-center">
                 <div class="scroll-wrapper w-max inline-flex flex-row flex-nowrap gap-4 lg:gap-8 " id="scrollBox">
