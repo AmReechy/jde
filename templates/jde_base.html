@@ -39,7 +39,10 @@
 			>
 
                     
-                    <span class="absolute top-0 right-5 inline-block pr-10">Welcome {{user.first_name}}</span>
+        	{% if user.is_authenticated %}
+              <span class="absolute top-0 right-0 font-bold text-green-600 md:text-lg lg:text-xl inline-block pr-4 md:pr-8 xl:pr-12">Welcome, {{user.first_name}}</span>
+        	{% endif %}
+
 				<div class="text-2xl font-bold text-green-600 inline-block relative ">
                     <a href="/">
 					<img
@@ -73,13 +76,14 @@
                     <!-- <a href="#" class=" ">Projects</a> -->
                     <!-- <a href="/jde-consulte#videos" class=" ">Videos</a> -->
                     {% if user.is_authenticated %}
-                    <a href="#" class=" relative">Account <span></span></a>
+                    <a href="#" class=" relative">Manage Account <span></span></a>
+                    <a href="#" class=" relative"><span class="text-red-500">Logout</span></a>
                     {% else %}
-                    <a href="#" class="">Login/Register</a>
+                    <a href="account/auth/" class="">Login/Register</a>
                     {% endif %}
 				</nav>
                 <!-- NAVIGATION FOR SMALLER SCREENS -->
-                <nav id="sidebar-Menu" class="fixed z-40 lg:hidden transform translate-x-full transition-all duration-500 top-0 left-0 right-0 h-full text-right bg-opacity-70 ">
+                <nav id="sidebar-Menu" class="fixed z-50 lg:hidden transform translate-x-full transition-all duration-500 top-0 left-0 right-0 h-[100vh] text-right bg-opacity-70 ">
                     <div class="inline-block h-full w-1/2 md:w-2/5 text-left px-6  py-4 relative bg-white">
                         <button id="closeSidebar" class="absolute top-1 right-1
                             pr-6 text-3xl font-semibold text-black">
@@ -92,7 +96,7 @@
                                 alt=""
 					        />
                         </div>
-                        <div class="flex flex-col text-lg" id="side-menu-cont">
+                        <div class="flex flex-col h-full overflow-y-auto text-lg pb-32" id="side-menu-cont">
                             <a href="/jde-consulte" class="">Home</a>
                             <a href="#" class=" ">About</a>
                             <a href="#" class=" ">Services</a>
@@ -108,7 +112,7 @@
                             {% if user.is_authenticated %}
                             <a href="#" class=" ">Logout</a>
                             {% else %}
-                            <a href="#" class="">Login / Register</a>
+                            <a href="account/auth/" class="">Login / Register</a>
                             {% endif %}
                         </div>
                     </div>

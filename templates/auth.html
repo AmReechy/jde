@@ -1,0 +1,92 @@
+{% extends "jde_base.html" %}
+{% load static %}
+
+{% block title %}User Login / Registration {% endblock %}
+
+
+{% block content %}
+<section class="relative h-[200px] lg:h-[250px]">
+    <div class="relative h-full w-full mx-auto bg-gradient-to-r from-lime-500 via-green-500 to-lime-500  text-center">
+        <div class="h-full flex flex-wrap justify-evenly items-center ">
+        <img src="{% static 'jde_assets' %}/video_play_image.png" class="inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
+        <img src="{% static 'jde_assets' %}/video_play_image.png" class="inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
+        <img src="{% static 'jde_assets' %}/video_play_image.png" class="inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
+        <img src="{% static 'jde_assets' %}/video_play_image.png" class="hidden md:inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
+        </div>
+        <div class="grid text-center items-center absolute left-0 top-0 h-full w-full">
+            <div class="text-center font-extrabold text-3xl lg:text-4xl text-lime-100 px-4 white-shadow tracking-wider">
+                <p class="inline-block bg-black bg-opacity-60 p-2">User Login / Registration</p>
+                
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+  <!-- Toggle Buttons -->
+  <div class="flex justify-center gap-6 mt-14 mb-6 items-center text-black font-medium">
+    <button id="showLogin" class="px-4 py-2 bg-amber-500 rounded-md">Login</button>
+		<span class="font-bold text-lg">OR</span>
+    <button id="showRegister" class="px-4 py-2 bg-gray-300 rounded-md text-gray-700">Register</button>
+  </div>
+
+<div class="max-w-md mx-auto p-6 bg-lime-50 rounded-xl shadow-lg">
+
+  <!-- Django Messages -->
+  {% if messages %}
+    <div class="mb-4">
+      {% for message in messages %}
+        <div class="p-2 mb-2 rounded 
+          {% if message.tags == 'success' %} bg-green-100 text-green-700
+          {% elif message.tags == 'error' %} bg-red-100 text-red-700
+          {% else %} bg-gray-100 text-gray-700 {% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+
+  <!-- Login Form -->
+  <form method="post" id="loginForm" class="space-y-4 text-black font-medium text-lg">
+    {% csrf_token %}
+    {{ login_form.as_p }}
+    <p class="pt-6"><button type="submit" name="login" class="w-full bg-green-500 text-white py-2 rounded-lg inline-block">Login</button>
+		</p>
+  </form>
+
+  <!-- Register Form -->
+  <form method="post" id="registerForm" class="hidden space-y-4 text-black font-medium text-lg">
+    {% csrf_token %}
+    {{ reg_form.as_p }}
+   	<p class="pt-6"> <button type="submit" name="register" class="w-full bg-green-500 text-white py-2 rounded-lg inline-block">Register</button></p>
+  </form>
+</div>
+
+<script>
+  const loginForm = document.getElementById("loginForm");
+  const registerForm = document.getElementById("registerForm");
+  const showLogin = document.getElementById("showLogin");
+  const showRegister = document.getElementById("showRegister");
+
+  showLogin.addEventListener("click", () => {
+    loginForm.classList.remove("hidden");
+    registerForm.classList.add("hidden");
+    showLogin.classList.add("bg-amber-500","text-black");
+    showRegister.classList.remove("bg-amber-500","text-black");
+    showRegister.classList.add("bg-gray-300","text-gray-700");
+    showLogin.classList.remove("bg-gray-300","text-gray-700");
+  });
+
+  showRegister.addEventListener("click", () => {
+    registerForm.classList.remove("hidden");
+    loginForm.classList.add("hidden");
+    showRegister.classList.add("bg-amber-500","text-black");
+    showLogin.classList.remove("bg-amber-500","text-black");
+    showRegister.classList.remove("bg-gray-300","text-gray-700");
+    showLogin.classList.add("bg-gray-300","text-gray-700");
+  });
+</script>
+{% endblock %}
+

@@ -7,7 +7,7 @@
 
 
 {% block content %}
-<section class="relative h-[200px] lg:h-[250px]">
+<section class="relative h-[300px] lg:h-[400px]">
     <div class="relative h-full w-full lg:w-3/4 mx-auto">
         <img src="{% static 'jde_assets' %}/{{service.image}}" class="object-cover h-full w-full block" alt="">
         <div class="grid text-center items-center absolute left-0 top-0 h-full w-full">
@@ -18,22 +18,35 @@
         </div>
     </div>
 
-</section> 
+</section>
+
+
 
 <div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
-    <h1 class="text-2xl font-bold mb-4">Request a Service</h1>
+	<div class="rounded-xl bg-gradient-to-br from-lime-800 via-green-900 to-lime-800 p-4">
+		<div class="text-white font-semibold text-lg md:text-xl">
+			{{service.desc}}
+		</div>
+		
+	</div>
+</div>
+
+
+
+<div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
+    <h1 class="text-lg md:text-xl font-medium mb-4">Please carefully provide all the required information in the form below, make the appropriate payment for the service fee (if required), and then submit your service request. </h1>
 
     <form id="translationForm" method="post" enctype="multipart/form-data" class="space-y-6">
         {% csrf_token %}
 
         
-        {% if user.is_authenticated %}
+        {% if 'translation' in service.service_cat %}
         <div id="documents-container" class="space-y-4">
             <!-- First document upload block -->
             <div class="document-item flex flex-col sm:flex-row sm:items-center sm:space-x-4 p-4 border border-lime-200 rounded-lg bg-lime-50 ">
                 <div class="flex-1">
                     <label class="block font-semibold mb-1">Document Type</label>
-                    <select name="document_type" class="w-full border rounded p-2">
+                    <select name="document_type" class="w-full border rounded p-2 bg-white">
                         <option value="">Select document type</option>
                         <option>Birth Certificate / Attestation of Birth</option>
                         <option>Spinster/Bachelorhood Certificate</option>
@@ -59,14 +72,40 @@
             class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
             + Add Another Document
         </button>
+				{% else %}
+				<div class="p-4 border rounded-lg bg-lime-50">
+					<div class="space-y-4">
+						<div>
+            	<label class="block text-base md:text-lg font-semibold mb-1">Required Info 1</label>
+							<input type="text" name="info-1" id="info-1" value="" class="p-2 inline-block w-full border border-gray-200 rounded-[4px]">							
+						</div>
+						<div>
+            	<label class="block text-base md:text-lg font-semibold mb-1">Required Info 2</label>
+							<input type="text" name="info-1" id="info-1" value="" class="p-2 inline-block w-full border border-gray-200 rounded-[4px]">							
+						</div>
+						<div>
+            	<label class="block text-base md:text-lg font-semibold mb-1">Required Info 3</label>
+							<input type="text" name="info-1" id="info-1" value="" class="p-2 inline-block w-full border border-gray-200 rounded-[4px]">							
+						</div>
+						
+					</div>	
+				</div>
         {% endif %}
 
         <!-- Display total fee -->
         <div class="mt-4">
-            <p class="text-xl font-semibold text-amber-500">Total Fee:
-                <span id="totalFee" class="text-green-600">€40</span>
+            <p class="text-lg md:text-xl font-semibold text-amber-500">Service Fee Calculation:
+						<span id="" class="text-green-600">{{service.fee_text}}</span>
             </p>
         </div>
+
+				{% if service.payment_required %}
+        <div class="mt-4">
+            <p class="text-lg md:text-xl font-semibold text-amber-500">Total Fee to pay:
+						<span id="totalFee" class="text-green-600">€{{service.fee_amount}} </span>
+            </p>
+        </div>
+				<input type="hidden" name="" id="fee-amount" value="{{service.fee_amount}}">
 
         <!-- Payment section -->
         <div class="mt-6 p-4 border rounded-lg bg-gray-50">
@@ -77,12 +116,17 @@
             </button>
             <p id="paymentStatus" class="text-sm text-red-600 mt-2">Payment not yet made.</p>
         </div>
+				{% else %}
+				<div class="mt-4 bg-amber-500 rounded-lg text-black font-semibold p-4">
+					<p>Please note that after submitting your service request, we will calculate the total fee to be paid for the service and communicate with you on how to make the payment. We will begin the processing of the service requested after receiving your payment. </p>
+				</div>
+				{% endif %}
 
 				<div class="mx-auto text-center py-4">
         <!-- Submit button (disabled until payment) -->
         <button type="submit" id="submitBtn"
-            class="bg-gray-400 text-white px-6 py-2 rounded cursor-not-allowed"
-            disabled>
+            class="text-white px-6 py-2 rounded {% if service.payment_required %}bg-gray-400 cursor-not-allowed {% else %}bg-green-500{% endif %}"
+            {% if service.payment_required %}disabled{% endif %}>
             Submit Service Request
         </button>
 					
@@ -95,7 +139,7 @@
 {{ block.super }}
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const feePerDoc = 40;
+    const feePerDoc = parseInt(document.getElementById("fee-amount").value);
     const documentsContainer = document.getElementById("documents-container");
     const addDocumentBtn = document.getElementById("addDocumentBtn");
     const totalFeeEl = document.getElementById("totalFee");

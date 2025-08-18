@@ -1,6 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.text import slugify
+from django.contrib.auth import login, authenticate
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import UserRegisterForm, UserLoginForm
 
 # Create your views here.
 
@@ -60,15 +64,58 @@ def service_page(request, service_cat):
     if not service_info:
         return redirect("base:homepage")
     
-    if service_cat == "translation-services":
-        service_info["current_page"] = "services"
-        context = {"service": service_info}
-        return render(request, "service_detail.html", context)
+    #if service_cat == "translation-services":
+    fee_text = service_info["fee"].strip()
+    payment_required = "€" in fee_text
+    fee = fee_text[fee_text.index('€')+1:fee_text.index(" ", fee_text.index("€"))] if payment_required else "€0"
+    service_info["current_page"] = "services"
+    service_info["service_cat"] = service_cat
+    service_info["payment_required"] = payment_required
+    service_info["fee_amount"] = fee
+    service_info["fee_text"] = fee_text
+    context = {"service": service_info}
+    return render(request, "service_detail.html", context)
     
-    else:
-        return HttpResponse(f"""Hello there!
-                            \rThe detailed page for {service_cat} is not available yet.
-                            \rBye!""")
+    #else:
+        #return HttpResponse(f"""Hello there!
+                            #\rThe detailed page for {service_cat} is not available yet.
+                            #\rBye!""")
 
 def iye_waka(request):
     return render(request, "iye_waka.html")
+
+
+
+
+def auth_view(request):
+    if request.method == "POST":
+        if "register" in request.POST:
+            reg_form = UserRegisterForm(request.POST)
+            login_form = UserLoginForm()
+
+            if reg_form.is_valid():
+                user = reg_form.save(commit=False)
+                user.set_password(reg_form.cleaned_data["password"])
+                user.save()
+                messages.success(request, "Account created successfully! You can now log in.")
+                return redirect("base:auth")  # same page
+            else:
+                messages.error(request, "Please correct the errors below.")
+
+        elif "login" in request.POST:
+            login_form = UserLoginForm(request, data=request.POST)
+            reg_form = UserRegisterForm()
+
+            if login_form.is_valid():
+                user = login_form.get_user()
+                login(request, user)
+                messages.success(request, f"Welcome back, {user.first_name}!")
+                return redirect("base:homepage")  # change to dashboard/homepage
+            else:
+                messages.error(request, "Invalid login credentials.")
+    else:
+        reg_form = UserRegisterForm()
+        login_form = UserLoginForm()
+
+    return render(request, "auth.html", {"reg_form": reg_form, "login_form": login_form})
+

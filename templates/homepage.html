@@ -27,10 +27,10 @@
             
                 <div class="flex justify-center flex-wrap space-x-4 md:space-x-6 gap-y-4 text-base md:text-lg pt-4">
                     
-                    <div class="inline-block w-max group relative bg-green-500 text-white px-6 py-3 z-50 rounded shadow hover:bg-green-700 jump-small cursor-pointer">Request a Service
+                    <div class="inline-block w-max group relative bg-green-500 text-white px-6 py-3 z-40 rounded shadow hover:bg-green-700 jump-small cursor-pointer">Request a Service
                         <p class="absolute hidden top-full left-0 group-hover:inline-flex flex-col text-left text-lime-950 font-medium z-50 w-max gap-2 p-4 bg-lime-50 border border-lime-500">
                             {% for serv in services %}
-                                <a href="{% url 'base:service-page' serv.slug %}">{{serv.title}}</a>
+                                <a href="{% url 'base:service-page' serv.title|slugify %}">{{serv.title}}</a>
                             {% endfor %}
                         </p>
                     </div>
@@ -132,7 +132,7 @@
                                     <span class="inline-block pr-4 font-bold text-amber-500">FEE :</span><span>{{service.fee}}</span>
                                 </span>
                             </p>
-                            <p class="mt-4 text-center"><a href="{% url 'base:service-page' service.slug %}">
+                            <p class="mt-4 text-center"><a href="{% url 'base:service-page' service.title|slugify %}">
 												<button class="bg-white hover:bg-lime-200 transform duration-100 hover:scale-110 inline-block px-4 py-2 rounded-full border border-black text-black text-base font-semibold">Request a Service</button>
 												</a>
 												</p>

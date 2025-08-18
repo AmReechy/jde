@@ -53,6 +53,8 @@ MIDDLEWARE = [
 ]
 
 AUTH_USER_MODEL = 'base.CustomUser'
+LOGIN_REDIRECT_URL = "/"     # or '/'
+LOGOUT_REDIRECT_URL = "/"
 
 ROOT_URLCONF = 'jdeproject.urls'
 
