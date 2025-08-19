@@ -5,7 +5,7 @@
 
     
     {% block title %}
-        JDE CONSULTE -Home
+        JDE CONSULTE - Home
     {% endblock title %}
         
 
@@ -30,13 +30,13 @@
                     <div class="inline-block w-max group relative bg-green-500 text-white px-6 py-3 z-40 rounded shadow hover:bg-green-700 jump-small cursor-pointer">Request a Service
                         <p class="absolute hidden top-full left-0 group-hover:inline-flex flex-col text-left text-lime-950 font-medium z-50 w-max gap-2 p-4 bg-lime-50 border border-lime-500">
                             {% for serv in services %}
-                                <a href="{% url 'base:service-page' serv.title|slugify %}">{{serv.title}}</a>
+                                <a href="{% url 'base:service-page' serv.title|slugify %}" class="transform duration-75 hover:scale-105 hover:text-green-600">{{serv.title}}</a>
                             {% endfor %}
                         </p>
                     </div>
-                    <a href="#appointment" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Book Consultation Appointment</a>
-                    <a href="https://calendly.com/ksq-europe/paris?month=2025-08" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Book Appointment for NIN</a>
-                    <a href="#contact-us" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Contact Us</a>
+                    <a href="#appointment" target="_blank" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Book Consultation Appointment</a>
+                    <a href="https://calendly.com/ksq-europe/paris?month=2025-08" target="_blank" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Book Appointment for NIN</a>
+                    <a href="{% url 'base:contact-us'  %}" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Contact Us</a>
                 </div>
             </div>
         </section>
@@ -83,7 +83,7 @@
 
         
 
-        <section class="w-full mx-auto my-6 py-4 bg-lime-50">
+        <section class="w-full mx-auto my-6 py-4 bg-lime-50 rounded-t-[100px]">
             <div class="w-full lg:w-[90%] mx-auto ">
                 <div class="md:grid md:grid-cols-2 lg:grid-cols-2 items-center p-8">
                     <div class="text-4xl lg:text-5xl font-extrabold text-green-900 my-6">
@@ -279,7 +279,7 @@
         </section>
 
 
-        <section class="bg-gray-50 py-16" id="testimonials">
+        <section class="bg-gray-50 py-16" id="testimonies">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <!-- Section Header -->
             <div class="text-center mb-12">
@@ -440,7 +440,7 @@
                     </div> -->
                     
                     {% for partner in partners %}
-                    <div class="partner rounded-2xl   border-stone-200    border-teal-200 ump-in2 relative">
+                    <div class="partner rounded-2xl  ump-in2 relative">
                         
                         <div class=" text-teal-600 font-bold">
                             <img src="{% static 'jde_assets/' %}{{partner}}" class="w-full h-auto" alt="">

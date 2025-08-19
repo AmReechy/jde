@@ -63,23 +63,27 @@
                     
                         
 					<input type="hidden" name="" value="{{current_page}}" id="current-page">
-					<a href="/jde-consulte" class="" id=""><span id="home">Home</span></a>
-                    <a href="#" class=" ">About</a>
-                    <a href="#" class=" " id=""><span id="services">Services</span></a>
+					<span class="nav-item" id="home"><a href="{% url 'base:homepage'  %}" class="" id=""><span>Home</span></a></span>
+                    <span class="nav-item" id="about"><a href="{% url 'base:about-jde'  %}" class=" ">About</a></span>
+                    <span class="nav-item" id="services"><a href="{% url 'base:all-services'  %}" class=" " id=""><span id="services">Services</span></a></span>
                     <!--<a href="#" class="text-gray-800 hover:text-green-700">Apply for a Service</a>
                     <a href="#" class="text-amber-500 hover:text-green-700">Book an Appointment</a> -->
-                    <a href="https://calendly.com/ksq-europe/paris?month=2025-08" class=" ">NIN Booking</a>
-                    <a href="/iye-waka" class=" ">Iye Waka</a>
-                    <a href="/jde-consulte/#testimonials" class=" ">Testimonials</a>
-                    <a href="#" class=" "></a>
-                    <a href="#" class=" ">Contact Us</a>
+                    <span class="nav-item"><a href="https://calendly.com/ksq-europe/paris?month=2025-08" target="_blank" class=" ">NIN Booking</a></span>
+                    <span class="nav-item" id="iye-waka"><a href="/iye-waka" class=" ">Iye Waka</a></span>
+                    <span class="nav-item" id="testimonials"><a href="{% url 'base:homepage'  %}#testimonies" class=" ">Testimonials</a></span>
+                    <span class="nav-item" id="contact-us"><a href="{% url 'base:contact-us'  %}" class=" ">Contact Us</a></span>
                     <!-- <a href="#" class=" ">Projects</a> -->
                     <!-- <a href="/jde-consulte#videos" class=" ">Videos</a> -->
                     {% if user.is_authenticated %}
-                    <a href="#" class=" relative">Manage Account <span></span></a>
-                    <a href="#" class=" relative"><span class="text-red-500">Logout</span></a>
+                    <span class="nav-item relative inline-block group">Account <i class="fa-solid fa-caret-down"></i>
+                        <span class="absolute hidden top-full right-0 group-hover:inline-flex flex-col text-left text-lime-950 font-semibold z-50 w-max gap-1 p-2 bg-gray-100 border border-gray-300">
+                            <a href="#" class=" relative"><span class="text-green-500 text-base" id="profile"><i class="fa-solid fa-user"></i> My Profile</span></a>
+                            <a href="{% url 'base:logout'  %}" class=" relative"><span class="text-red-500 text-base">Logout <i class="fa-solid fa-right-from-bracket"></i></span></a>
+                        </span>
+                    </span>
+                    
                     {% else %}
-                    <a href="account/auth/" class="">Login/Register</a>
+                    <span class="nav-item" id="login-register"><a href="{% url 'base:auth'  %}" class="">Login/Register</a></span>
                     {% endif %}
 				</nav>
                 <!-- NAVIGATION FOR SMALLER SCREENS -->
@@ -97,22 +101,22 @@
 					        />
                         </div>
                         <div class="flex flex-col h-full overflow-y-auto text-lg pb-32" id="side-menu-cont">
-                            <a href="/jde-consulte" class="">Home</a>
-                            <a href="#" class=" ">About</a>
-                            <a href="#" class=" ">Services</a>
+                            <!-- <input type="hidden" name="" value="{{current_page}}" id="current-page"> -->
+                            <span class="nav-item2" id="home2"><a href="{% url 'base:homepage'  %}" class=""><span id="home">Home</span></a></span>
+                            <span class="nav-item2" id="about2"><a href="#" class=" ">About</a></span>
+                            <span class="nav-item2" id="services2"><a href="#" class=" " id=""><span id="services">Services</span></a></span>
                             <!--<a href="#" class="text-gray-800 hover:text-green-700">Apply for a Service</a>
                             <a href="#" class="text-amber-500 hover:text-green-700">Book an Appointment</a> -->
-                            <a href="https://calendly.com/ksq-europe/paris?month=2025-08" class=" ">NIN Booking</a>
-                            <a href="#" class=" ">Iye Waka</a>
-                            <a href="#" class=" ">Testimonials</a>
-                            <a href="#" class=" ">Contact Us</a>
-                            <!-- <a href="#" class=" ">Projects</a> -->
-                            <!-- <a href="/jde-consulte#videos" class=" " id="videos-nav">Videos</a> -->
+                            <span class="nav-item2"><a href="https://calendly.com/ksq-europe/paris?month=2025-08" target="_blank" class=" ">NIN Booking</a></span>
+                            <span class="nav-item2" id="iye-waka2"><a href="/iye-waka" class=" ">Iye Waka</a></span>
+                            <span class="nav-item2" id="testimonials2"><a href="{% url 'base:homepage'  %}#testimonies" class=" ">Testimonials</a></span>
+                            <span class="nav-item2" id="contact-us2"><a href="{% url 'base:contact-us'  %}" class=" ">Contact Us</a></span>
                             
                             {% if user.is_authenticated %}
-                            <a href="#" class=" ">Logout</a>
+                            <span class="nav-item2" id="profile2"><a href="#" class=" relative"><span class="text-green-500 text-base"><i class="fa-solid fa-user"></i> My Profile</span></a></span>
+                            <span class="nav-item2"><a href="{% url 'base:logout'  %}" class=" relative"><span class="text-red-500 text-base">Logout <i class="fa-solid fa-right-from-bracket"></i></span></a></span>
                             {% else %}
-                            <a href="account/auth/" class="">Login / Register</a>
+                            <span class="nav-item2" id="login-register2"><a href="account/auth/" class="">Login / Register</a></span>
                             {% endif %}
                         </div>
                     </div>
@@ -205,7 +209,15 @@
 			<button class="inline-block "><span class="circle-vary w-12 h-12 bg-green-500 inline-block shadow-md"><i class="fa-solid fa-arrow-up font-black text-white text-2xl"></i></span></button>
 			</span>
 
-
+        <script>
+            const currPageVal = document.querySelector("#current-page").value
+            const currNav1 = document.querySelector(`#${currPageVal}`)
+            const currNav2 = document.querySelector(`#${currPageVal}2`)
+            currNav1.style.fontWeight = "700";
+            currNav1.style.color = "green";
+            currNav2.style.fontWeight = "700";
+            currNav2.style.color = "green";
+        </script>
 
         <script>
             let conta = document.querySelector("#pa");
@@ -349,16 +361,13 @@ updateScales();
 setInterval(scrollService, 3000);*/
 </script>
 <script charset="utf-8">
-	const videosNav = document.querySelector("#videos-nav")
-  const closeSidebar1 = document.getElementById('closeSidebar');
-	videosNav.addEventListener("click", function() {
-		closeSidebar1.click()
-	})
+// 	const videosNav = document.querySelector("#videos-nav")
+//   const closeSidebar1 = document.getElementById('closeSidebar');
+// 	videosNav.addEventListener("click", function() {
+// 		closeSidebar1.click()
+// 	})
 
-	const currPageVal = document.querySelector("#current-page").value
-	const currNav = document.querySelector(`#${currPageVal}`)
-	currNav.style.fontWeight = "800";
-	currNav.style.color = "green";
+	
 </script>
       {% block scripts %}
       {% endblock scripts %}

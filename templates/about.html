@@ -1,0 +1,41 @@
+{% extends "jde_base.html" %}
+
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+
+
+{% block content %}
+<section class="relative h-[200px] lg:h-[250px]">
+    <div class="relative h-full w-full lg:w-3/4 mx-auto bg-gradient-to-r from-lime-500 via-green-500 to-lime-500  text-center">
+        <div class="h-full flex flex-wrap justify-evenly items-center ">
+        <img src="{% static 'jde_assets' %}/jde_logo_resized.jpg" class="inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
+        <img src="{% static 'jde_assets' %}/jde_logo_resized.jpg" class="inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
+        <img src="{% static 'jde_assets' %}/jde_logo_resized.jpg" class="inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
+        <img src="{% static 'jde_assets' %}/jde_logo_resized.jpg" class="hidden md:inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
+        </div>
+        <div class="grid text-center items-center absolute left-0 top-0 h-full w-full">
+            <div class="text-center font-extrabold text-3xl lg:text-4xl text-lime-100 px-4 white-shadow tracking-wider">
+                <p class="inline-block bg-black bg-opacity-60 p-2">About Us</p>
+                
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section id="">
+    <div class="max-w-3xl mx-auto mt-10 bg-lime-50 shadow-md rounded-lg p-6">
+        
+        <div class=" font-semibold text-lg md:text-xl text-green-900">
+            At JDE Consulte, we connect people through clear communication and expert advice. With years of experience in interpretation, translation, and cultural consulting, 
+            we help you navigate multilingual environments with confidence. <br>
+            We offer professional interpreting and consulting services for businesses, institutions and individuals.
+        </div>
+        
+        
+    </div>
+</section>
+{% endblock content %}

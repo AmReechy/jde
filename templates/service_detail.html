@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
         docBlock.appendChild(removeBtn);
     }
 
-    addDocumentBtn.addEventListener("click", function () {
+    if (addDocumentBtn) addDocumentBtn.addEventListener("click", function () {
         const newDoc = documentsContainer.querySelector(".document-item").cloneNode(true);
         newDoc.querySelectorAll("input, select").forEach(input => {
             input.value = "";
@@ -183,6 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     payBtn.addEventListener("click", function () {
         // Simulate successful payment
+        
         paymentStatus.textContent = "Payment successful ✔";
         paymentStatus.classList.remove("text-red-600");
         paymentStatus.classList.add("text-green-600");
@@ -190,6 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
         submitBtn.disabled = false;
         submitBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
         submitBtn.classList.add("bg-green-500", "hover:bg-green-700");
+        alert("Your payment for the service was successful. Thank you.")
     });
 
     updateTotalFee();

@@ -42,7 +42,7 @@
     @apply bg-amber-500 text-black font-bold inline-block px-5 py-2 text-lg lg:text-xl rounded-full shadow-md
 }
 .partner {
-	@apply flex-shrink-0 w-[150px] h-auto rounded-xl border border-gray-300 overflow-hidden
+	@apply flex-shrink-0 w-[150px] h-auto rounded-xl border border-lime-300 overflow-hidden
 }
 .partner-scroll-indicator {
 	@apply circle-vary w-3 h-3
@@ -92,11 +92,11 @@
 .jump-small {
     @apply transform duration-150 hover:scale-110
 }
-#side-menu-cont a {
-    @apply border-b border-gray-200 py-3 hover:font-bold hover:text-green-500 hover:underline underline-offset-2
+.nav-item2 {
+    @apply border-b border-gray-200 py-3 hover:font-bold hover:text-green-500 hover:underline underline-offset-2 transform duration-75 hover:scale-110 hover:translate-x-4
 }
-#block-menu a {
-    @apply font-semibold text-gray-800 hover:text-green-500 hover:underline underline-offset-2
+.nav-item {
+    @apply font-semibold inline-block text-gray-800 hover:text-green-500 transform duration-75 hover:scale-110
 }
 .form-input {
 	@apply inline-block p-2 rounded-[4px] border border-gray-300 w-full text-base font-normal

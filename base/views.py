@@ -1,10 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.text import slugify
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import UserRegisterForm, UserLoginForm
+
 
 # Create your views here.
 
@@ -28,7 +29,7 @@ services = [
         {"title":"Double Legalisation of Documents", "image":"new_double_legal_img.jpg", "fee": "Based on request", "slug":"translation-services",
          "desc":"Assistance with multi-stage document legalisation (e.g. Ministry of Foreign Affairs + French Embassy/ Consular legalization) for international use. We coordinate each step for compliance and recognition."},
         {"title": "Business Investment & Development Opportunities", "image": "new_image_biz_investment.jpg", "fee": "NOT PROVIDED", "slug":"translation-services",
-          "desc": "Detailed description of this service category is not yet provided"},
+          "desc": "We guide Nigerians in the Diaspora — especially those in France — on how to invest safely and profitably in Nigeria."},
         {"title": "Mentorship Program Master Class", "image": "new_master_class_img.jpg", "fee": "NOT PROVIDED", "slug":"translation-services",
           "desc": "Detailed description of this service category is not yet provided"}
 
@@ -50,12 +51,13 @@ def homepage(request):
     
     partners = ["partner_ambassade_de_france.jpg", "partner_consulat_france.jpg", "partner_federal_gov_nigeria.jpg",
                 "nimc_square_image.jpg", "partner_ministry_foreign_logo.png", "partner_immigration_squared_logo.png", "partner_dawari_consult.jpg",
-                "partner_afjumbo.jpg", "partner_cpss_training.jpg", "new_partner_gtco_logo_square.png",
+                "partner_afjumbo.jpg", "partner_cpss_training.jpg", "partner_knowledge.png","new_partner_gtco_logo_square.png",
                 "new_partner_idee_paris_logo_squared.png", "new_partner_societe_gen_logo2.png"]
     context = {"services":services, "partners":partners, "current_page":"home"}
     return render(request, "homepage.html",context)
 
 def service_page(request, service_cat):
+    current_page = "services"
     service_info = ''
     for service in services:
         if slugify(service['title']) == service_cat:
@@ -73,7 +75,8 @@ def service_page(request, service_cat):
     service_info["payment_required"] = payment_required
     service_info["fee_amount"] = fee
     service_info["fee_text"] = fee_text
-    context = {"service": service_info}
+    context = {"service": service_info, "current_page":current_page}
+
     return render(request, "service_detail.html", context)
     
     #else:
@@ -82,14 +85,29 @@ def service_page(request, service_cat):
                             #\rBye!""")
 
 def iye_waka(request):
-    return render(request, "iye_waka.html")
+    current_page = "iye-waka"
+    return render(request, "iye_waka.html", {"current_page":current_page})
 
 
+def about_jde(request):
+    current_page = "about"
+    return render(request, "about.html", {"current_page":current_page})
 
+
+def all_services(request):
+    current_page = "services"
+    return render(request, "all_services.html", {"current_page":current_page, "services":services})
+
+def contact_us(request):
+    current_page = "contact-us"
+    return render(request, "contact_us.html", {"current_page":current_page})
 
 def auth_view(request):
+    action = "login"
+    current_page = "login-register"
     if request.method == "POST":
         if "register" in request.POST:
+            action = "register"
             reg_form = UserRegisterForm(request.POST)
             login_form = UserLoginForm()
 
@@ -103,13 +121,14 @@ def auth_view(request):
                 messages.error(request, "Please correct the errors below.")
 
         elif "login" in request.POST:
+            action = "login"
             login_form = UserLoginForm(request, data=request.POST)
             reg_form = UserRegisterForm()
 
             if login_form.is_valid():
                 user = login_form.get_user()
                 login(request, user)
-                messages.success(request, f"Welcome back, {user.first_name}!")
+                #messages.success(request, f"Welcome back, {user.first_name}!")
                 return redirect("base:homepage")  # change to dashboard/homepage
             else:
                 messages.error(request, "Invalid login credentials.")
@@ -117,5 +136,10 @@ def auth_view(request):
         reg_form = UserRegisterForm()
         login_form = UserLoginForm()
 
-    return render(request, "auth.html", {"reg_form": reg_form, "login_form": login_form})
+    return render(request, "auth.html", {"reg_form": reg_form, "login_form": login_form, "action":action, "current_page":current_page})
 
+
+def user_logout(request):
+    logout(request)
+    #messages.error(request, "You have logged out of your Account!")
+    return redirect('base:homepage')
