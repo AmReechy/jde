@@ -16,5 +16,7 @@ urlpatterns = [
         path("about/", views.about_jde, name="about-jde"),
         path("services/", views.all_services, name="all-services"),
         path("contact-us/", views.contact_us, name="contact-us"),
+        path("terms-and-conditions/", views.terms, name="terms"),
         ]
+ 
  

@@ -1,0 +1,70 @@
+{% extends "jde_base.html" %}
+
+{% load static %}
+
+{% block title %}Terms & Conditions {% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-6 py-10 text-gray-800 text-base lg:text-lg">
+    <!-- Page Title -->
+    <!-- <h1 class="text-3xl font-bold text-center mb-8 text-gray-900">
+        Terms & Conditions – JDE CONSULTE SAS
+    </h1> -->
+    <p class="text-center text-3xl md:text-4xl font-extrabold pb-14">Terms & Conditions – JDE CONSULTE SAS </p>
+
+    <!-- Key Service Terms -->
+    <section class="mb-10">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Key Service Terms</h2>
+        <p class="mb-4">
+            We provide document processing, legalization, administrative assistance; consultancy,
+            NIN enrollment (accredited center), Nigerian passport processing & payment assistance,
+            and French nationality file preparation.
+        </p>
+        <ul class="list-disc list-outside space-y-2 text-gray-800 pl-10">
+            <li><strong>Accuracy –</strong> You must provide complete and authentic documents.</li>
+            <li><strong>Payments –</strong> Service fees are payable in advance. We accept secure online
+                payments by credit/debit card. Government and third-party fees are separate and non-refundable.</li>
+            <li><strong>Appointments –</strong> Bookings can be made online. Cancellations/rescheduling
+                must be made at least 24 hours in advance.</li>
+            <li><strong>No Guarantees –</strong> Processing times and outcomes depend on official
+                authorities. We are not liable for delays or refusals.</li>
+            <li><strong>Confidentiality –</strong> All data is handled securely and shared only as
+                necessary for your service.</li>
+            <li><strong>Disputes –</strong> Governed by French law, with amicable resolution preferred.</li>
+        </ul>
+    </section>
+
+    <!-- Detailed Terms -->
+    <section>
+        <h2 class="text-2xl font-semibold text-black mb-6">Full Terms and Conditions</h2>
+
+        {% for section in terms_n_conditions %}
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold text-gray-900">
+                {{ section.num }}. {{ section.title }}
+            </h3>
+            
+            {% if section.prepoint %}
+                <p class="mt-3">{{ section.prepoint }}</p>
+            {% endif %}
+            
+            {% if section.points %}
+                <ul class="list-disc list-outside space-y-2 text-gray-800 mt-3 pl-10">
+                    {% for point in section.points %}
+                    <li>{{ point }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </section>
+
+    <!-- Closing Statement -->
+    <div class="mt-10 border-t pt-6 text-gray-900">
+        <p>
+            By engaging the services of <span class="font-semibold">JDE CONSULTE SAS</span>,
+            you confirm that you have read, understood, and accepted these Terms and Conditions in full.
+        </p>
+    </div>
+</div>
+{% endblock %}

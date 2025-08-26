@@ -142,10 +142,10 @@
                 <div class="w-[130px] h-[80px] bg-red-500 inline-block ch">2</div>
                 <div class="w-[130px] h-[80px] bg-amber-500 inline-block ch">3</div>
             </div>
-        </section> -->
+        </section> --> 
 
         <footer class="w-full bg-gradient-to-br from-gray-800 via-black to-gray-800 mt-20 ounded-t-[50px]">
-            <div class="md:grid md:grid-cols-2 gap-4 lg:gap-6 px-4 lg:px-8 mx-auto py-6 lg:py-10">
+            <div class="lg:grid lg:grid-cols-2 gap-4 lg:gap-6 px-4 lg:px-8 mx-auto py-6 lg:py-10">
                 <div>
                     <div class="text-center">
                     <a href="/">
@@ -176,8 +176,8 @@
                         <span>Register</span>
                         
                         <span>Book Appointment</span>
-                        <span>T & C</span>
-                        <span>Privacy Policy</span>
+                        <span><a href="{% url 'base:terms' %}">Terms & Conditions</a></span>
+                        <span><a href="{% url 'base:terms' %}">Privacy Policy</a></span>
 
                     </p>
                     <p class="w-3/5 border-b-2 border-green-200 mx-auto my-6"></p>

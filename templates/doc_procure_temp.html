@@ -1,0 +1,39 @@
+<div class="rounded-xl bg-gradient-to-br from-lime-800 via-green-900 to-lime-800 p-6">
+    <div class="text-white font-medium text-lg md:text-xl">
+        <p class="font-bold">The following is a comprehensive list of the various documents we process from Nigeria, including the fees (both without and with translation):</p>
+        <ul class="service-items-list ">
+            
+            {% for item in service.items %}
+                <li class="my-4">
+                    {{ item.text }}
+                    <div class="text-base md:text-lg">
+                        <p class="flex space-x-3"><span class="font-semibold text-lime-200">Fee (WITHOUT translation) :</span> <span> €{{ item.fee1}}</span></p>
+                        {% if item.fee2 %}
+                            <p class="flex space-x-3">
+                                <span class="font-semibold text-green-200">Fee 
+                                {% if item.fee2_info %}
+                                ({{item.fee2_info}})
+                                {% else %}
+                                (WITH translation)
+                                {% endif %}
+                                :
+                                </span>
+                                <span> €{{ item.fee2}} </span>
+                            </p>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+                
+        </ul>
+
+        <div class="p-6">
+            <div class="bg-white p-4 rounded-lg">
+                <p class="font-bold text-xl md:text-2xl text-red-600">Important Notice !</p>
+                <p class="font-semibold text-lg md:text-xl text-black py-2">
+                    All documents processed in Nigeria and intended for delivery to France are subject to a mandatory DHL fee of €120.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,28 +7,36 @@
 
 
 {% block content %}
-<section class="relative h-[300px] lg:h-[400px]">
+<!-- <section class="relative h-[300px] lg:h-[400px]">
     <div class="relative h-full w-full lg:w-3/4 mx-auto">
-        <img src="{% static 'jde_assets' %}/{{service.image}}" class="object-cover h-full w-full block" alt="">
+        <img src="{% static 'jde_assets' %}/{{service.image}}" class="object-cover h-full w-full block rounded-b-3xl" alt="">
         <div class="grid text-center items-center absolute left-0 top-0 h-full w-full">
             <div class="text-center font-black text-3xl lg:text-4xl text-white px-4 white-shadow tracking-wider">
                 <p class="inline-block bg-black bg-opacity-60 p-2">{{service.title}} </p>
                 
             </div>
-        </div>
+        </div> 
     </div>
 
-</section>
+</section>-->
 
 
 
 <div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
-	<div class="rounded-xl bg-gradient-to-br from-lime-800 via-green-900 to-lime-800 p-4">
+    <p class="text-center text-4xl md:text-5xl font-extrabold pb-14">{{service.title}} </p>
+    
+    {% if not service.septemp %}
+    <div class="rounded-xl bg-gradient-to-br from-lime-800 via-green-900 to-lime-800 p-4">
 		<div class="text-white font-semibold text-lg md:text-xl">
 			{{service.desc}}
 		</div>
 		
 	</div>
+    {% else %}
+        {% include service.temp %}
+    {% endif %}
+        
+	
 </div>
 
 

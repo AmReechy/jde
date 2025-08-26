@@ -67,7 +67,7 @@
     @apply inline-block mr-2 text-nowrap text-green-200 font-semibold text-base lg:text-lg hover:text-green-500 hover:underline underline-offset-2 cursor-pointer
 }
 .contact-para {
-    @apply flex text-base lg:text-lg font-semibold text-white
+    @apply flex text-base lg:text-lg font-medium text-white
 }
 .contact-icon {
     @apply inline-block  text-green-200 pr-3 text-lg
@@ -100,4 +100,11 @@
 }
 .form-input {
 	@apply inline-block p-2 rounded-[4px] border border-gray-300 w-full text-base font-normal
+}
+
+.service-detail-head {
+    @apply font-bold text-xl md:text-2xl pb-1 tracking-wide
+}
+.service-items-list {
+    @apply list-outside list-disc pl-10
 }

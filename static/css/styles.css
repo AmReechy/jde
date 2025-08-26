@@ -752,6 +752,11 @@ video {
   margin-bottom: 4rem;
 }
 
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .my-20 {
   margin-top: 5rem;
   margin-bottom: 5rem;
@@ -851,6 +856,10 @@ video {
   margin-top: 1.5rem;
 }
 
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
 .block {
   display: block;
 }
@@ -897,6 +906,10 @@ video {
 
 .h-12 {
   height: 3rem;
+}
+
+.h-14 {
+  height: 3.5rem;
 }
 
 .h-16 {
@@ -998,6 +1011,10 @@ video {
 
 .w-12 {
   width: 3rem;
+}
+
+.w-14 {
+  width: 3.5rem;
 }
 
 .w-16 {
@@ -1175,6 +1192,10 @@ video {
   cursor: pointer;
 }
 
+.list-inside {
+  list-style-position: inside;
+}
+
 .list-outside {
   list-style-position: outside;
 }
@@ -1271,6 +1292,11 @@ video {
   gap: 2rem;
 }
 
+.gap-x-10 {
+  -moz-column-gap: 2.5rem;
+       column-gap: 2.5rem;
+}
+
 .gap-x-2 {
   -moz-column-gap: 0.5rem;
        column-gap: 0.5rem;
@@ -1293,6 +1319,10 @@ video {
 
 .gap-y-1 {
   row-gap: 0.25rem;
+}
+
+.gap-y-14 {
+  row-gap: 3.5rem;
 }
 
 .gap-y-2 {
@@ -1335,6 +1365,12 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
 .overflow-hidden {
@@ -1397,6 +1433,11 @@ video {
   border-radius: 0.75rem;
 }
 
+.rounded-b-3xl {
+  border-bottom-right-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
+}
+
 .rounded-t-\[100px\] {
   border-top-left-radius: 100px;
   border-top-right-radius: 100px;
@@ -1437,6 +1478,10 @@ video {
 
 .border-b-4 {
   border-bottom-width: 4px;
+}
+
+.border-t {
+  border-top-width: 1px;
 }
 
 .border-black {
@@ -1966,8 +2011,16 @@ video {
   padding-bottom: 2rem;
 }
 
+.pb-1 {
+  padding-bottom: 0.25rem;
+}
+
 .pb-10 {
   padding-bottom: 2.5rem;
+}
+
+.pb-14 {
+  padding-bottom: 3.5rem;
 }
 
 .pb-2 {
@@ -1992,6 +2045,10 @@ video {
 
 .pb-8 {
   padding-bottom: 2rem;
+}
+
+.pl-10 {
+  padding-left: 2.5rem;
 }
 
 .pl-2 {
@@ -2723,7 +2780,7 @@ video {
   display: flex;
   font-size: 1rem;
   line-height: 1.5rem;
-  font-weight: 600;
+  font-weight: 500;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
@@ -2874,6 +2931,27 @@ video {
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 400;
+}
+
+.service-detail-head {
+  padding-bottom: 0.25rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+}
+
+@media (min-width: 768px) {
+  .service-detail-head {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+.service-items-list {
+  list-style-position: outside;
+  list-style-type: disc;
+  padding-left: 2.5rem;
 }
 
 .hover\:translate-x-4:hover {
@@ -3200,6 +3278,10 @@ video {
 
   .lg\:flex {
     display: flex;
+  }
+
+  .lg\:grid {
+    display: grid;
   }
 
   .lg\:hidden {
