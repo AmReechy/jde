@@ -28,7 +28,43 @@ services = [
 
         {"title": "Procurement of Official Nigerian Documents", "image": "nigeria_national_logo.png", "fee": "Based on document type", "slug":"translation-services", "temp": "doc_procure_temp.html", "septemp":"True",
           "desc": "We help clients obtain birth certificates, transcripts, police reports, CAC documents, and more from Nigeria — fast, legally, and securely.",
-          "items":[{"text":" All types of Affidavits  from any court in Nigeria", "fee1": "70", "fee2": "100"},
+          "items":[
+              {"desc":"All types of Affidavits (Correction of name(s), Correction of date of birth, etc), sworn from any court in Nigeria.", "tot_fee":100, 
+               "cost_items":[{'item': 'Affidavit', 'cost': 20}, {'item': 'Service charge', 'cost': 40}, {'item': 'Translation cost', 'cost': 40}]
+               },
+               {"desc":"Authentification of any official document - (Ministry of Foreign Affairs)", "tot_fee":90, 
+               "cost_items":[{'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, {'item': 'Service charge', 'cost': 40}, {'item': 'Translation cost', 'cost': 40}]
+               },
+               {"desc":"Attestation of Birth letter /Certificate of Birth (NPC), (from your State of birth)", "tot_fee":130, 
+               "cost_items":[{'item': 'Attestation of Birth letter /Certificate of Birth (NPC)', 'cost': 40}, {'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, 
+                             {'item': 'Service charge', 'cost': 40}, {'item': 'Translation cost', 'cost': 40}]
+               },
+               {"desc":"Bachelorhood/Spinsiterhood Certificate (from your State)", "tot_fee":130, 
+               "cost_items":[{'item': 'Bachelorhood/ Spinsterhood Certificate', 'cost': 40}, {'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, 
+                             {'item': 'Service charge', 'cost': 40}, {'item': 'Translation cost', 'cost': 40}]
+               },
+               {"desc":"Death Certificate", "tot_fee":130, 
+               "cost_items":[{'item': 'Death Certificate', 'cost': 40}, {'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, 
+                             {'item': 'Service charge', 'cost': 40}, {'item': 'Translation cost', 'cost': 40}]
+               },
+               {"desc":"New paper publication for any purpose from Nigeria", "tot_fee":100, 
+               "cost_items":[{'item': 'Newspaper publication', 'cost': 60}, {'item': 'Service charge', 'cost': 40}]
+               },
+               {"desc":"Police Character reoprt/ Certificate", "tot_fee":225, 
+               "cost_items":[{'item': 'Police Character report/ Certificate.', 'cost': 75}, {'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, 
+                             {'item': 'Service charge', 'cost': 100}, {'item': 'Translation cost', 'cost': 40}]
+               },
+               {"desc":"State of Origin/Identification Certificate.", "tot_fee":130, 
+               "cost_items":[{'item': 'State of Origin/Identification Certificate.', 'cost': 90}, {'item': 'Service charge', 'cost': 40}]
+               },
+               {"desc":"Temporary Birth Certificate or Attestation Notification for ADULT NIN enrollment purpose", "tot_fee":70, 
+               "cost_items":[{'item': 'Obtaining of Certificate.', 'cost': 30}, {'item': 'Service charge', 'cost': 40}]
+               },
+               {"desc":"e-Birth Certificate /Birth Notification for Minor NIN enrollment purpose", "tot_fee":70, 
+               "cost_items":[{'item': 'Obtaining of e-Birth Certificate.', 'cost': 30}, {'item': 'Service charge', 'cost': 40}]
+               }
+          ],
+          "items2":[{"text":" All types of Affidavits  from any court in Nigeria", "fee1": "70", "fee2": "100"},
                    {"text":" Authentification of any official document - (Ministry)", "fee1": "50", "fee2": "90"},
                    {"text":" Attestation of Birth letter (NPC)/Certificate of Birth (NPC) ", "fee1": "80", "fee2": "110"},
                    {"text":"Bachelorhood Certificate.", "fee1": "80", "fee2": "110"},
@@ -210,6 +246,7 @@ def auth_view(request):
                 messages.error(request, "Please correct the errors below.")
 
         elif "login" in request.POST:
+            next_url = request.GET.get("next", "")
             action = "login"
             login_form = UserLoginForm(request, data=request.POST)
             reg_form = UserRegisterForm()
@@ -218,6 +255,8 @@ def auth_view(request):
                 user = login_form.get_user()
                 login(request, user)
                 #messages.success(request, f"Welcome back, {user.first_name}!")
+                if next_url:
+                    return redirect(next_url)
                 return redirect("base:homepage")  # change to dashboard/homepage
             else:
                 messages.error(request, "Invalid login credentials.")

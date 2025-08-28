@@ -106,6 +106,7 @@
 						<span id="" class="text-green-600">{{service.fee_text}}</span>
             </p>
         </div>
+        <input type="hidden" name="" id="fee-required" value="{% if service.payment_required %}true{% endif %}">
 
 				{% if service.payment_required %}
         <div class="mt-4">
@@ -114,12 +115,14 @@
             </p>
         </div>
 				<input type="hidden" name="" id="fee-amount" value="{{service.fee_amount}}">
+                
 
         <!-- Payment section -->
         <div class="mt-6 p-4 border rounded-lg bg-gray-50">
-            <p class="mb-2 font-medium">Make Payment:</p>
-            <button type="button" id="payBtn"
-                class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+            <p class="font-medium md:text-lg flex items-center pb-2"><input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>
+            <!-- <p class="mb-2 font-medium">Make Payment:</p> -->
+            <button type="button" id="payBtn" disabled
+                class="cursor-not-allowed bg-gray-400 text-white px-4 py-2 rounded">
                 Pay Now
             </button>
             <p id="paymentStatus" class="text-sm text-red-600 mt-2">Payment not yet made.</p>
@@ -128,34 +131,100 @@
 				<div class="mt-4 bg-amber-500 rounded-lg text-black font-semibold p-4">
 					<p>Please note that after submitting your service request, we will calculate the total fee to be paid for the service and communicate with you on how to make the payment. We will begin the processing of the service requested after receiving your payment. </p>
 				</div>
+                <p class="font-medium md:text-lg flex items-center"><input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>
 				{% endif %}
 
 				<div class="mx-auto text-center py-4">
         <!-- Submit button (disabled until payment) -->
         <button type="submit" id="submitBtn"
-            class="text-white px-6 py-2 rounded {% if service.payment_required %}bg-gray-400 cursor-not-allowed {% else %}bg-green-500{% endif %}"
+            class="text-white px-6 py-2 rounded cursor-not-allowed bg-gray-400"
             {% if service.payment_required %}disabled{% endif %}>
             Submit Service Request
         </button>
 					
 				</div>
     </form>
+
+
+<!-- Prompt to Login or Continue as Guest -->
+<div id="login-prompt" class="hidden fixed inset-0 bg-black bg-opacity-75 items-center justify-center z-50">
+  <div class="bg-white rounded-2xl w-4/5 md:w-3/5 lg:w-1/2 shadow-lg text-left">
+    <div class="p-4 lg:p-6 font-semibold md:text-lg">
+        You are currently accessing this website as a Guest. Would you like to login/register, or you prefer to continue as a guest ?
+        <p class="pt-3 flex justify-center gap-3 md:gap-5">
+            <button class="inline-block px-3 py-1 rounded-[4px] bg-green-600 text-white"><a href="{% url 'base:auth' %}?next={% url 'base:service-page' service.title|slugify %}">Login / Register</a></button>
+            <button class="inline-block px-3 py-1 rounded-[4px] bg-green-600 text-white" id="cancel-prompt">Continue as Guest</button>
+        </p>
+    </div>
+  </div>
+</div>
+<input type="hidden" name="" id="user-authenticated" value="{% if user.is_authenticated %}true{% endif %}">
 </div>
 {% endblock %}
 
 {% block scripts %}
 {{ block.super }}
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const promptDiv = document.getElementById("login-prompt");
+        const userAuth = document.getElementById("user-authenticated").value;
+        const cancelButton = document.getElementById("cancel-prompt");
+        setTimeout(() => {
+            if (userAuth == "true") {
+                promptDiv.classList.remove("flex")
+                promptDiv.classList.add("hidden")
+            } else {
+                promptDiv.classList.add("flex")
+                promptDiv.classList.remove("hidden")
+            }
+        }, 3000)
+
+        cancelButton.addEventListener("click", () => {
+            promptDiv.classList.add("hidden");
+        });
+    })
+</script>
+<script>
 document.addEventListener("DOMContentLoaded", function () {
-    const feePerDoc = parseInt(document.getElementById("fee-amount").value);
+    
     const documentsContainer = document.getElementById("documents-container");
     const addDocumentBtn = document.getElementById("addDocumentBtn");
     const totalFeeEl = document.getElementById("totalFee");
     const payBtn = document.getElementById("payBtn");
     const paymentStatus = document.getElementById("paymentStatus");
     const submitBtn = document.getElementById("submitBtn");
+    const feeRequired = document.getElementById("fee-required").value;
+    const termsCheck = document.getElementById("terms-agree-check");
+
+    termsCheck.addEventListener('input', () => {
+        
+        if (feeRequired == "true") {
+            if (termsCheck.checked) {
+                payBtn.disabled = false;
+                payBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+                payBtn.classList.add("bg-green-500", "hover:bg-green-700");
+            } else {
+                payBtn.disabled = true;
+                payBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+                payBtn.classList.remove("bg-green-500", "hover:bg-green-700");
+            }
+        } else {
+            if (termsCheck.checked) {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+                submitBtn.classList.add("bg-green-500", "hover:bg-green-700");
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+                submitBtn.classList.remove("bg-green-500", "hover:bg-green-700");
+            }
+        }
+        
+        
+    })
 
     function updateTotalFee() {
+        const feePerDoc = parseInt(document.getElementById("fee-amount").value);
         const docCount = documentsContainer.querySelectorAll(".document-item").length;
         totalFeeEl.textContent = `€${docCount * feePerDoc}`;
     }

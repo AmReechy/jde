@@ -27,10 +27,10 @@
             
                 <div class="flex justify-center flex-wrap space-x-4 md:space-x-6 gap-y-4 text-base md:text-lg pt-4">
                     
-                    <div class="inline-block w-max group relative bg-green-500 text-white px-6 py-3 z-40 rounded shadow hover:bg-green-700 jump-small cursor-pointer">Request a Service
-                        <p class="absolute hidden top-full left-0 group-hover:inline-flex flex-col text-left text-lime-950 font-medium z-50 w-max gap-2 p-4 bg-lime-50 border border-lime-500">
+                    <div class="inline-block w-max group relative bg-green-500 text-white px-6 py-3 z-40 rounded shadow hover:bg-green-700 jump-small "><button>Request a Service</button>
+                        <p class="absolute hidden top-full left-0 group-hover:inline-flex flex-col text-left text-lime-950 font-normal z-50 w-max bg-lime-50 border border-lime-500">
                             {% for serv in services %}
-                                <a href="{% url 'base:service-page' serv.title|slugify %}" class="transform duration-75 hover:scale-105 hover:text-green-600">{{serv.title}}</a>
+                                <a href="{% url 'base:service-page' serv.title|slugify %}" class="transform duration-75 hover:bg-lime-500 hover:text-white hover:font-semibold inline-block px-3 py-1 w-full">{{serv.title}}</a>
                             {% endfor %}
                         </p>
                     </div>
@@ -111,8 +111,8 @@
 												</p>
                     </div> -->
                     {% for service in services %}
-                    <div class=" bg-gradient-to-r from-green-900 via-lime-900 to-green-900 relative rounded-2xl border border-green-500 group transform delay-75 duration-150 hover:scale-110 overflow-hidden">
-                        <p class="grid text-center items-center bg-gradient-to-r from-lime-900 via-green-900 to-lime-900 text-white white-shadow text-2xl lg:text-3xl font-semibold p-4 tracking-wide">{{service.title}} </p>
+                    <div class=" bg-gradient-to-r from-green-950 via-green-900 to-green-950 relative rounded-2xl border border-green-500 group transform delay-75 duration-150 hover:scale-110 overflow-hidden">
+                        <p class="grid text-center items-center bg-gradient-to-r from-green-950 via-green-900 to-green-950 text-white white-shadow text-2xl lg:text-3xl font-semibold p-4 tracking-wide">{{service.title}} </p>
                         <div class="relative">
                             <img src="{% static 'jde_assets' %}/{{service.image}}" class=" h-auto w-full block" alt="">
                             <div class="absolute top-0 left-0 right-0 bottom-0 hidden transition-all delay-150 group-hover:grid text-center items-center p-6 bg-black bg-opacity-10">
@@ -126,13 +126,13 @@
 
                         </div> -->
 												<!--<p class="my-4 text-center absolute left-0 bottom-4 right-0"><button class="bg-lime-100 inline-block px-4 py-2 rounded-full border border-black text-black text-base font-semibold">Request a Service</button></p>-->
-                        <div class="grid text-center items-center bg-gradient-to-r from-green-900 via-lime-900 to-green-900 p-4">
-                            <p class="text-center font-semibold text-lg text-white">
+                        <div class="grid text-center items-center bg-gradient-to-r from-green-950 via-green-900 to-green-950 p-4">
+                            <!-- <p class="text-center font-semibold text-lg text-white">
                                 <span class="inline-block bg-black bg-opacity-60 py-1 px-3 rounded-[4px]">
                                     <span class="inline-block pr-4 font-bold text-amber-500">FEE :</span><span>{{service.fee}}</span>
                                 </span>
-                            </p>
-                            <p class="mt-4 text-center"><a href="{% url 'base:service-page' service.title|slugify %}">
+                            </p> -->
+                            <p class="text-center"><a href="{% url 'base:service-page' service.title|slugify %}">
 												<button class="bg-white hover:bg-lime-200 transform duration-100 hover:scale-110 inline-block px-4 py-2 rounded-full border border-black text-black text-base font-semibold">Request a Service</button>
 												</a>
 												</p>
