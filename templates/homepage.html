@@ -34,11 +34,11 @@
                             {% endfor %}
                         </p>
                     </div>
-                    <a href="#appointment" target="_blank" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Book Consultation Appointment</a>
+                    <a href="{% url 'base:service-page' 'consultancy-services' %}" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Book Consultation Appointment</a>
                     <a href="https://calendly.com/ksq-europe/paris?month=2025-08" target="_blank" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Book Appointment for NIN</a>
                     <a href="{% url 'base:contact-us'  %}" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Contact Us</a>
                 </div>
-            </div>
+
         </section>
 
         <!-- Services -->

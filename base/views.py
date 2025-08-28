@@ -15,8 +15,14 @@ services = [
          "desc": "Certified translations of legal, academic, personal, and professional documents. Includes quality review and optional follow-up."},
         {"title": "Interpretation Services", "image":  "new_interpretation_service_img.jpg", "fee":"Based on request", "slug":"translation-services", "temp": "interpretation_temp.html", "septemp":"",
           "desc":"Live interpretation, in-person, via phone or video. Ideal for meetings, legal appointments, interviews, or cross-cultural communication. Clear, accurate, and confidential."},
-        {"title": "Consultancy Services", "image": "new_consultation_service_img.jpg", "fee": "Based on duration", "slug":"translation-services", "temp": "translation_temp.html",
-          "desc": "We provide business and administrative advice, available by phone or in-person at our office"},
+        {"title": "Consultancy Services", "image": "new_consultation_service_img.jpg", "fee": "Based on duration", "slug":"translation-services", "temp": "consultation_temp.html", "septemp":"True",
+          "desc": "We provide business and administrative advice, available by phone or in-person at our office",
+          "items": [
+              {"text":"30minutes to 45minutes", "fee": "50"},
+              {"text":"50minutes to 1hour 30minutes", "fee": "100"},
+              {"text":"1hour 30minutes to 2hours maximum", "fee": "150"},
+              ]
+          },
         {"title": "Administrative Support", "image": "new_administrative_suppot_img.jpg", "fee": "€70 per 60minutes duration", "slug":"translation-services", "temp": "admin_support_temp.html", "septemp":"True",
           "desc": "Document handling, scheduling, form filling, and organizational support for individuals or businesses. Reliable, multilingual assistance.",
           "items": [{"text": "Writing and formatting administrative letters, CVs, memos, reports etc. for applicants.", "fee": ""},

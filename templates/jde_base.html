@@ -16,7 +16,7 @@
 		/>
 		<link
 			rel="stylesheet"
-			href="{% static 'css/styles.css' %}?v=2"
+			href="{% static 'css/styles.css' %}?v=3"
 			type="text/css"
 			media="screen"
 			title="no title"
@@ -116,7 +116,7 @@
                             <span class="nav-item2" id="profile2"><a href="#" class=" relative"><span class="text-green-500 text-base"><i class="fa-solid fa-user"></i> My Profile</span></a></span>
                             <span class="nav-item2"><a href="{% url 'base:logout'  %}" class=" relative"><span class="text-red-500 text-base">Logout <i class="fa-solid fa-right-from-bracket"></i></span></a></span>
                             {% else %}
-                            <span class="nav-item2" id="login-register2"><a href="account/auth/" class="">Login / Register</a></span>
+                            <span class="nav-item2" id="login-register2"><a href="{% url 'base:auth' %}" class="">Login / Register</a></span>
                             {% endif %}
                         </div>
                     </div>
