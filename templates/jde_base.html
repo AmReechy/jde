@@ -209,6 +209,21 @@
 			<button class="inline-block "><span class="circle-vary w-12 h-12 bg-green-500 inline-block shadow-md"><i class="fa-solid fa-arrow-up font-black text-white text-2xl"></i></span></button>
 			</span>
 
+
+            <!-- Cookie Consent Banner -->
+<div id="cookie-banner" class="fixed hidden w-full bottom-0 left-0 right-0 bg-gray-900 text-white text-sm p-6 md:p-8 shadow-lg justify-between items-start z-50 transition-opacity">
+  <div class="max-w-4xl mx-auto w-full  flex-col md:flex-row justify-between items-start md:items-center gap-2">
+    <p class="flex-1 text-base lg:text-lg">
+      We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies. 
+      <a href="/privacy-policy" class="underline text-blue-400">Learn more</a> about our Privacy Policy.
+    </p>
+    <div class="flex justify-center gap-4 md:gao-6 pt-2">
+      <button id="accept-cookies" class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded">Accept</button>
+      <button id="decline-cookies" class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded">Decline</button>
+    </div>
+  </div>
+</div>
+
         <script>
             const currPageVal = document.querySelector("#current-page").value
             const currNav1 = document.querySelector(`#${currPageVal}`)
@@ -244,6 +259,33 @@
 				window.scrollTo({ top: 0, behavior: "smooth" });
 			})
 
+        </script>
+
+        <script>
+            // Check if consent is already given
+            const banner = document.getElementById('cookie-banner');
+            const accepted = localStorage.getItem('cookie_consent');
+
+            if (!accepted) {
+                    setTimeout(() => {
+                    banner.classList.remove('hidden');
+                    banner.classList.add('flex');
+                        banner.style.opacity = "1";
+
+                    },2000)
+            }
+
+            // Set acceptance or decline
+            document.getElementById('accept-cookies').addEventListener('click', () => {
+                localStorage.setItem('cookie_consent', 'accepted');
+                banner.classList.add('hidden');
+                // Optional: initialize analytics or tracking here
+            });
+
+            document.getElementById('decline-cookies').addEventListener('click', () => {
+                localStorage.setItem('cookie_consent', 'declined');
+                banner.classList.add('hidden');
+            });
         </script>
 
         <script>

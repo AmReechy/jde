@@ -1,4 +1,4 @@
-<div class="rounded-xl bg-gradient-to-br from-lime-800 via-green-900 to-lime-800 p-6">
+<div class="rounded-xl bg-gradient-to-br from-green-950 via-green-900 to-green-950 p-6">
     <div class="text-white font-medium text-lg md:text-xl">
         <div class="font-bold">{{service.desc}}. 
             <p>You can book a consultation appointment by choosing any of the following duration options:</p>
@@ -7,7 +7,7 @@
             
             {% for item in service.items %}
                 <li class="my-4">
-                    <span>{{ item.text }}</span> <span>(€{{item.fee}})</span>
+                    <span>{{ item.text }}</span> <span>(€<span id="cost-{{item.text|slugify}}">{{item.fee}}</span>)</span>
                 </li>
             {% endfor %}
                 

@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import UserRegisterForm, UserLoginForm
+from .forms import AttestationExtraForm, BasicInfoForm, DocumentsForm, ExtraDetailInfoForm, IdentityDocumentsForm, PassportDocumentsForm, PersonalInfoForm, UserRegisterForm, UserLoginForm
 
 
 # Create your views here.
@@ -12,10 +12,26 @@ from .forms import UserRegisterForm, UserLoginForm
  
 services = [
         {"title":"Translation Services", "image":"new_translation_service_img.jpg", "fee":"From €40 per page", "slug":"translation-services", "temp": "translation_temp.html", "septemp":"",
+         "files_upload":"", "payment_required":"True",
+         "items":[
+                  'Birth Certificate / Attestation of Birth', 
+                  'Spinsterhood / Bachelorhood Certificate', 
+                  'Marriage Certificate', 
+                  'Divorce Certificate', 
+                  'Adoption Certificate', 
+                  'Police Character Certificate / Report', 
+                  'Legal Document', 
+                  'Court Affidavit', 
+                  'Transcript / Diploma', 
+                  'Driving License'],
          "desc": "Certified translations of legal, academic, personal, and professional documents. Includes quality review and optional follow-up."},
         {"title": "Interpretation Services", "image":  "new_interpretation_service_img.jpg", "fee":"Based on request", "slug":"translation-services", "temp": "interpretation_temp.html", "septemp":"",
-          "desc":"Live interpretation, in-person, via phone or video. Ideal for meetings, legal appointments, interviews, or cross-cultural communication. Clear, accurate, and confidential."},
+         "hidden_first": "true", "files_upload":"True", "payment_required":"",
+          "desc":"Live interpretation, in-person, via phone or video. Ideal for meetings, legal appointments, interviews, or cross-cultural communication. Clear, accurate, and confidential.",
+          "items":["Administrative -  (Marriage, Prefecture, Association)",
+                   "Legal - (Court, CNDA, OFPRA, etc.)"]},
         {"title": "Consultancy Services", "image": "new_consultation_service_img.jpg", "fee": "Based on duration", "slug":"translation-services", "temp": "consultation_temp.html", "septemp":"True",
+         "hidden_first": "true", "payment_required":"True",
           "desc": "We provide business and administrative advice, available by phone or in-person at our office",
           "items": [
               {"text":"30minutes to 45minutes", "fee": "50"},
@@ -25,6 +41,7 @@ services = [
           },
         {"title": "Administrative Support", "image": "new_administrative_suppot_img.jpg", "fee": "€70 per 60minutes duration", "slug":"translation-services", "temp": "admin_support_temp.html", "septemp":"True",
           "desc": "Document handling, scheduling, form filling, and organizational support for individuals or businesses. Reliable, multilingual assistance.",
+          "files_upload":"True", "payment_required":"",
           "items": [{"text": "Writing and formatting administrative letters, CVs, memos, reports etc. for applicants.", "fee": ""},
                     {"text": "Assisting with official forms and applications filling e.g.: (French Nationality, CAF, Pole Emploi, URSSAF, Prefecture, Asylum, CNDA, OFPRA, etc…)", "fee": ""},
                     {"text": "Proofreading, editing and formatting of all documents", "fee": ""},
@@ -33,6 +50,7 @@ services = [
                     {"text": "Managing emails and correspondence", "fee": ""}]},
 
         {"title": "Procurement of Official Nigerian Documents", "image": "nigeria_national_logo.png", "fee": "Based on document type", "slug":"translation-services", "temp": "doc_procure_temp.html", "septemp":"True",
+         "hidden_first": "true", "files_upload":"", "payment_required":"True",
           "desc": "We help clients obtain birth certificates, transcripts, police reports, CAC documents, and more from Nigeria — fast, legally, and securely.",
           "items":[
               {"desc":"All types of Affidavits (Correction of name(s), Correction of date of birth, etc), sworn from any court in Nigeria.", "tot_fee":100, 
@@ -45,7 +63,7 @@ services = [
                "cost_items":[{'item': 'Attestation of Birth letter /Certificate of Birth (NPC)', 'cost': 40}, {'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, 
                              {'item': 'Service charge', 'cost': 40}, {'item': 'Translation cost', 'cost': 40}]
                },
-               {"desc":"Bachelorhood/Spinsiterhood Certificate (from your State)", "tot_fee":130, 
+               {"desc":"Bachelorhood / Spinsterhood Certificate (from your State)", "tot_fee":130, 
                "cost_items":[{'item': 'Bachelorhood/ Spinsterhood Certificate', 'cost': 40}, {'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, 
                              {'item': 'Service charge', 'cost': 40}, {'item': 'Translation cost', 'cost': 40}]
                },
@@ -53,17 +71,17 @@ services = [
                "cost_items":[{'item': 'Death Certificate', 'cost': 40}, {'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, 
                              {'item': 'Service charge', 'cost': 40}, {'item': 'Translation cost', 'cost': 40}]
                },
-               {"desc":"New paper publication for any purpose from Nigeria", "tot_fee":100, 
+               {"desc":"Newspaper publication for any purpose from Nigeria", "tot_fee":100, 
                "cost_items":[{'item': 'Newspaper publication', 'cost': 60}, {'item': 'Service charge', 'cost': 40}]
                },
-               {"desc":"Police Character reoprt/ Certificate", "tot_fee":225, 
-               "cost_items":[{'item': 'Police Character report/ Certificate.', 'cost': 75}, {'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, 
+               {"desc":"Police Character Report / Certificate", "tot_fee":225, 
+               "cost_items":[{'item': 'Police Character Report / Certificate.', 'cost': 75}, {'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, 
                              {'item': 'Service charge', 'cost': 100}, {'item': 'Translation cost', 'cost': 40}]
                },
-               {"desc":"State of Origin/Identification Certificate.", "tot_fee":130, 
+               {"desc":"State of Origin / Identification Certificate.", "tot_fee":130, 
                "cost_items":[{'item': 'State of Origin/Identification Certificate.', 'cost': 90}, {'item': 'Service charge', 'cost': 40}]
                },
-               {"desc":"Temporary Birth Certificate or Attestation Notification for ADULT NIN enrollment purpose", "tot_fee":70, 
+               {"desc":"Attestation Notification for ADULT NIN enrollment purpose", "tot_fee":70, 
                "cost_items":[{'item': 'Obtaining of Certificate.', 'cost': 30}, {'item': 'Service charge', 'cost': 40}]
                },
                {"desc":"e-Birth Certificate /Birth Notification for Minor NIN enrollment purpose", "tot_fee":70, 
@@ -79,13 +97,16 @@ services = [
                    {"text":" News paper publication for any purpose from Nigeria", "fee1": "100", "fee2": ""},
                    {"text":"Police Character Certificate", "fee1": "135", "fee2": "225", "fee2_info": "plus authentification & translation"},
                    {"text":" State of Origin/Identification Certificate", "fee1": "100", "fee2": ""},
-                   {"text":" Temporary Birth Certificate or Attestation Notification for NIN enrollment purpise - (online processing alone)", "fee1": "70", "fee2": ""}]},
-        {"title": "Nigerian Passport Application Support", "image":  "new_nigeria_passport_service_img.jpg", "fee": "Based on request", "slug":"translation-services", "temp": "naija_passport_temp.html", "septemp":"",
+                   {"text":" Attestation Notification for NIN enrollment purpise - (online processing alone)", "fee1": "70", "fee2": ""}]},
+        {"title": "Nigerian Passport Application Support", "image":  "new_nigeria_passport_service_img.jpg", "fee": "Based on request", "slug":"translation-services", "temp": "naija_passport_temp.html", 
+         "septemp":"", "files_upload":"", "payment_required":"",
           "desc": "Step-by-step guidance for online passport applications, renewals, or replacements — including profile creation and appointment booking."},
         #{"title": "Document Preparation Services", "image": "office_two_people.jpg",
         #"desc": "We assist individuals or businesses in drafting, formatting, and organizing official documents, including administrative forms, letters, report, certificates, declarations and more."},
-        {"title":"Double Legalisation of Documents", "image":"new_double_legal_img.jpg", "fee": "Based on request", "slug":"translation-services", "temp": "double_legal_temp.html", "septemp":"",
-         "desc":"Assistance with multi-stage document legalisation (e.g. Ministry of Foreign Affairs + French Embassy/ Consular legalization) for international use. We coordinate each step for compliance and recognition."},
+        {"title":"Double Legalisation of Documents", "image":"new_double_legal_img.jpg", "fee": "Based on request", "slug":"translation-services", "temp": "double_legal_temp.html", "septemp":"True",
+         "files_upload":"True", "payment_required":"", "hidden_first": "true",
+         "desc":"Assistance with multi-stage document legalisation (e.g. Ministry of Foreign Affairs + French Embassy/ Consular legalization) for international use. We coordinate each step for compliance and recognition.",
+         "items": ['Birth certificate', 'Bacherlorhood certificate ', 'Spinsterhood ', 'Marriage certificate ', 'Others']},
         {"title": "Business Investment & Development Opportunities", "image": "new_image_biz_investment.jpg", "fee": "NOT PROVIDED", "slug":"translation-services", "temp": "biz_investment_temp.html", "septemp":"True",
           "desc": "We guide Nigerians in the Diaspora — especially those in France — on how to invest safely and profitably in Nigeria."},
         {"title": "Mentorship Program Master Class", "image": "new_master_class_img.jpg", "fee": "NOT PROVIDED", "slug":"translation-services", "temp": "translation_temp.html", "septemp":"",
@@ -190,6 +211,13 @@ def homepage(request):
 def service_page(request, service_cat):
     current_page = "services"
     service_info = ''
+    info_form = PersonalInfoForm()
+    basic_info_form = BasicInfoForm()
+    documents_form = DocumentsForm()
+    identity_doc_form = IdentityDocumentsForm()
+    passport_doc_form = PassportDocumentsForm()
+    attest_extra_form = AttestationExtraForm()
+    extra_form = ExtraDetailInfoForm()
     for service in services:
         if slugify(service['title']) == service_cat:
             service_info = service
@@ -199,14 +227,23 @@ def service_page(request, service_cat):
     
     #if service_cat == "translation-services":
     fee_text = service_info["fee"].strip()
-    payment_required = "€" in fee_text
+    """payment_required = "€" in fee_text
     fee = fee_text[fee_text.index('€')+1:fee_text.index(" ", fee_text.index("€"))] if payment_required else "€0"
-    service_info["current_page"] = "services"
-    service_info["service_cat"] = service_cat
     service_info["payment_required"] = payment_required
     service_info["fee_amount"] = fee
+    """
+    service_info["current_page"] = "services"
+    service_info["service_cat"] = service_cat
     service_info["fee_text"] = fee_text
-    context = {"service": service_info, "current_page":current_page}
+    context = {"service": service_info, 
+               "current_page":current_page,
+               "documents_form":documents_form,
+               "identity_doc_form":identity_doc_form,
+               "passport_doc_form":passport_doc_form,
+               "attest_extra_form":attest_extra_form,
+               "extra_info_form":extra_form,
+               "info_form":info_form,
+               "basic_info_form":basic_info_form}
 
     return render(request, "service_detail.html", context)
     
@@ -256,6 +293,7 @@ def auth_view(request):
             action = "login"
             login_form = UserLoginForm(request, data=request.POST)
             reg_form = UserRegisterForm()
+            
 
             if login_form.is_valid():
                 user = login_form.get_user()
@@ -270,7 +308,11 @@ def auth_view(request):
         reg_form = UserRegisterForm()
         login_form = UserLoginForm()
 
-    return render(request, "auth.html", {"reg_form": reg_form, "login_form": login_form, "action":action, "current_page":current_page})
+    return render(request, "auth.html", 
+                  {"reg_form": reg_form, 
+                   "login_form": login_form,
+                   "action":action, 
+                   "current_page":current_page})
 
 
 def user_logout(request):

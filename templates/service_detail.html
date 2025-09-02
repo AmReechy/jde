@@ -26,11 +26,20 @@
     <p class="text-center text-4xl md:text-5xl font-extrabold pb-14">{{service.title}} </p>
     
     {% if not service.septemp %}
-    <div class="rounded-xl bg-gradient-to-br from-lime-800 via-green-900 to-lime-800 p-4">
+    <div class="rounded-xl bg-gradient-to-br from-green-950 via-green-900 to-green-950 p-4">
 		<div class="text-white font-semibold text-lg md:text-xl">
 			{{service.desc}}
 		</div>
-		
+        
+        {% if 'translation' in service.service_cat %}
+        <p class="pt-2 text-white font-medium text-lg md:text-xl">The various types of documents we translate include the following :</p>
+            <ul class="service-items-list ">
+                {% for item in service.items %}
+                    <li class="my-3 text-lime-100 font-medium md:text-lg">{{item}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+         
 	</div>
     {% else %}
         {% include service.temp %}
@@ -40,24 +49,126 @@
 </div>
 
 
+<div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6 mb-40">
+    {% if  'procurement' in service.service_cat and 'document' in service.service_cat %}
+    
+    <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full">
+                
+        <div class="my-3">
+            <p class="font-bold text-lg lg:text-xl pb-1 md:text-lg">Please select the category of document you want to process</p>
+            <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type">
+                <option value="">--NO DOCUMENT CATEGORY SELECTED-- </option>
+                
+                {% for option in service.items %}
+                    <option value="{{option.desc|slugify}}">{{ option.desc}}</option>
+                {% endfor %}
+                    
+            </select>
+        </div>
+    </div>
 
-<div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
-    <h1 class="text-lg md:text-xl font-medium mb-4">Please carefully provide all the required information in the form below, make the appropriate payment for the service fee (if required), and then submit your service request. </h1>
+    <div class="hidden" id="attest-extra-form-copy">
+        <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
+            {% for field in attest_extra_form %}
+                <div class="my-3">
+                    <p class="font-semibold pb-1 md:text-lg">{{field.label}}</p>
+                    <div>{{field}} </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 
-    <form id="translationForm" method="post" enctype="multipart/form-data" class="space-y-6">
+    {% if  'consultancy' in service.service_cat %}
+    
+    <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full">
+                
+        <div class="my-3">
+            <p class="font-bold text-lg lg:text-xl pb-1 md:text-lg">Please choose a consultation duration option</p>
+            <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type">
+                <option value="">--NO DURATION OPTION CHOSEN-- </option>
+                
+                {% for option in service.items %}
+                    <option value="{{option.text|slugify}}">{{ option.text}}</option>
+                {% endfor %}
+                    
+            </select>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if  'interpretation' in service.service_cat %}
+    
+    <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full">
+                
+        <div class="my-3">
+            <p class="font-bold text-lg lg:text-xl pb-1 md:text-lg">Please choose a service type</p>
+            <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type">
+                <option value="">--NO SERVICE TYPE CHOSEN-- </option>
+                
+                {% for option in service.items %}
+                    <option value="{{option|slugify}}">{{ option}}</option>
+                {% endfor %}
+                    
+            </select>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if  'double' in service.service_cat %}
+    
+    <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full">
+                
+        <div class="my-3">
+            <p class="font-bold text-lg lg:text-xl pb-1 md:text-lg">Please choose a document type</p>
+            <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type">
+                <option value="">--NO DOCUMENT TYPE CHOSEN-- </option>
+                
+                {% for option in service.items %}
+                    <option value="{{option|slugify}}">{{ option}}</option>
+                {% endfor %}
+                    
+            </select>
+        </div>
+    </div>
+    {% endif %}
+
+    <form id="info-form" method="post" enctype="multipart/form-data" 
+        class="space-y-6 {% if  service.hidden_first %}hidden{% endif %}">
         {% csrf_token %}
 
-        
+
+        <h1 class="text-lg md:text-xl font-bold mb-4">
+            
+            {% if service.payment_required %}
+            Kindly provide all the required information in the form below, 
+            make the appropriate payment for the service fee, 
+            and then submit your service request.
+            {% else %}
+            Kindly provide all the required information in the form below and submit your service request.
+            {% endif %}
+                
+             
+        </h1>
         {% if 'translation' in service.service_cat %}
         <div id="documents-container" class="space-y-4">
+            <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
+            {% for field in basic_info_form %}
+                <div class="my-3">
+                    <p class="font-semibold pb-1 md:text-lg">{{field.label}}</p>
+                    <div>{{field}} </div>
+                </div>
+            {% endfor %}
+            </div>
+                
             <!-- First document upload block -->
             <div class="document-item flex flex-col sm:flex-row sm:items-center sm:space-x-4 p-4 border border-lime-200 rounded-lg bg-lime-50 ">
                 <div class="flex-1">
-                    <label class="block font-semibold mb-1">Document Type</label>
+                    <label class="block font-semibold mb-1 md:text-lg">Document Type</label>
                     <select name="document_type" class="w-full border rounded p-2 bg-white">
                         <option value="">Select document type</option>
                         <option>Birth Certificate / Attestation of Birth</option>
-                        <option>Spinster/Bachelorhood Certificate</option>
+                        <option>Spinsterhood / Bachelorhood Certificate</option>
                         <option>Marriage Certificate</option>
                         <option>Divorce Certificate</option>
                         <option>Adoption Certificate</option>
@@ -66,11 +177,12 @@
                         <option>Court Affidavit</option>
                         <option>Transcript / Diploma</option>
                         <option>Driving License</option>
+                        <option>Some Other Document</option>
                     </select>
                 </div>
 
                 <div class="flex-1 mt-4 sm:mt-0">
-                    <label class="block font-semibold mb-1">Upload Document File</label>
+                    <label class="block font-semibold mb-1 md:text-lg">Upload Document File</label>
                     <input type="file" name="document_file" class="w-full border rounded p-2 bg-white">
                 </div>
             </div>
@@ -80,46 +192,133 @@
             class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
             + Add Another Document
         </button>
-				{% else %}
-				<div class="p-4 border rounded-lg bg-lime-50">
-					<div class="space-y-4">
-						<div>
-            	<label class="block text-base md:text-lg font-semibold mb-1">Required Info 1</label>
-							<input type="text" name="info-1" id="info-1" value="" class="p-2 inline-block w-full border border-gray-200 rounded-[4px]">							
-						</div>
-						<div>
-            	<label class="block text-base md:text-lg font-semibold mb-1">Required Info 2</label>
-							<input type="text" name="info-1" id="info-1" value="" class="p-2 inline-block w-full border border-gray-200 rounded-[4px]">							
-						</div>
-						<div>
-            	<label class="block text-base md:text-lg font-semibold mb-1">Required Info 3</label>
-							<input type="text" name="info-1" id="info-1" value="" class="p-2 inline-block w-full border border-gray-200 rounded-[4px]">							
-						</div>
-						
-					</div>	
-				</div>
+        {% elif 'procurement' in service.service_cat or 'passport' in service.service_cat %}
+
+        
+        <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
+            {% for field in info_form %}
+                <div class="my-3">
+                    <p class="font-semibold pb-1 md:text-lg">{{field.label}}</p>
+                    <div>{{field}} </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
+            {% for field in basic_info_form %}
+                <div class="my-3">
+                    <p class="font-semibold pb-1 md:text-lg">{{field.label}}</p>
+                    <div>{{field}} </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- <div class="p-4 border rounded-lg bg-lime-50">
+            <div class="space-y-4">
+                <div>
+        <label class="block text-base md:text-lg font-semibold mb-1">Required Info 1</label>
+                    <input type="text" name="info-1" id="info-1" value="" class="p-2 inline-block w-full border border-gray-200 rounded-[4px]">							
+                </div>
+                <div>
+        <label class="block text-base md:text-lg font-semibold mb-1">Required Info 2</label>
+                    <input type="text" name="info-1" id="info-1" value="" class="p-2 inline-block w-full border border-gray-200 rounded-[4px]">							
+                </div>
+                <div>
+        <label class="block text-base md:text-lg font-semibold mb-1">Required Info 3</label>
+                    <input type="text" name="info-1" id="info-1" value="" class="p-2 inline-block w-full border border-gray-200 rounded-[4px]">							
+                </div>
+                
+            </div>	
+        </div> -->
+
         {% endif %}
 
+        <!-- CONTAINER FOR ATTESTATION EXTRA INFORMATION FORM -->
+        <div id="attest-extra-form">
+
+        </div>
+
+        
+        {% if service.files_upload %}
+            <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
+                {% for field in documents_form %}
+                    <div class="my-3">
+                        <p class="font-semibold pb-1 md:text-lg">{{field.label}}</p>
+                        <div>{{field}} </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        
+        {% if 'procurement' in service.service_cat %}
+            <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
+                {% for field in identity_doc_form %}
+                    <div class="my-3">
+                        <p class="font-semibold pb-1 md:text-lg">{{field.label}}</p>
+                        <div>{{field}} </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if 'passport' in service.service_cat %}
+            <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
+                {% for field in passport_doc_form %}
+                    <div class="my-3">
+                        <p class="font-semibold pb-1 md:text-lg">{{field.label}}</p>
+                        <div>{{field}} </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
+            {% for field in extra_info_form %}
+                <div class="my-3">
+                    <p class="font-semibold pb-1 md:text-lg">{{field.label}}</p>
+                    <div>{{field}} </div>
+                </div>
+            {% endfor %}
+        </div>
+
+            
+            
+        
+
         <!-- Display total fee -->
-        <div class="mt-4">
+        <!-- <div class="mt-4">
             <p class="text-lg md:text-xl font-semibold text-amber-500">Service Fee Calculation:
 						<span id="" class="text-green-600">{{service.fee_text}}</span>
             </p>
-        </div>
+        </div> -->
         <input type="hidden" name="" id="fee-required" value="{% if service.payment_required %}true{% endif %}">
 
 				{% if service.payment_required %}
         <div class="mt-4">
-            <p class="text-lg md:text-xl font-semibold text-amber-500">Total Fee to pay:
-						<span id="totalFee" class="text-green-600">€{{service.fee_amount}} </span>
+            <p class="text-base md:text-lg font-semibold text-amber-500 inline-block p-3 bg-black">
+                <span class="text-white">Total Fee to pay :</span>
+					<span id="totalFee" class="text-green-500 inline-block">
+                        €<span id="total-fee-amount">40</span>
+                        {% if 'procurement' in service.service_cat %}
+                        <span class="inline-block pl-1 text-red-500">Service fee</span>
+                        <span class="inline-block px-2 font-bold text-xl text-white">+</span>
+                        €<span>120</span> <span class="inline-block pl-1 text-red-600">DHL fee</span>
+                        <span class="inline-block px-2 font-bold text-xl text-white">=</span>
+                        €<span id="procure-total-fee">120</span>
+                        {% endif %}
+                            
+                    </span>
             </p>
         </div>
-				<input type="hidden" name="" id="fee-amount" value="{{service.fee_amount}}">
+				<input type="hidden" name="" id="fee-amount" value="40">
                 
 
         <!-- Payment section -->
         <div class="mt-6 p-4 border rounded-lg bg-gray-50">
+            <p class="font-medium md:text-lg flex items-center"><input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Privacy Policy</a></button></span></p>
             <p class="font-medium md:text-lg flex items-center pb-2"><input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>
+            
             <!-- <p class="mb-2 font-medium">Make Payment:</p> -->
             <button type="button" id="payBtn" disabled
                 class="cursor-not-allowed bg-gray-400 text-white px-4 py-2 rounded">
@@ -128,10 +327,15 @@
             <p id="paymentStatus" class="text-sm text-red-600 mt-2">Payment not yet made.</p>
         </div>
 				{% else %}
-				<div class="mt-4 bg-amber-500 rounded-lg text-black font-semibold p-4">
+				<div class="mt-4 bg-gray-800 rounded-lg text-white font-semibold p-4">
 					<p>Please note that after submitting your service request, we will calculate the total fee to be paid for the service and communicate with you on how to make the payment. We will begin the processing of the service requested after receiving your payment. </p>
 				</div>
-                <p class="font-medium md:text-lg flex items-center"><input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>
+                <div>
+                    <p class="font-medium md:text-lg flex items-center"><input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Privacy Policy</a></button></span></p>
+                    <p class="font-medium md:text-lg flex items-center"><input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>
+                
+                </div>
+                
 				{% endif %}
 
 				<div class="mx-auto text-center py-4">
@@ -164,6 +368,41 @@
 
 {% block scripts %}
 {{ block.super }}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const selectElement2 = document.getElementById("procure-doc-type");
+    const infoForm = document.getElementById("info-form");
+    //const totalFeeValue = document.getElementById("totalFee");
+    const totalFeeSpan = document.getElementById("total-fee-amount");
+    selectElement2.addEventListener("change", function(event) {
+        //alert(`New option selected:, ${event.target.value}`);
+        if (selectElement2.value) {
+            infoForm.classList.remove('hidden')
+            
+            let costElem = document.querySelector(`#cost-${selectElement2.value}`)
+            if (costElem) totalFeeSpan.textContent = costElem.textContent;
+            let procureTotalFeeSpan = document.getElementById("procure-total-fee");
+            if (procureTotalFeeSpan) {
+                procureTotalFeeSpan.textContent = parseInt(costElem.textContent) + 120
+                const attestExtraFormCont = document.getElementById("attest-extra-form");
+                const attestExtraFormCopy = document.getElementById("attest-extra-form-copy");
+                if (selectElement2.value.includes('attestation') && selectElement2.value.includes('birth')) {
+                    attestExtraFormCont.innerHTML = attestExtraFormCopy.innerHTML;
+                } else {
+                    attestExtraFormCont.innerHTML = '';
+                }
+            }
+            
+            
+            
+            //alert(totalFeeSpan.textContent)
+        }
+        else infoForm.classList.add('hidden')
+    });
+});
+</script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const promptDiv = document.getElementById("login-prompt");
@@ -189,44 +428,50 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const documentsContainer = document.getElementById("documents-container");
     const addDocumentBtn = document.getElementById("addDocumentBtn");
-    const totalFeeEl = document.getElementById("totalFee");
+    const totalFeeEl = document.getElementById("total-fee-amount");
     const payBtn = document.getElementById("payBtn");
     const paymentStatus = document.getElementById("paymentStatus");
     const submitBtn = document.getElementById("submitBtn");
     const feeRequired = document.getElementById("fee-required").value;
     const termsCheck = document.getElementById("terms-agree-check");
+    const privacyCheck = document.getElementById("privacy-agree-check");
+    const checks = [termsCheck, privacyCheck]
+    let docCount;
 
-    termsCheck.addEventListener('input', () => {
+    checks.forEach(check => {
+        check.addEventListener('input', () => {
         
-        if (feeRequired == "true") {
-            if (termsCheck.checked) {
-                payBtn.disabled = false;
-                payBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
-                payBtn.classList.add("bg-green-500", "hover:bg-green-700");
+            if (feeRequired == "true") {
+                if (termsCheck.checked && privacyCheck.checked) {
+                    payBtn.disabled = false;
+                    payBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+                    payBtn.classList.add("bg-green-500", "hover:bg-green-700");
+                } else {
+                    payBtn.disabled = true;
+                    payBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+                    payBtn.classList.remove("bg-green-500", "hover:bg-green-700");
+                }
             } else {
-                payBtn.disabled = true;
-                payBtn.classList.add("bg-gray-400", "cursor-not-allowed");
-                payBtn.classList.remove("bg-green-500", "hover:bg-green-700");
+                if (termsCheck.checked && privacyCheck.checked) {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+                    submitBtn.classList.add("bg-green-500", "hover:bg-green-700");
+                } else {
+                    submitBtn.disabled = true;
+                    submitBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+                    submitBtn.classList.remove("bg-green-500", "hover:bg-green-700");
+                }
             }
-        } else {
-            if (termsCheck.checked) {
-                submitBtn.disabled = false;
-                submitBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
-                submitBtn.classList.add("bg-green-500", "hover:bg-green-700");
-            } else {
-                submitBtn.disabled = true;
-                submitBtn.classList.add("bg-gray-400", "cursor-not-allowed");
-                submitBtn.classList.remove("bg-green-500", "hover:bg-green-700");
-            }
-        }
+        })
         
         
     })
 
     function updateTotalFee() {
-        const feePerDoc = parseInt(document.getElementById("fee-amount").value);
-        const docCount = documentsContainer.querySelectorAll(".document-item").length;
-        totalFeeEl.textContent = `€${docCount * feePerDoc}`;
+        const feePerDoc = 40 //parseInt(document.getElementById("total-fee-amount").textContent);
+        const translationDocs = document.querySelectorAll(".document-item");
+        if (translationDocs) docCount = translationDocs.length;
+        totalFeeEl.textContent = `${docCount * feePerDoc}`;
     }
 
 
@@ -271,8 +516,11 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Your payment for the service was successful. Thank you.")
     });
 
-    updateTotalFee();
+    //updateTotalFee();
 });
 </script>
+
+
+
 {% endblock %}
 

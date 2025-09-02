@@ -2,13 +2,14 @@
     <div class="text-white font-medium text-lg md:text-xl">
         <div class="text-white font-semibold text-lg md:text-xl">
 			{{service.desc}}
+            
 		</div>
-        <p class="font-semibold">The various Administrative Support services we render include the following:</p>
+        <p class="font-medium mt-2">The various document types our service covers include the following:</p>
         <ul class="service-items-list ">
             
             {% for item in service.items %}
-                <li class="my-4 font-medium text-base md:text-lg text-lime-100">
-                    {{ item.text }}
+                <li class="my-3 font-medium text-base md:text-lg text-lime-100">
+                    {{ item }}
                 
                 </li>
             {% endfor %}

@@ -34,3 +34,263 @@ class UserLoginForm(AuthenticationForm):
     username = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-input"}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-input"}))
 
+
+class PersonalInfoForm(forms.Form):
+    surname = forms.CharField(
+        label="Surname", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+    )
+    first_name = forms.CharField(
+        label="First Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First name'}),
+    )
+    middle_name = forms.CharField(
+        label="Middle Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
+    )
+    
+    sex = forms.ChoiceField(
+        label="Sex ",
+        choices=[('male', 'Male'), ('female', 'Female')],
+        widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
+    )
+    
+    date_of_birth = forms.DateField(
+        label="Date of Birth",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
+    )
+    
+    marital_status = forms.CharField(
+        label="Marital Status", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Marital status'}),
+    )
+    occupation = forms.CharField(
+        label="Occupation", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your job or occupation'}),
+    )
+    email = forms.CharField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Valid email'}),
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Phone number'}),
+    )
+    postal_address = forms.CharField(
+        label="Postal Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your postal address'}),
+    )
+    current_residential_address = forms.CharField(
+        label="Current Residential Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Address of where you live'}),
+    )
+    state_of_origin = forms.CharField(
+        label="State Of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What state are you from'}),
+    )
+    lga_of_origin = forms.CharField(
+        label="LG Area Of Origin ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What is your local government area'}),
+    )
+    village_town_origin = forms.CharField(
+        label="Village or Town of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What or town are you from'}),
+    )
+    place_of_birth = forms.CharField(
+        label="Place of Birth ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Where were you born ?'}),
+    )
+    lga_place_of_birth = forms.CharField(
+        label="LG Area (for Place of Birth)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'LGA of where you were born'}),
+    )
+    father_name = forms.CharField(
+        label="Father's Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your father\'s name'}),
+    )
+    mother_name = forms.CharField(
+        label="Mother's Name ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name'}),
+    )
+    mother_maiden_name = forms.CharField(
+        label="Mother's Maiden Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name before she married'}),
+    )
+
+    """class Meta:
+        fields = ["surname", "first_name", "middle_name", "sex", "date_of_birth", "martial_status",
+                  "occupation", "emial", "phone_number", "postal_address", "current_residential_address",
+                  "state_of_origin", "lga_of_origin", "village_town_origin", "place_of_birth",
+                  "lga_place_of_birth", "father_name", "mother_name", "mother_maiden_name"]
+        widgets = {
+            'surname': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+            'middle_name': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+            'email': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+            'postal_address': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+            'current_residential_address': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+            'state_of_origin': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+            'lga_of_origin': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+        }"""
+
+
+class BasicInfoForm(forms.Form):
+    surname = forms.CharField(
+        label="Surname", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+    )
+    first_name = forms.CharField(
+        label="First Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First name'}),
+    )
+    middle_name = forms.CharField(
+        label="Middle Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
+    )
+    
+    sex = forms.ChoiceField(
+        label="Sex ",
+        choices=[('male', 'Male'), ('female', 'Female')],
+        widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
+    )
+    email = forms.EmailField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Enter a valid email'}),
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Enter an active phone number'}),
+    )
+    postal_address = forms.CharField(
+        label="Postal Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Enter a correct postal address'}),
+    )
+
+    """class Meta:
+        fields = ["surname", "first_name", "middle_name", "sex", 
+                  "emial", "phone_number", "postal_address"]
+        widgets = {
+            'surname': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+            'middle_name': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+            'sex': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+            'email': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+            'postal_address': forms.TextInput(attrs={'class': 'form-input', 'placeholder': ''}),
+        }"""
+
+
+class MultipleFileInput(forms.ClearableFileInput):
+    allow_multiple_selected = True
+
+class MultipleFileField(forms.FileField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("widget", MultipleFileInput())
+        super().__init__(*args, **kwargs)
+
+    def clean(self, data, initial=None):
+        single_file_clean = super().clean
+        if isinstance(data, (list, tuple)):
+            result = [single_file_clean(d, initial) for d in data]
+        else:
+            result = single_file_clean(data, initial)
+        return result
+
+"""class ImageForm(forms.ModelForm):
+    photo = MultipleFileField(label='Select files', required=False)
+
+    class Meta:
+        model = Image
+        fields = ['photo', ]
+"""
+
+class DocumentsForm(forms.Form):
+    documents = MultipleFileField(
+        label="Upload All Relevant Documents",
+        #widget=forms.FileInput(attrs={'multiple': True}),
+        required=False
+    )
+
+    def clean_documents(self):
+        files = self.files.getlist('documents')
+        if len(files) > 10:
+            raise forms.ValidationError("You can upload at most 10 files.")
+        return files
+    
+
+
+class IdentityDocumentsForm(forms.Form):
+    birth_certificate = forms.FileField(
+        label="Birth Certificate",
+        required=True
+    )
+    passport_data_page = forms.FileField(
+        label="Passport Data Page",
+        required=True
+    )
+    passport_photo_identity = forms.FileField(
+        label="Passport Photo Identity",
+        required=True
+    )
+
+
+class PassportDocumentsForm(forms.Form):
+    birth_certificate = forms.FileField(
+        label="Birth Certificate",
+        required=True
+    )
+    certificate_of_state_of_origin = forms.FileField(
+        label="Certificate of State of Origin",
+        required=True
+    )
+    nin_slip = forms.FileField(
+        label="NIN Slip",
+        required=True
+    )
+    passport_data_page = forms.FileField(
+        label="Passport Data Page",
+        required=True
+    )
+    passport_size_photo = forms.FileField(
+        label="Passport Size Photograph",
+        required=True
+    )
+
+
+class AttestationExtraForm(forms.Form):
+    highest_education = forms.CharField(
+        label="Highest Education Qualification", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What\' your highest education'}),
+    )
+    id_passport_num = forms.CharField(
+        label="ID Passport Number", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your passport ID number'}),
+    )
+    nin = forms.CharField(
+        label="NIN", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your NIN digits'}),
+    )
+
+
+"""class DetailInfoForm(forms.Form):
+    detail_info = forms.Textarea(
+        label="Please provide further details, explanation, or some relevant information that might be useful to us to know",
+        required=False,
+        widget=forms.Textarea(attrs={})
+    )
+"""
+
+class ExtraDetailInfoForm(forms.Form):
+    extra_detail_info = forms.CharField(
+        label="Additional Information",
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "class": 'form-input',
+                "rows": 6,
+                #"style": "width:100%;",   # makes it take full width
+                "placeholder": "Please provide further details, explanation, or some relevant information that you think might be useful to us to know here ..."
+            }
+        )
+    )
