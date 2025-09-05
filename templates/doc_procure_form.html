@@ -1,0 +1,194 @@
+
+
+{% extends "jde_base.html" %}
+
+{% load static %}
+
+{% block title %}{{service.title}} {% endblock %}
+
+
+{% block content %}
+
+
+<div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
+    <p class="text-center text-4xl md:text-5xl font-extrabold pb-14">{{service.title}} </p>
+    
+        {% include service.temp %} 
+	
+</div>
+
+
+<div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6 mb-12" id="selected">
+   
+
+    <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full my-3">
+                
+        <div class="">
+            <!--<p class="font-bold text-black text-lg lg:text-xl pb-1 md:text-lg">If you selected a wrong document category, please change it here !</p>
+            <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type">
+                <option value="">--NO DOCUMENT CATEGORY SELECTED-- </option>
+                
+                {% for option in service.items %}
+                    <option value="{{option.desc|slugify}}">{{ option.desc}}</option>
+                {% endfor %}
+                    
+						</select>-->
+			<div class="pb-3">
+			<p class="text-black font-bold text-lg md:text-xl tracking-wide"> Please select the category of document you want to process</p>
+			<!--<p class="font-bold md:text-lg text-black">{{ selected_doc_type }}</p>-->
+				
+			</div>
+						<div class="bg-white p-2 group relative rounded-[4px]">
+							<span class="text-gray-800 font-medium">{{ selected_doc_type }}</span>
+							<div class="absolute bottom-full left-0 w-full  hidden group-hover:flex flex-col bg-gray-800 text-gray-100 font-medium rounded-xl border border-black">
+								{% for item in service.items %}
+								<p class="p-3 border-b border-dotted border-b-gray-500"><a href="{% url 'base:doc-procure-form-page' service.title|slugify forloop.counter0 %}#selected">{{item.desc}}</a></p>
+								{% endfor %}
+							</div>
+						</div>
+        </div>
+    </div>
+
+		<div>
+			<!--<p class="text-amber-500 font-medium md:text-lg">Document category you selected for processing :</p>
+			<p class="font-bold md:text-lg">{{ selected_doc_type }}</p>-->
+        <div class="mt-4 mb-2">
+            <p class="text-base md:text-lg font-semibold text-amber-500  p-3 bg-black 
+						{% if dhl_included %}inline-flex{% else %}inline-block{% endif %} flex-col md:flex-row rounded-sm">
+                <span class="text-white text-nowrap">Total Fee to pay :</span>
+					<span id="totalFee" class="text-green-500 inline-block">
+						€<span id="total-fee-amount">{{service_total_fee}}</span>
+                        {% if dhl_included %}
+
+                        <span class="inline-block pl-1 text-red-500">Service fee</span>
+                        <span class="inline-block px-2 font-bold text-xl text-white">+</span>
+                        €<span>120</span> <span class="inline-block pl-1 text-red-600">DHL fee</span>
+                        <span class="inline-block px-2 font-bold text-xl text-white">=</span>
+												€<span id="procure-total-fee">{{service_dhl_total}}</span>
+                        {% endif %}
+                            
+                    </span>
+            </p>
+        </div>
+		</div>
+</div>
+
+
+<div class="max-w-3xl mx-auto mt-8 bg-white shadow-md rounded-lg p-6 mb-40">
+	<p class="text-lg md:text-xl font-semibold pb-4">
+            Kindly provide all the required information in the form below, 
+            make the appropriate payment for the service fee, 
+            and then submit your service request.
+	</p>
+        <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full my-4">
+            {% for field in procure_form %}
+                <div class="my-4">
+                    <p class="font-semibold pb-1 md:text-lg field-label">{{field.label}}
+					{% if field.field.required %}
+            <span class="required-indicator">*</span>
+        	{% endif %}</p>
+										</p>
+                    <div>{{field}} </div>
+                </div>
+            {% endfor %}
+        </div>
+
+				{% if 'Death' in selected_doc_type %}
+        <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full my-4">
+            {% for field in extra_death_info_form %}
+                <div class="my-4">
+                    <p class="font-semibold pb-1 md:text-lg field-label">{{field.label}}
+					{% if field.field.required %}
+            <span class="required-indicator">*</span>
+        	{% endif %}</p>
+										</p>
+                    <div>{{field}} </div>
+                </div>
+            {% endfor %}
+        </div>
+				{% endif %}
+
+
+        <!-- Payment section -->
+        <div class="mt-6 p-4 border rounded-lg bg-gray-50">
+            <p class="font-medium md:text-lg flex items-start">
+						<span class="inline-block text-nowrap">
+						<input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5 accent-green-500 "> <span class="required-indicator relative -top-2">*</span>
+						</span>
+						<span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Privacy Policy</a></button>
+						</span>
+						</p>
+            <p class="font-medium md:text-lg flex items-start pb-2">
+						<span class="inline-block text-nowrap">
+						<input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="required-indicator relative -top-2">*</span>
+						</span>
+						<span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>
+            
+            <!-- <p class="mb-2 font-medium">Make Payment:</p> -->
+            <button type="button" id="payBtn" disabled
+                class="cursor-not-allowed bg-gray-400 text-white px-4 py-2 rounded font-medium">
+							Pay €{{service_dhl_total}} Fee now
+            </button>
+						<input type="hidden" name="" id="service-dhl-fee" value="€{{service_dhl_total}}">
+            <p id="paymentStatus" class="text-sm text-red-600 mt-2">Payment not yet made.</p>
+        </div>
+				
+				<div class="mx-auto text-center py-6">
+        <!-- Submit button (disabled until payment) -->
+        <button type="submit" id="submitBtn"
+						class="text-white px-6 py-2 rounded cursor-not-allowed bg-gray-400">
+            Submit Service Request
+        </button>
+					
+				</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+
+<script>
+  const privacyCheck = document.getElementById("privacy-agree-check");
+	const totalFee = document.getElementById("service-dhl-fee").value;
+  const termsCheck = document.getElementById("terms-agree-check");
+    const payBtn = document.getElementById("payBtn");
+    const submitBtn = document.getElementById("submitBtn");
+    const checks = [termsCheck, privacyCheck]
+    checks.forEach(check => {
+        check.addEventListener('input', () => {
+        
+					if (termsCheck.checked && privacyCheck.checked) {
+							payBtn.disabled = false;
+							payBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+							payBtn.classList.add("bg-green-500", "hover:bg-green-700");
+					} else {
+							payBtn.disabled = true;
+							payBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+							payBtn.classList.remove("bg-green-500", "hover:bg-green-700");
+							submitBtn.disabled = true;
+							submitBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+							submitBtn.classList.remove("bg-green-500", "hover:bg-green-700");
+					}
+				});
+		});
+	
+			function makePayment() {
+        // Simulate successful payment
+        
+				paymentStatus.textContent = `${totalFee} Payment was successful ✔`;
+        paymentStatus.classList.remove("text-red-600");
+        paymentStatus.classList.add("text-green-600", "font-medium");
+
+        submitBtn.disabled = false;
+        submitBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+        submitBtn.classList.add("bg-green-500", "hover:bg-green-700");
+				alert(`Your ${totalFee} payment for the service was successful. Thank you.`)
+    		payBtn.removeEventListener("click",makePayment);
+				termsCheck.disabled = true;
+				privacyCheck.disabled = true;
+				payBtn.textContent = `${totalFee} fee paid ✔`
+    };
+    payBtn.addEventListener("click",makePayment); 
+
+</script>
+{% endblock %}

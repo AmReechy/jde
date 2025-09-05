@@ -146,11 +146,13 @@ class BasicInfoForm(forms.Form):
     )
     middle_name = forms.CharField(
         label="Middle Name", max_length=100,
+        required=False,
         widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
     )
     
     sex = forms.ChoiceField(
         label="Sex ",
+        required=False,
         choices=[('male', 'Male'), ('female', 'Female')],
         widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
     )
@@ -217,7 +219,13 @@ class DocumentsForm(forms.Form):
         if len(files) > 10:
             raise forms.ValidationError("You can upload at most 10 files.")
         return files
-    
+
+
+class FileUploadForm(forms.Form):
+    file = forms.FileField(
+        label="Upload File",
+        widget=forms.ClearableFileInput(attrs={'class': 'file-input'})
+    )
 
 
 class IdentityDocumentsForm(forms.Form):
@@ -293,4 +301,919 @@ class ExtraDetailInfoForm(forms.Form):
                 "placeholder": "Please provide further details, explanation, or some relevant information that you think might be useful to us to know here ..."
             }
         )
+    )
+
+
+class ExtraDeathInfoForm(forms.Form):
+    date_of_birth = forms.DateField(
+        label="Date of Death",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
+    )
+    age_at_death = forms.IntegerField(
+        label="Age of the Deceased",
+        min_value=0,   # Minimum allowed value
+        max_value=150,   # Maximum allowed value
+        widget=forms.NumberInput(attrs={
+            "class": "form-input",
+            "placeholder": "0 - 150"
+        })
+    )
+    place_of_death = forms.CharField(
+        label="Place of Death", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'place of death'}),
+    )
+    deceased_address = forms.CharField(
+        label="Full Residential Address of the Deceased", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Deceased full address'}),
+    )
+    name_of_declarant = forms.CharField(
+        label="Full Name of Declarant", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Full name of declarant'}),
+    )
+    death_certificate = forms.FileField(
+        label="Medical Death Certificate (if any)",
+        required=False
+    )
+
+
+class ProcureAffidavitForm(forms.Form):
+    surname = forms.CharField(
+        label="Surname", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+    )
+    first_name = forms.CharField(
+        label="First Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First name'}),
+    )
+    middle_name = forms.CharField(
+        label="Middle Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
+    )
+    
+    sex = forms.ChoiceField(
+        label="Sex ",
+        choices=[('male', 'Male'), ('female', 'Female')],
+        widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
+    )
+    
+    date_of_birth = forms.DateField(
+        label="Date of Birth",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
+    )
+    
+    marital_status = forms.CharField(
+        label="Marital Status", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Marital status'}),
+    )
+    occupation = forms.CharField(
+        label="Occupation", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your job or occupation'}),
+    )
+    email = forms.CharField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Valid email'}),
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Phone number'}),
+    )
+    postal_address = forms.CharField(
+        label="Postal Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your postal address'}),
+    )
+    current_residential_address = forms.CharField(
+        label="Current Residential Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Address of where you live'}),
+    )
+    state_of_origin = forms.CharField(
+        label="State Of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What state are you from'}),
+    )
+    lga_of_origin = forms.CharField(
+        label="LG Area Of Origin ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What is your local government area'}),
+    )
+    village_town_origin = forms.CharField(
+        label="Village or Town of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What or town are you from'}),
+    )
+    place_of_birth = forms.CharField(
+        label="Place of Birth ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Where were you born ?'}),
+    )
+    lga_place_of_birth = forms.CharField(
+        label="LG Area (for Place of Birth)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'LGA of where you were born'}),
+    )
+    father_name = forms.CharField(
+        label="Father's Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your father\'s name'}),
+    )
+    mother_name = forms.CharField(
+        label="Mother's Name ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name'}),
+    )
+    mother_maiden_name = forms.CharField(
+        label="Mother's Maiden Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name before she married'}),
+    )
+
+
+class ProcureAuthenticationForm(forms.Form):
+    surname = forms.CharField(
+        label="Surname", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+    )
+    first_name = forms.CharField(
+        label="First Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First name'}),
+    )
+    middle_name = forms.CharField(
+        label="Middle Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
+    )
+    
+    sex = forms.ChoiceField(
+        label="Sex ",
+        choices=[('male', 'Male'), ('female', 'Female')],
+        widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
+    )
+    
+    date_of_birth = forms.DateField(
+        label="Date of Birth",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
+    )
+    
+    marital_status = forms.CharField(
+        label="Marital Status", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Marital status'}),
+    )
+    occupation = forms.CharField(
+        label="Occupation", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your job or occupation'}),
+    )
+    email = forms.CharField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Valid email'}),
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Phone number'}),
+    )
+    postal_address = forms.CharField(
+        label="Postal Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your postal address'}),
+    )
+    current_residential_address = forms.CharField(
+        label="Current Residential Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Address of where you live'}),
+    )
+    state_of_origin = forms.CharField(
+        label="State Of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What state are you from'}),
+    )
+    lga_of_origin = forms.CharField(
+        label="LG Area Of Origin ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What is your local government area'}),
+    )
+    village_town_origin = forms.CharField(
+        label="Village or Town of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What or town are you from'}),
+    )
+    place_of_birth = forms.CharField(
+        label="Place of Birth ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Where were you born ?'}),
+    )
+    lga_place_of_birth = forms.CharField(
+        label="LG Area (for Place of Birth)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'LGA of where you were born'}),
+    )
+    father_name = forms.CharField(
+        label="Father's Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your father\'s name'}),
+    )
+    mother_name = forms.CharField(
+        label="Mother's Name ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name'}),
+    )
+    mother_maiden_name = forms.CharField(
+        label="Mother's Maiden Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name before she married'}),
+    )
+
+
+class ProcureAttestationBirthForm(forms.Form):
+    surname = forms.CharField(
+        label="Surname", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+    )
+    first_name = forms.CharField(
+        label="First Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First name'}),
+    )
+    middle_name = forms.CharField(
+        label="Middle Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
+    )
+    
+    sex = forms.ChoiceField(
+        label="Sex ",
+        choices=[('male', 'Male'), ('female', 'Female')],
+        widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
+    )
+    
+    date_of_birth = forms.DateField(
+        label="Date of Birth",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
+    )
+    
+    marital_status = forms.CharField(
+        label="Marital Status", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Marital status'}),
+    )
+    occupation = forms.CharField(
+        label="Occupation", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your job or occupation'}),
+    )
+    email = forms.CharField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Valid email'}),
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Phone number'}),
+    )
+    postal_address = forms.CharField(
+        label="Postal Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your postal address'}),
+    )
+    current_residential_address = forms.CharField(
+        label="Current Residential Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Address of where you live'}),
+    )
+    state_of_origin = forms.CharField(
+        label="State Of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What state are you from'}),
+    )
+    lga_of_origin = forms.CharField(
+        label="LG Area Of Origin ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What is your local government area'}),
+    )
+    village_town_origin = forms.CharField(
+        label="Village or Town of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What or town are you from'}),
+    )
+    place_of_birth = forms.CharField(
+        label="Place of Birth ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Where were you born ?'}),
+    )
+    lga_place_of_birth = forms.CharField(
+        label="LG Area (for Place of Birth)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'LGA of where you were born'}),
+    )
+    father_name = forms.CharField(
+        label="Father's Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your father\'s name'}),
+    )
+    mother_name = forms.CharField(
+        label="Mother's Name ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name'}),
+    )
+    mother_maiden_name = forms.CharField(
+        label="Mother's Maiden Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name before she married'}),
+    )
+
+
+class ProcureBachelorhoodSpinsterhoodForm(forms.Form):
+    surname = forms.CharField(
+        label="Surname", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+    )
+    first_name = forms.CharField(
+        label="First Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First name'}),
+    )
+    middle_name = forms.CharField(
+        label="Middle Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
+    )
+    
+    sex = forms.ChoiceField(
+        label="Sex ",
+        choices=[('male', 'Male'), ('female', 'Female')],
+        widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
+    )
+    
+    date_of_birth = forms.DateField(
+        label="Date of Birth",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
+    )
+    
+    marital_status = forms.CharField(
+        label="Marital Status", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Marital status'}),
+    )
+    occupation = forms.CharField(
+        label="Occupation", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your job or occupation'}),
+    )
+    email = forms.CharField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Valid email'}),
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Phone number'}),
+    )
+    postal_address = forms.CharField(
+        label="Postal Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your postal address'}),
+    )
+    current_residential_address = forms.CharField(
+        label="Current Residential Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Address of where you live'}),
+    )
+    state_of_origin = forms.CharField(
+        label="State Of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What state are you from'}),
+    )
+    lga_of_origin = forms.CharField(
+        label="LG Area Of Origin ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What is your local government area'}),
+    )
+    village_town_origin = forms.CharField(
+        label="Village or Town of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What or town are you from'}),
+    )
+    place_of_birth = forms.CharField(
+        label="Place of Birth ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Where were you born ?'}),
+    )
+    lga_place_of_birth = forms.CharField(
+        label="LG Area (for Place of Birth)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'LGA of where you were born'}),
+    )
+    father_name = forms.CharField(
+        label="Father's Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your father\'s name'}),
+    )
+    mother_name = forms.CharField(
+        label="Mother's Name ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name'}),
+    )
+    mother_maiden_name = forms.CharField(
+        label="Mother's Maiden Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name before she married'}),
+    )
+
+
+class ProcureDeathCertificateForm(forms.Form):
+    surname = forms.CharField(
+        label="Surname", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+    )
+    first_name = forms.CharField(
+        label="First Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First name'}),
+    )
+    middle_name = forms.CharField(
+        label="Middle Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
+    )
+    
+    sex = forms.ChoiceField(
+        label="Sex ",
+        choices=[('male', 'Male'), ('female', 'Female')],
+        widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
+    )
+    
+    date_of_birth = forms.DateField(
+        label="Date of Birth",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
+    )
+    
+    email = forms.CharField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Valid email'}),
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Phone number'}),
+    )
+    postal_address = forms.CharField(
+        label="Postal Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your postal address'}),
+    )
+    state_of_origin = forms.CharField(
+        label="State Of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What state are you from'}),
+    )
+    lga_of_origin = forms.CharField(
+        label="LG Area Of Origin ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What is your local government area'}),
+    )
+    village_town_origin = forms.CharField(
+        label="Village or Town of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What or town are you from'}),
+    )
+    place_of_birth = forms.CharField(
+        label="Place of Birth ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Where were you born ?'}),
+    )
+    lga_place_of_birth = forms.CharField(
+        label="LG Area (for Place of Birth)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'LGA of where you were born'}),
+    )
+    father_name = forms.CharField(
+        label="Father's Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your father\'s name'}),
+    )
+
+
+class ProcureNewspaperPublicationForm(forms.Form):
+    surname = forms.CharField(
+        label="Surname", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+    )
+    first_name = forms.CharField(
+        label="First Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First name'}),
+    )
+    middle_name = forms.CharField(
+        label="Middle Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
+    )
+    
+    sex = forms.ChoiceField(
+        label="Sex ",
+        choices=[('male', 'Male'), ('female', 'Female')],
+        widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
+    )
+    
+    date_of_birth = forms.DateField(
+        label="Date of Birth",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
+    )
+    
+    marital_status = forms.CharField(
+        label="Marital Status", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Marital status'}),
+    )
+    occupation = forms.CharField(
+        label="Occupation", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your job or occupation'}),
+    )
+    email = forms.CharField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Valid email'}),
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Phone number'}),
+    )
+    postal_address = forms.CharField(
+        label="Postal Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your postal address'}),
+    )
+    current_residential_address = forms.CharField(
+        label="Current Residential Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Address of where you live'}),
+    )
+    state_of_origin = forms.CharField(
+        label="State Of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What state are you from'}),
+    )
+    lga_of_origin = forms.CharField(
+        label="LG Area Of Origin ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What is your local government area'}),
+    )
+    village_town_origin = forms.CharField(
+        label="Village or Town of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What or town are you from'}),
+    )
+    place_of_birth = forms.CharField(
+        label="Place of Birth ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Where were you born ?'}),
+    )
+    lga_place_of_birth = forms.CharField(
+        label="LG Area (for Place of Birth)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'LGA of where you were born'}),
+    )
+    father_name = forms.CharField(
+        label="Father's Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your father\'s name'}),
+    )
+    mother_name = forms.CharField(
+        label="Mother's Name ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name'}),
+    )
+    mother_maiden_name = forms.CharField(
+        label="Mother's Maiden Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name before she married'}),
+    )
+
+
+class ProcurePoliceReportForm(forms.Form):
+    surname = forms.CharField(
+        label="Surname", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+    )
+    first_name = forms.CharField(
+        label="First Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First name'}),
+    )
+    middle_name = forms.CharField(
+        label="Middle Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
+    )
+    
+    sex = forms.ChoiceField(
+        label="Sex ",
+        choices=[('male', 'Male'), ('female', 'Female')],
+        widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
+    )
+    
+    date_of_birth = forms.DateField(
+        label="Date of Birth",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
+    )
+    
+    marital_status = forms.CharField(
+        label="Marital Status", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Marital status'}),
+    )
+    occupation = forms.CharField(
+        label="Occupation", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your job or occupation'}),
+    )
+    email = forms.CharField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Valid email'}),
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Phone number'}),
+    )
+    postal_address = forms.CharField(
+        label="Postal Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your postal address'}),
+    )
+    current_residential_address = forms.CharField(
+        label="Current Residential Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Address of where you live'}),
+    )
+    state_of_origin = forms.CharField(
+        label="State Of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What state are you from'}),
+    )
+    lga_of_origin = forms.CharField(
+        label="LG Area Of Origin ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What is your local government area'}),
+    )
+    village_town_origin = forms.CharField(
+        label="Village or Town of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What or town are you from'}),
+    )
+    place_of_birth = forms.CharField(
+        label="Place of Birth ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Where were you born ?'}),
+    )
+    lga_place_of_birth = forms.CharField(
+        label="LG Area (for Place of Birth)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'LGA of where you were born'}),
+    )
+    reason_for_report_request = forms.CharField(
+        label="Reason for Report Request",
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "class": 'form-input',
+                "rows": 6,
+                #"style": "width:100%;",   # makes it take full width
+                "placeholder": "Kindly provide a brief explanation for why you are requesting for the police report ..."
+            }
+        )
+    )
+
+
+class ProcureStateOriginForm(forms.Form):
+    surname = forms.CharField(
+        label="Surname", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+    )
+    first_name = forms.CharField(
+        label="First Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First name'}),
+    )
+    middle_name = forms.CharField(
+        label="Middle Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
+    )
+    
+    sex = forms.ChoiceField(
+        label="Sex ",
+        choices=[('male', 'Male'), ('female', 'Female')],
+        widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
+    )
+    
+    date_of_birth = forms.DateField(
+        label="Date of Birth",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
+    )
+    
+    marital_status = forms.CharField(
+        label="Marital Status", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Marital status'}),
+    )
+    occupation = forms.CharField(
+        label="Occupation", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your job or occupation'}),
+    )
+    email = forms.CharField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Valid email'}),
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Phone number'}),
+    )
+    postal_address = forms.CharField(
+        label="Postal Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your postal address'}),
+    )
+    current_residential_address = forms.CharField(
+        label="Current Residential Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Address of where you live'}),
+    )
+    state_of_origin = forms.CharField(
+        label="State Of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What state are you from'}),
+    )
+    lga_of_origin = forms.CharField(
+        label="LG Area Of Origin ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What is your local government area'}),
+    )
+    village_town_origin = forms.CharField(
+        label="Village or Town of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What or town are you from'}),
+    )
+    father_name = forms.CharField(
+        label="Father's Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your father\'s name'}),
+    )
+    mother_name = forms.CharField(
+        label="Mother's Name ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name'}),
+    )
+    mother_maiden_name = forms.CharField(
+        label="Mother's Maiden Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name before she married'}),
+    )
+
+
+class ProcureAttestationNotificationForm(forms.Form):
+    surname = forms.CharField(
+        label="Surname", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+    )
+    first_name = forms.CharField(
+        label="First Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First name'}),
+    )
+    middle_name = forms.CharField(
+        label="Middle Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
+    )
+    
+    sex = forms.ChoiceField(
+        label="Sex ",
+        choices=[('male', 'Male'), ('female', 'Female')],
+        widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
+    )
+    
+    date_of_birth = forms.DateField(
+        label="Date of Birth",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
+    )
+    
+    marital_status = forms.CharField(
+        label="Marital Status", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Marital status'}),
+    )
+    occupation = forms.CharField(
+        label="Occupation", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your job or occupation'}),
+    )
+    email = forms.CharField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Valid email'}),
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Phone number'}),
+    )
+    postal_address = forms.CharField(
+        label="Postal Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your postal address'}),
+    )
+    current_residential_address = forms.CharField(
+        label="Current Residential Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Address of where you live'}),
+    )
+    state_of_origin = forms.CharField(
+        label="State Of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What state are you from'}),
+    )
+    lga_of_origin = forms.CharField(
+        label="LG Area Of Origin ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What is your local government area'}),
+    )
+    village_town_origin = forms.CharField(
+        label="Village or Town of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What or town are you from'}),
+    )
+    place_of_birth = forms.CharField(
+        label="Place of Birth ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Where were you born ?'}),
+    )
+    lga_place_of_birth = forms.CharField(
+        label="LG Area (for Place of Birth)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'LGA of where you were born'}),
+    )
+    nin = forms.CharField(
+        label="NIN (if any)", max_length=10,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Enter NIN if you have it '}),
+    )
+
+
+class ProcureEbirthCertificateForm(forms.Form):
+    surname = forms.CharField(
+        label="Surname", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+    )
+    first_name = forms.CharField(
+        label="First Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First name'}),
+    )
+    middle_name = forms.CharField(
+        label="Middle Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
+    )
+    
+    sex = forms.ChoiceField(
+        label="Sex ",
+        choices=[('male', 'Male'), ('female', 'Female')],
+        widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
+    )
+    
+    date_of_birth = forms.DateField(
+        label="Date of Birth",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
+    )
+    
+    marital_status = forms.CharField(
+        label="Marital Status", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Marital status'}),
+    )
+    occupation = forms.CharField(
+        label="Occupation", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your job or occupation'}),
+    )
+    email = forms.CharField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Valid email'}),
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Phone number'}),
+    )
+    postal_address = forms.CharField(
+        label="Postal Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your postal address'}),
+    )
+    current_residential_address = forms.CharField(
+        label="Current Residential Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Address of where you live'}),
+    )
+    state_of_origin = forms.CharField(
+        label="State Of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What state are you from'}),
+    )
+    lga_of_origin = forms.CharField(
+        label="LG Area Of Origin ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What is your local government area'}),
+    )
+    village_town_origin = forms.CharField(
+        label="Village or Town of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What or town are you from'}),
+    )
+    place_of_birth = forms.CharField(
+        label="Place of Birth ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Where were you born ?'}),
+    )
+    lga_place_of_birth = forms.CharField(
+        label="LG Area (for Place of Birth)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'LGA of where you were born'}),
+    )
+    father_name = forms.CharField(
+        label="Father's Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your father\'s name'}),
+    )
+    mother_name = forms.CharField(
+        label="Mother's Name ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name'}),
+    )
+    mother_maiden_name = forms.CharField(
+        label="Mother's Maiden Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name before she married'}),
+    )
+    parent_nin = forms.CharField(
+        label="NIN of Parent (if any)", max_length=10,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Enter NIN of parent if available'}),
+    )
+
+
+class ProcureAffidavitForm(forms.Form):
+    surname = forms.CharField(
+        label="Surname", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Surname or last name'}),
+    )
+    first_name = forms.CharField(
+        label="First Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'First name'}),
+    )
+    middle_name = forms.CharField(
+        label="Middle Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Middle name'}),
+    )
+    
+    sex = forms.ChoiceField(
+        label="Sex ",
+        choices=[('male', 'Male'), ('female', 'Female')],
+        widget=forms.Select(attrs={'class': 'form-input', 'placeholder': 'Gender'})  # can also use forms.Select if you prefer dropdown
+    )
+    
+    date_of_birth = forms.DateField(
+        label="Date of Birth",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
+    )
+    
+    marital_status = forms.CharField(
+        label="Marital Status", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Marital status'}),
+    )
+    occupation = forms.CharField(
+        label="Occupation", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your job or occupation'}),
+    )
+    email = forms.CharField(
+        label="Email Address",
+        widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Valid email'}),
+    )
+    phone_number = forms.CharField(
+        label="Phone Number", max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Phone number'}),
+    )
+    postal_address = forms.CharField(
+        label="Postal Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your postal address'}),
+    )
+    current_residential_address = forms.CharField(
+        label="Current Residential Address", max_length=200,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Address of where you live'}),
+    )
+    state_of_origin = forms.CharField(
+        label="State Of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What state are you from'}),
+    )
+    lga_of_origin = forms.CharField(
+        label="LG Area Of Origin ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What is your local government area'}),
+    )
+    village_town_origin = forms.CharField(
+        label="Village or Town of Origin", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'What or town are you from'}),
+    )
+    place_of_birth = forms.CharField(
+        label="Place of Birth ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Where were you born ?'}),
+    )
+    lga_place_of_birth = forms.CharField(
+        label="LG Area (for Place of Birth)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'LGA of where you were born'}),
+    )
+    father_name = forms.CharField(
+        label="Father's Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your father\'s name'}),
+    )
+    mother_name = forms.CharField(
+        label="Mother's Name ", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name'}),
+    )
+    mother_maiden_name = forms.CharField(
+        label="Mother's Maiden Name", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Your mother\'s name before she married'}),
     )

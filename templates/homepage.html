@@ -27,7 +27,7 @@
             
                 <div class="flex justify-center flex-wrap space-x-4 md:space-x-6 gap-y-4 text-base md:text-lg pt-4">
                     
-                    <div class="inline-block w-max group relative bg-green-500 text-white px-6 py-3 z-40 rounded shadow hover:bg-green-700 jump-small "><button>Request a Service</button>
+                    <div class="inline-block w-max group relative bg-green-500 text-white px-6 py-3 z-50 rounded shadow hover:bg-green-700 jump-small "><button>Request a Service</button>
                         <p class="absolute hidden top-full left-0 group-hover:inline-flex flex-col text-left text-lime-950 font-normal z-50 w-max bg-lime-50 border border-lime-500">
                             {% for serv in services %}
                                 <a href="{% url 'base:service-page' serv.title|slugify %}" class="transform duration-75 hover:bg-lime-500 hover:text-white hover:font-semibold inline-block px-3 py-1 w-full">{{serv.title}}</a>
@@ -35,7 +35,13 @@
                         </p>
                     </div>
                     <a href="{% url 'base:service-page' 'consultancy-services' %}" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Book Consultation Appointment</a>
-                    <a href="https://calendly.com/ksq-europe/paris?month=2025-08" target="_blank" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Book Appointment for NIN</a>
+										<!--<a href="https://calendly.com/ksq-europe/paris?month=2025-08" target="_blank" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Book Appointment for NIN</a>-->
+                    <div class="inline-block w-max group relative bg-green-500 text-white px-6 py-3 z-40 rounded shadow hover:bg-green-700 jump-small "><button>Book Appointment for NIN / BVN</button>
+                        <p class="absolute hidden top-full left-0 group-hover:inline-flex flex-col text-left text-lime-950 font-normal z-40 w-max bg-lime-50 border border-lime-500">
+                                <a href="https://calendly.com/ksq-europe/paris?month=2025-08" class="transform duration-75 hover:bg-lime-500 hover:text-white hover:font-semibold inline-block px-3 py-1 w-full">NIN Appointment</a>
+                                <a href="https://calendly.com/ksq-europe/paris?month=2025-08" class="transform duration-75 hover:bg-lime-500 hover:text-white hover:font-semibold inline-block px-3 py-1 w-full">BVN Appointment</a>
+                        </p>
+                    </div>
                     <a href="{% url 'base:contact-us'  %}" class="bg-green-500 text-white px-6 py-3 z-30 rounded shadow hover:bg-green-700 jump-small">Contact Us</a>
                 </div>
 

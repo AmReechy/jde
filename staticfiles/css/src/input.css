@@ -101,10 +101,17 @@
 .form-input {
 	@apply inline-block p-2 rounded-[4px] border border-gray-300 w-full text-base font-normal
 }
+.required-indicator {
+	@apply font-bold text-2xl text-red-500 inline-block relative
+}
+input[type="file"] {
+        @apply block w-full text-base text-gray-700 border border-gray-300 rounded-[4px] cursor-pointer
+               bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400;
+    }
 
 .service-detail-head {
     @apply font-bold text-xl md:text-2xl pb-1 tracking-wide
 }
 .service-items-list {
-    @apply list-outside list-disc pl-10
+    @apply list-outside list-disc pl-10 text-lime-100
 }

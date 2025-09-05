@@ -29,6 +29,17 @@
             .par-serv-scroll {
                 transition: transform 0.5s ease;
             }
+
+			/* Animation for fade + slide */
+    .fade-slide-enter {
+        opacity: 0;
+        transform: translateY(-8px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .fade-slide-enter-active {
+        opacity: 1;
+        transform: translateY(0);
+    }
 		</style> 
 	</head>
 	<body class="font-sans text-gray-800">

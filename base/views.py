@@ -4,15 +4,15 @@ from django.utils.text import slugify
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import AttestationExtraForm, BasicInfoForm, DocumentsForm, ExtraDetailInfoForm, IdentityDocumentsForm, PassportDocumentsForm, PersonalInfoForm, UserRegisterForm, UserLoginForm
-
+from .forms import AttestationExtraForm, BasicInfoForm, DocumentsForm, ExtraDetailInfoForm, IdentityDocumentsForm, PassportDocumentsForm, PersonalInfoForm, UserRegisterForm, UserLoginForm, FileUploadForm
+from .forms import ProcureAffidavitForm, ProcureAttestationBirthForm, ProcureAttestationNotificationForm,ProcureNewspaperPublicationForm, ProcureEbirthCertificateForm, ProcureAuthenticationForm, ProcureDeathCertificateForm, ProcurePoliceReportForm, ProcureStateOriginForm, ProcureBachelorhoodSpinsterhoodForm, ExtraDeathInfoForm
 
 # Create your views here.
 
  
 services = [
         {"title":"Translation Services", "image":"new_translation_service_img.jpg", "fee":"From €40 per page", "slug":"translation-services", "temp": "translation_temp.html", "septemp":"",
-         "files_upload":"", "payment_required":"True",
+         "files_upload":"True", "payment_required":"", "hidden_first": "true",
          "items":[
                   'Birth Certificate / Attestation of Birth', 
                   'Spinsterhood / Bachelorhood Certificate', 
@@ -29,7 +29,7 @@ services = [
          "hidden_first": "true", "files_upload":"True", "payment_required":"",
           "desc":"Live interpretation, in-person, via phone or video. Ideal for meetings, legal appointments, interviews, or cross-cultural communication. Clear, accurate, and confidential.",
           "items":["Administrative -  (Marriage, Prefecture, Association)",
-                   "Legal - (Court, CNDA, OFPRA, etc.)"]},
+                   "Legal - (Court, CNDA, OFPRA, etc.)", "Others"]},
         {"title": "Consultancy Services", "image": "new_consultation_service_img.jpg", "fee": "Based on duration", "slug":"translation-services", "temp": "consultation_temp.html", "septemp":"True",
          "hidden_first": "true", "payment_required":"True",
           "desc": "We provide business and administrative advice, available by phone or in-person at our office",
@@ -39,52 +39,64 @@ services = [
               {"text":"1hour 30minutes to 2hours maximum", "fee": "150"},
               ]
           },
-        {"title": "Administrative Support", "image": "new_administrative_suppot_img.jpg", "fee": "€70 per 60minutes duration", "slug":"translation-services", "temp": "admin_support_temp.html", "septemp":"True",
+        {"title": "Administrative Support", "image": "new_administrative_suppot_img.jpg", "fee": "€70 per 60minutes duration", "slug":"translation-services", "temp": "admin_support_temp.html", "septemp":"", "hidden_first": "true",
           "desc": "Document handling, scheduling, form filling, and organizational support for individuals or businesses. Reliable, multilingual assistance.",
           "files_upload":"True", "payment_required":"",
-          "items": [{"text": "Writing and formatting administrative letters, CVs, memos, reports etc. for applicants.", "fee": ""},
-                    {"text": "Assisting with official forms and applications filling e.g.: (French Nationality, CAF, Pole Emploi, URSSAF, Prefecture, Asylum, CNDA, OFPRA, etc…)", "fee": ""},
-                    {"text": "Proofreading, editing and formatting of all documents", "fee": ""},
-                    {"text": "Entering and managing data", "fee": ""},
-                    {"text": "Preparing presentations and proposals for professional use", "fee": ""},
-                    {"text": "Managing emails and correspondence", "fee": ""}]},
+          "items": ["Writing and formatting administrative letters, CVs, memos, reports etc. for applicants.",
+                    "Assisting with official forms and applications filling e.g.: (French Nationality, CAF, Pole Emploi, URSSAF, Prefecture, Asylum, CNDA, OFPRA, etc…)",
+                    "Proofreading, editing and formatting of all documents",
+                    "Entering and managing data", 
+                    "Preparing presentations and proposals for professional use",
+                    "Managing emails and correspondence"]},
 
         {"title": "Procurement of Official Nigerian Documents", "image": "nigeria_national_logo.png", "fee": "Based on document type", "slug":"translation-services", "temp": "doc_procure_temp.html", "septemp":"True",
          "hidden_first": "true", "files_upload":"", "payment_required":"True",
           "desc": "We help clients obtain birth certificates, transcripts, police reports, CAC documents, and more from Nigeria — fast, legally, and securely.",
           "items":[
               {"desc":"All types of Affidavits (Correction of name(s), Correction of date of birth, etc), sworn from any court in Nigeria.", "tot_fee":100, 
+               "form":ProcureAffidavitForm,
                "cost_items":[{'item': 'Affidavit', 'cost': 20}, {'item': 'Service charge', 'cost': 40}, {'item': 'Translation cost', 'cost': 40}]
                },
-               {"desc":"Authentification of any official document - (Ministry of Foreign Affairs)", "tot_fee":90, 
+               {"desc":"Authentification of any official document - (Ministry of Foreign Affairs)", "tot_fee":90,
+               "form":ProcureAuthenticationForm,
                "cost_items":[{'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, {'item': 'Service charge', 'cost': 40}, {'item': 'Translation cost', 'cost': 40}]
                },
                {"desc":"Attestation of Birth letter /Certificate of Birth (NPC), (from your State of birth)", "tot_fee":130, 
+               "form":ProcureAttestationBirthForm,
                "cost_items":[{'item': 'Attestation of Birth letter /Certificate of Birth (NPC)', 'cost': 40}, {'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, 
                              {'item': 'Service charge', 'cost': 40}, {'item': 'Translation cost', 'cost': 40}]
                },
                {"desc":"Bachelorhood / Spinsterhood Certificate (from your State)", "tot_fee":130, 
+               "form":ProcureBachelorhoodSpinsterhoodForm,
                "cost_items":[{'item': 'Bachelorhood/ Spinsterhood Certificate', 'cost': 40}, {'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, 
                              {'item': 'Service charge', 'cost': 40}, {'item': 'Translation cost', 'cost': 40}]
                },
                {"desc":"Death Certificate", "tot_fee":130, 
+               "form":ProcureDeathCertificateForm,
                "cost_items":[{'item': 'Death Certificate', 'cost': 40}, {'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, 
                              {'item': 'Service charge', 'cost': 40}, {'item': 'Translation cost', 'cost': 40}]
                },
                {"desc":"Newspaper publication for any purpose from Nigeria", "tot_fee":100, 
+               "form":ProcureNewspaperPublicationForm,
                "cost_items":[{'item': 'Newspaper publication', 'cost': 60}, {'item': 'Service charge', 'cost': 40}]
                },
                {"desc":"Police Character Report / Certificate", "tot_fee":225, 
+               "form": ProcurePoliceReportForm,
                "cost_items":[{'item': 'Police Character Report / Certificate.', 'cost': 75}, {'item': 'Authentification of document (Ministry of Foreign Affaires)', 'cost': 10}, 
                              {'item': 'Service charge', 'cost': 100}, {'item': 'Translation cost', 'cost': 40}]
                },
                {"desc":"State of Origin / Identification Certificate.", "tot_fee":130, 
+               "form":ProcureStateOriginForm,
                "cost_items":[{'item': 'State of Origin/Identification Certificate.', 'cost': 90}, {'item': 'Service charge', 'cost': 40}]
                },
                {"desc":"Attestation Notification for ADULT NIN enrollment purpose", "tot_fee":70, 
+               "form":ProcureAttestationNotificationForm,
+                "dhl_excluded":"True",
                "cost_items":[{'item': 'Obtaining of Certificate.', 'cost': 30}, {'item': 'Service charge', 'cost': 40}]
                },
                {"desc":"e-Birth Certificate /Birth Notification for Minor NIN enrollment purpose", "tot_fee":70, 
+               "form":ProcureEbirthCertificateForm,
+                "dhl_excluded":"True",
                "cost_items":[{'item': 'Obtaining of e-Birth Certificate.', 'cost': 30}, {'item': 'Service charge', 'cost': 40}]
                }
           ],
@@ -208,7 +220,48 @@ def homepage(request):
     context = {"services":services, "partners":partners, "current_page":"home"}
     return render(request, "homepage.html",context)
 
+
+def doc_procure_select_page(request, service_cat):
+    service = {}
+    for s in services:
+        if 'procurement' in s["title"].lower():
+            service = s
+            break
+
+    return render(request, "doc_procure_select.html", {"service":service}) 
+
+
+def doc_procure_form_page(request, service_cat, doc_type_index):
+
+    service = {}
+    for s in services:
+        if 'procurement' in s["title"].lower():
+            service = s
+            break
+    if service:
+        selected_doc_type = service["items"][doc_type_index]["desc"]
+        form = service["items"][doc_type_index]["form"]
+        #extra_death_info_form = ExtraDeathInfoForm()
+        dhl_included = "dhl_excluded" not in service["items"][doc_type_index].keys()
+        service_total_fee = service["items"][doc_type_index]["tot_fee"] 
+        service_dhl_total = (service_total_fee + 120) if dhl_included else service_total_fee
+    context = {
+            "service":service,
+            "dhl_included": dhl_included,
+            "procure_form": form(),
+            "extra_death_info_form": ExtraDeathInfoForm(),
+            "selected_doc_type": selected_doc_type,
+            "service_total_fee": service_total_fee,
+            "service_dhl_total": service_dhl_total
+            }
+
+    return render(request, "doc_procure_form.html", context) 
+
+
 def service_page(request, service_cat):
+    if 'procurement' in service_cat:
+        return redirect("base:doc-procure-select", service_cat=service_cat)
+
     current_page = "services"
     service_info = ''
     info_form = PersonalInfoForm()
@@ -218,6 +271,7 @@ def service_page(request, service_cat):
     passport_doc_form = PassportDocumentsForm()
     attest_extra_form = AttestationExtraForm()
     extra_form = ExtraDetailInfoForm()
+    file_upload_form = FileUploadForm()
     for service in services:
         if slugify(service['title']) == service_cat:
             service_info = service
@@ -242,6 +296,7 @@ def service_page(request, service_cat):
                "passport_doc_form":passport_doc_form,
                "attest_extra_form":attest_extra_form,
                "extra_info_form":extra_form,
+               "file_form":file_upload_form,
                "info_form":info_form,
                "basic_info_form":basic_info_form}
 

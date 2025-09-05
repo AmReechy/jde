@@ -31,7 +31,7 @@
 			{{service.desc}}
 		</div>
         
-        {% if 'translation' in service.service_cat %}
+        {% if 'translation' in service.service_cat  %}
         <p class="pt-2 text-white font-medium text-lg md:text-xl">The various types of documents we translate include the following :</p>
             <ul class="service-items-list ">
                 {% for item in service.items %}
@@ -39,6 +39,23 @@
                 {% endfor %}
             </ul>
         {% endif %}
+        {% if 'interpretation' in service.service_cat  %}
+        <p class="pt-2 text-white font-medium text-lg md:text-xl">Our interpretation services cover the following categories :</p>
+            <ul class="service-items-list ">
+                {% for item in service.items %}
+                    <li class="my-3 text-lime-100 font-medium md:text-lg">{{item}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if 'administrative' in service.service_cat  %}
+        <p class="pt-2 text-white font-medium text-lg md:text-xl">Our administrative services cover the following categories :</p>
+            <ul class="service-items-list ">
+                {% for item in service.items %}
+                    <li class="my-3 text-lime-100 font-medium md:text-lg">{{item}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+				<p class="inline-block p-3 mt-3 text-base md:text-lg font-bold bg-black text-white rounded-sm">Service Fee : <span class="inline-block pl-3 text-green-500">{{service.fee}}</span></p>
          
 	</div>
     {% else %}
@@ -102,9 +119,27 @@
     <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full">
                 
         <div class="my-3">
-            <p class="font-bold text-lg lg:text-xl pb-1 md:text-lg">Please choose a service type</p>
+            <p class="font-bold text-lg lg:text-xl pb-1 md:text-lg">Please choose a service category</p>
             <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type">
-                <option value="">--NO SERVICE TYPE CHOSEN-- </option>
+                <option value="">--NO SERVICE CATEGORY CHOSEN-- </option>
+                
+                {% for option in service.items %}
+                    <option value="{{option|slugify}}">{{ option}}</option>
+                {% endfor %}
+                    
+            </select>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if  'administrative' in service.service_cat %}
+    
+    <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full">
+                
+        <div class="my-3">
+            <p class="font-bold text-lg lg:text-xl pb-1 md:text-lg">Please choose a service category</p>
+            <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type">
+                <option value="">--NO SERVICE CATEGORY CHOSEN-- </option>
                 
                 {% for option in service.items %}
                     <option value="{{option|slugify}}">{{ option}}</option>
@@ -132,6 +167,43 @@
         </div>
     </div>
     {% endif %}
+    
+		{% if  'translation' in service.service_cat %}
+    
+    <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full">
+                
+        <div class="my-3">
+            <p class="font-bold text-lg lg:text-xl pb-1 md:text-lg">Please choose a document type</p>
+            <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type">
+                <option value="">--NO DOCUMENT TYPE CHOSEN-- </option>
+                
+                {% for option in service.items %}
+                    <option value="{{option|slugify}}">{{ option}}</option>
+                {% endfor %}
+                    
+            </select>
+        </div>
+    </div>
+    {% endif %}
+            
+		{% if service.payment_required %}
+        <div class="mt-4 hidden" id="fee-info-cont">
+            <p class="text-base md:text-lg font-semibold text-amber-500 inline-block p-3 bg-black">
+                <span class="text-white">Total Fee to pay :</span>
+					<span id="totalFee" class="text-green-500 inline-block">
+                        €<span id="total-fee-amount">40</span>
+                        {% if 'procurement' in service.service_cat %}
+                        <span class="inline-block pl-1 text-red-500">Service fee</span>
+                        <span class="inline-block px-2 font-bold text-xl text-white">+</span>
+                        €<span>120</span> <span class="inline-block pl-1 text-red-600">DHL fee</span>
+                        <span class="inline-block px-2 font-bold text-xl text-white">=</span>
+                        €<span id="procure-total-fee">120</span>
+                        {% endif %}
+                            
+                    </span>
+            </p>
+        </div>
+    {% endif %}
 
     <form id="info-form" method="post" enctype="multipart/form-data" 
         class="space-y-6 {% if  service.hidden_first %}hidden{% endif %}">
@@ -150,12 +222,17 @@
                 
              
         </h1>
-        {% if 'translation' in service.service_cat %}
+        
+				
+        {% if 'granslation' in service.service_cat %}
         <div id="documents-container" class="space-y-4">
             <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
             {% for field in basic_info_form %}
                 <div class="my-3">
-                    <p class="font-semibold pb-1 md:text-lg">{{field.label}}</p>
+                    <p class="font-semibold pb-1 md:text-lg">{{field.label}} 
+					{% if field.field.required %}
+            <span class="required-indicator">*</span>
+        	{% endif %}</p>
                     <div>{{field}} </div>
                 </div>
             {% endfor %}
@@ -177,7 +254,7 @@
                         <option>Court Affidavit</option>
                         <option>Transcript / Diploma</option>
                         <option>Driving License</option>
-                        <option>Some Other Document</option>
+                        <option>Others</option>
                     </select>
                 </div>
 
@@ -198,7 +275,11 @@
         <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
             {% for field in info_form %}
                 <div class="my-3">
-                    <p class="font-semibold pb-1 md:text-lg">{{field.label}}</p>
+                    <p class="font-semibold pb-1 md:text-lg field-label">{{field.label}}
+					{% if field.field.required %}
+            <span class="required-indicator">*</span>
+        	{% endif %}</p>
+										</p>
                     <div>{{field}} </div>
                 </div>
             {% endfor %}
@@ -208,7 +289,11 @@
         <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
             {% for field in basic_info_form %}
                 <div class="my-3">
-                    <p class="font-semibold pb-1 md:text-lg">{{field.label}}</p>
+                    <p class="font-semibold pb-1 md:text-lg field-label">{{field.label}}
+					{% if field.field.required %}
+            <span class="required-indicator">*</span>
+        	{% endif %}</p>
+										</p>
                     <div>{{field}} </div>
                 </div>
             {% endfor %}
@@ -239,7 +324,7 @@
         </div>
 
         
-        {% if service.files_upload %}
+        {% if service.iles_upload %}
             <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
                 {% for field in documents_form %}
                     <div class="my-3">
@@ -249,6 +334,32 @@
                 {% endfor %}
             </div>
         {% endif %}
+
+
+				{% if service.files_upload %}
+            
+            <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
+							<h2 class="text-lg font-bold mb-3 text-gray-800">Upload Relevant Files/Documents</h2>
+
+							<div id="file-inputs" class="space-y-4 mb-4">
+									<!-- Initial file input from Django form -->
+									<div class="file-wrapper relative">
+											{{ file_form.file }}
+											<button type="button"
+															class="remove-btn hidden absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm"
+															onclick="removeFileInput(this)">
+													✖
+											</button>
+									</div>
+							</div>
+
+							<!-- Add button -->
+							<button type="button" id="add-file-btn"
+											class="px-4 py-2 bg-green-600 text-white rounded-md shadow hover:bg-green-700 transition">
+									+ Add another file
+							</button>
+            </div>
+				{% endif %}
 
         
         {% if 'procurement' in service.service_cat %}
@@ -266,7 +377,11 @@
             <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
                 {% for field in passport_doc_form %}
                     <div class="my-3">
-                        <p class="font-semibold pb-1 md:text-lg">{{field.label}}</p>
+                        <p class="font-semibold pb-1 md:text-lg field-label">{{field.label}}
+					{% if field.field.required %}
+            <span class="required-indicator">*</span>
+        	{% endif %}</p>
+												</p>
                         <div>{{field}} </div>
                     </div>
                 {% endfor %}
@@ -276,7 +391,11 @@
         <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full">
             {% for field in extra_info_form %}
                 <div class="my-3">
-                    <p class="font-semibold pb-1 md:text-lg">{{field.label}}</p>
+                    <p class="font-semibold pb-1 md:text-lg field-label">{{field.label}}
+					{% if field.field.required %}
+            <span class="required-indicator">*</span>
+        	{% endif %}</p>
+										</p>
                     <div>{{field}} </div>
                 </div>
             {% endfor %}
@@ -295,7 +414,7 @@
         <input type="hidden" name="" id="fee-required" value="{% if service.payment_required %}true{% endif %}">
 
 				{% if service.payment_required %}
-        <div class="mt-4">
+        <!--<div class="mt-4">
             <p class="text-base md:text-lg font-semibold text-amber-500 inline-block p-3 bg-black">
                 <span class="text-white">Total Fee to pay :</span>
 					<span id="totalFee" class="text-green-500 inline-block">
@@ -310,14 +429,26 @@
                             
                     </span>
             </p>
-        </div>
+				</div>-->
 				<input type="hidden" name="" id="fee-amount" value="40">
                 
 
         <!-- Payment section -->
         <div class="mt-6 p-4 border rounded-lg bg-gray-50">
-            <p class="font-medium md:text-lg flex items-center"><input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Privacy Policy</a></button></span></p>
-            <p class="font-medium md:text-lg flex items-center pb-2"><input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>
+            <!--<p class="font-medium md:text-lg flex items-center"><input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Privacy Policy</a></button></span></p>
+						<p class="font-medium md:text-lg flex items-center pb-2"><input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>-->
+            <p class="font-medium md:text-lg flex items-start">
+						<span class="inline-block text-nowrap">
+						<input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5 accent-green-500 "> <span class="required-indicator relative -top-2">*</span> 
+						</span>
+						<span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Privacy Policy</a></button>
+						</span>
+						</p>
+            <p class="font-medium md:text-lg flex items-start pb-2">
+						<span class="inline-block text-nowrap">
+						<input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="required-indicator relative -top-2">*</span>
+						</span>
+						<span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>
             
             <!-- <p class="mb-2 font-medium">Make Payment:</p> -->
             <button type="button" id="payBtn" disabled
@@ -327,12 +458,27 @@
             <p id="paymentStatus" class="text-sm text-red-600 mt-2">Payment not yet made.</p>
         </div>
 				{% else %}
+
+				{% if "investment" not in service.service_cat %}
 				<div class="mt-4 bg-gray-800 rounded-lg text-white font-semibold p-4">
 					<p>Please note that after submitting your service request, we will calculate the total fee to be paid for the service and communicate with you on how to make the payment. We will begin the processing of the service requested after receiving your payment. </p>
 				</div>
+				{% endif %}
                 <div>
-                    <p class="font-medium md:text-lg flex items-center"><input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Privacy Policy</a></button></span></p>
-                    <p class="font-medium md:text-lg flex items-center"><input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>
+                    <!--<p class="font-medium md:text-lg flex items-center"><input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Privacy Policy</a></button></span></p>
+										<p class="font-medium md:text-lg flex items-center"><input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>-->
+            <p class="font-medium md:text-lg flex items-start">
+						<span class="inline-block text-nowrap">
+						<input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5 accent-green-500 "> <span class="required-indicator relative -top-2">*</span>
+						</span>
+						<span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Privacy Policy</a></button>
+						</span>
+						</p>
+            <p class="font-medium md:text-lg flex items-start pb-2">
+						<span class="inline-block text-nowrap">
+						<input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="required-indicator relative -top-2">*</span>
+						</span>
+						<span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>
                 
                 </div>
                 
@@ -373,12 +519,14 @@
 document.addEventListener("DOMContentLoaded", function () {
     const selectElement2 = document.getElementById("procure-doc-type");
     const infoForm = document.getElementById("info-form");
+    const feeInfoCont = document.getElementById("fee-info-cont");
     //const totalFeeValue = document.getElementById("totalFee");
     const totalFeeSpan = document.getElementById("total-fee-amount");
     selectElement2.addEventListener("change", function(event) {
         //alert(`New option selected:, ${event.target.value}`);
         if (selectElement2.value) {
             infoForm.classList.remove('hidden')
+            feeInfoCont.classList.remove('hidden')
             
             let costElem = document.querySelector(`#cost-${selectElement2.value}`)
             if (costElem) totalFeeSpan.textContent = costElem.textContent;
@@ -398,7 +546,11 @@ document.addEventListener("DOMContentLoaded", function () {
             
             //alert(totalFeeSpan.textContent)
         }
-        else infoForm.classList.add('hidden')
+			else {
+				infoForm.classList.add('hidden')
+				feeInfoCont.classList.add('hidden')
+
+			}
     });
 });
 </script>
@@ -520,6 +672,68 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<script>
+		const addFileBtn = document.getElementById("add-file-btn")
+			addFileBtn.addEventListener("click", function () {
+        const fileInputsDiv = document.getElementById("file-inputs");
+
+        // Wrapper div
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("file-wrapper", "relative", "fade-slide-enter");
+
+        // File input
+        const input = document.createElement("input");
+        input.type = "file";
+        input.name = "file"; // Same name so Django groups them
+        input.classList.add("block", "w-full", "text-base", "text-gray-700",
+            "border", "border-gray-300", "rounded-md", "cursor-pointer", "file-upload-input",
+            "bg-gray-50", "focus:outline-none", "focus:ring-2", "focus:ring-blue-400");
+
+        // Remove button
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.innerHTML = "✖";
+        removeBtn.classList.add("remove-btn", "absolute", "-top-2", "-right-2",
+            "bg-red-500", "text-white", "rounded-full", "w-6", "h-6",
+            "flex", "items-center", "justify-center", "text-sm", "shadow");
+        removeBtn.onclick = function () {
+            removeFileInput(removeBtn);
+        };
+
+        // Append
+        wrapper.appendChild(input);
+        wrapper.appendChild(removeBtn);
+        fileInputsDiv.appendChild(wrapper);
+
+        // Trigger animation
+        requestAnimationFrame(() => {
+            wrapper.classList.add("fade-slide-enter-active");
+        });
+				let allFiles = document.querySelectorAll(".file-upload-input").length;
+			if (allFiles == 5) {
+				addFileBtn.disabled = true;
+				addFileBtn.classList.remove("bg-green-600", "hover:bg-green-700");
+				addFileBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+
+			} else {
+				addFileBtn.disabled = false;
+				addFileBtn.classList.add("bg-green-600", "hover:bg-green-700");
+				addFileBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+
+			} 
+
+    });
+
+    function removeFileInput(button) {
+        button.parentElement.remove();
+				let allFiles2 = document.querySelectorAll(".file-upload-input").length;
+			if (allFiles2 < 5) {
+				//alert(111)
+				addFileBtn.disabled = false;
+				addFileBtn.classList.add("bg-green-600", "hover:bg-green-700");
+				addFileBtn.classList.remove("bg-gray-400", "cursor-not-allowed");}
+    }
+</script>
 
 
 {% endblock %}
