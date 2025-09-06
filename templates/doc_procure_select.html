@@ -23,23 +23,36 @@
                 
         <div class="my-3">
             <p class="font-bold text-lg lg:text-xl pb-1 md:text-lg">Please select the category of document you want to process</p>
-            <!--<select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type">
+            <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type">
                 <option value="">--NO DOCUMENT CATEGORY SELECTED-- </option>
                 
                 {% for option in service.items %}
-                    <option value="{{option.desc|slugify}}">{{ option.desc}}</option>
+                    <option value="{% url 'base:doc-procure-form-page' service.title|slugify forloop.counter0 %}#selected">{{ option.desc}}</option>
                 {% endfor %}
                     
-						</select>-->
-						<div class="bg-white p-2 group relative rounded-[4px]">
+						</select>
+						<!--<div class="bg-white p-2 group relative rounded-[4px]">
 							<span class="text-gray-600">CHOOSE DOCUMENT CATEGORY</span>
 							<div class="absolute bottom-full left-0 w-full  hidden group-hover:flex flex-col bg-gray-800 text-gray-100 font-medium rounded-xl border border-black">
 								{% for item in service.items %}
 								<p class="p-3 border-b border-dotted border-b-gray-500"><a href="{% url 'base:doc-procure-form-page' service.title|slugify forloop.counter0 %}#selected">{{item.desc}}</a></p>
 								{% endfor %}
 							</div>
-						</div>
+						</div>-->
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+
+<script charset="utf-8">
+	document.getElementById("procure-doc-type").addEventListener("change", function() {
+	    var selectedValue = this.value;
+			if (selectedValue) { // Ensure a valid selection is made
+					window.location.href = selectedValue;
+			}														    
+	});
+</script>
 {% endblock %}

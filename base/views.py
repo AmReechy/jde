@@ -12,7 +12,7 @@ from .forms import ProcureAffidavitForm, ProcureAttestationBirthForm, ProcureAtt
  
 services = [
         {"title":"Translation Services", "image":"new_translation_service_img.jpg", "fee":"From €40 per page", "slug":"translation-services", "temp": "translation_temp.html", "septemp":"",
-         "files_upload":"True", "payment_required":"", "hidden_first": "true",
+         "files_upload":"True", "payment_required":"True", "hidden_first": "true",
          "items":[
                   'Birth Certificate / Attestation of Birth', 
                   'Spinsterhood / Bachelorhood Certificate', 
@@ -23,7 +23,8 @@ services = [
                   'Legal Document', 
                   'Court Affidavit', 
                   'Transcript / Diploma', 
-                  'Driving License'],
+                  'Driving License',
+                  "Others"],
          "desc": "Certified translations of legal, academic, personal, and professional documents. Includes quality review and optional follow-up."},
         {"title": "Interpretation Services", "image":  "new_interpretation_service_img.jpg", "fee":"Based on request", "slug":"translation-services", "temp": "interpretation_temp.html", "septemp":"",
          "hidden_first": "true", "files_upload":"True", "payment_required":"",
@@ -39,7 +40,7 @@ services = [
               {"text":"1hour 30minutes to 2hours maximum", "fee": "150"},
               ]
           },
-        {"title": "Administrative Support", "image": "new_administrative_suppot_img.jpg", "fee": "€70 per 60minutes duration", "slug":"translation-services", "temp": "admin_support_temp.html", "septemp":"", "hidden_first": "true",
+        {"title": "Administrative Support", "image": "new_administrative_suppot_img.jpg", "fee": "Based on request", "slug":"translation-services", "temp": "admin_support_temp.html", "septemp":"", "hidden_first": "true",
           "desc": "Document handling, scheduling, form filling, and organizational support for individuals or businesses. Reliable, multilingual assistance.",
           "files_upload":"True", "payment_required":"",
           "items": ["Writing and formatting administrative letters, CVs, memos, reports etc. for applicants.",
@@ -252,7 +253,8 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
             "extra_death_info_form": ExtraDeathInfoForm(),
             "selected_doc_type": selected_doc_type,
             "service_total_fee": service_total_fee,
-            "service_dhl_total": service_dhl_total
+            "service_dhl_total": service_dhl_total,
+            "selected_doc_type_index": doc_type_index
             }
 
     return render(request, "doc_procure_form.html", context) 

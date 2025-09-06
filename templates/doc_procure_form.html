@@ -38,14 +38,27 @@
 			<!--<p class="font-bold md:text-lg text-black">{{ selected_doc_type }}</p>-->
 				
 			</div>
-						<div class="bg-white p-2 group relative rounded-[4px]">
+						<!--<div class="bg-white p-2 group relative rounded-[4px]">
 							<span class="text-gray-800 font-medium">{{ selected_doc_type }}</span>
 							<div class="absolute bottom-full left-0 w-full  hidden group-hover:flex flex-col bg-gray-800 text-gray-100 font-medium rounded-xl border border-black">
 								{% for item in service.items %}
 								<p class="p-3 border-b border-dotted border-b-gray-500"><a href="{% url 'base:doc-procure-form-page' service.title|slugify forloop.counter0 %}#selected">{{item.desc}}</a></p>
 								{% endfor %}
 							</div>
-						</div>
+						</div>-->
+            <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type">
+							<!-- <option value="">--NO DOCUMENT CATEGORY SELECTED-- </option>-->
+                
+                {% for option in service.items %}
+                    <option value="{% url 'base:doc-procure-form-page' service.title|slugify forloop.counter0 %}#selected">{{ option.desc}}</option>
+                {% endfor %}
+                    
+						</select>
+                {% for option in service.items %}
+										{% if forloop.counter0 == selected_doc_type_index %}
+										<input type="hidden" name="" id="selected-doc-value" value="{% url 'base:doc-procure-form-page' service.title|slugify forloop.counter0 %}#selected">
+										{% endif %}
+                {% endfor %}
         </div>
     </div>
 
@@ -146,7 +159,21 @@
 
 {% block scripts %}
 {{ block.super }}
-
+<script charset="utf-8">
+	
+	document.addEventListener("DOMContentLoaded", function () {
+  	const selectElem = document.getElementById("procure-doc-type");
+  	const selectedValue = document.getElementById("selected-doc-value").value;
+		selectElem.value = selectedValue;
+	})
+	
+	document.getElementById("procure-doc-type").addEventListener("change", function() {
+	    var selectedValue = this.value;
+			if (selectedValue) { // Ensure a valid selection is made
+					window.location.href = selectedValue;
+			}														    
+	});
+</script>
 <script>
   const privacyCheck = document.getElementById("privacy-agree-check");
 	const totalFee = document.getElementById("service-dhl-fee").value;

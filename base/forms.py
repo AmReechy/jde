@@ -248,21 +248,21 @@ class PassportDocumentsForm(forms.Form):
         label="Birth Certificate",
         required=True
     )
-    certificate_of_state_of_origin = forms.FileField(
-        label="Certificate of State of Origin",
-        required=True
-    )
-    nin_slip = forms.FileField(
-        label="NIN Slip",
-        required=True
-    )
     passport_data_page = forms.FileField(
         label="Passport Data Page",
         required=True
     )
+    certificate_of_state_of_origin = forms.FileField(
+        label="Certificate of State of Origin (if applicable)",
+        required=False
+    )
+    nin_slip = forms.FileField(
+        label="NIN Slip (if applicable)",
+        required=False
+    )
     passport_size_photo = forms.FileField(
-        label="Passport Size Photograph",
-        required=True
+        label="Passport Size Photograph (if applicable)",
+        required=False
     )
 
 

@@ -1,0 +1,51 @@
+
+{% extends "jde_base.html" %}
+
+{% load static %}
+
+{% block title %}{{service.title}} {% endblock %}
+
+
+
+{% block content %}
+<!-- <section class="relative h-[300px] lg:h-[400px]">
+    <div class="relative h-full w-full lg:w-3/4 mx-auto">
+        <img src="{% static 'jde_assets' %}/{{service.image}}" class="object-cover h-full w-full block rounded-b-3xl" alt="">
+        <div class="grid text-center items-center absolute left-0 top-0 h-full w-full">
+            <div class="text-center font-black text-3xl lg:text-4xl text-white px-4 white-shadow tracking-wider">
+                <p class="inline-block bg-black bg-opacity-60 p-2">{{service.title}} </p>
+                
+            </div>
+        </div> 
+    </div>
+
+</section>-->
+
+
+
+<div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
+    <p class="text-center text-4xl md:text-5xl font-extrabold pb-14">{{service.title}} </p>
+    
+    {% if not service.septemp %}
+    <div class="rounded-xl bg-gradient-to-br from-green-950 via-green-900 to-green-950 p-4">
+		<div class="text-white font-semibold text-lg md:text-xl">
+			{{service.desc}}
+		</div>
+        
+        {% if 'translation' in service.service_cat %}
+        <p class="pt-2 text-white font-medium text-lg md:text-xl">The various types of documents we translate include the following :</p>
+            <ul class="service-items-list ">
+                {% for item in service.items %}
+                    <li class="my-3 text-lime-100 font-medium md:text-lg">{{item}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+         
+	</div>
+    {% else %}
+        {% include service.temp %}
+    {% endif %}
+        
+	
+</div>
+
