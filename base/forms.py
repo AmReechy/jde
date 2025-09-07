@@ -305,7 +305,7 @@ class ExtraDetailInfoForm(forms.Form):
 
 
 class ExtraDeathInfoForm(forms.Form):
-    date_of_birth = forms.DateField(
+    date_of_death = forms.DateField(
         label="Date of Death",
         widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-input'})
     )

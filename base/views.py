@@ -3,10 +3,20 @@ from django.shortcuts import render, redirect
 from django.utils.text import slugify
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from django.apps import apps
+from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import AttestationExtraForm, BasicInfoForm, DocumentsForm, ExtraDetailInfoForm, IdentityDocumentsForm, PassportDocumentsForm, PersonalInfoForm, UserRegisterForm, UserLoginForm, FileUploadForm
-from .forms import ProcureAffidavitForm, ProcureAttestationBirthForm, ProcureAttestationNotificationForm,ProcureNewspaperPublicationForm, ProcureEbirthCertificateForm, ProcureAuthenticationForm, ProcureDeathCertificateForm, ProcurePoliceReportForm, ProcureStateOriginForm, ProcureBachelorhoodSpinsterhoodForm, ExtraDeathInfoForm
+from .forms import AttestationExtraForm, BasicInfoForm, DocumentsForm, ExtraDetailInfoForm, \
+    IdentityDocumentsForm, PassportDocumentsForm, PersonalInfoForm, \
+        UserRegisterForm, UserLoginForm, FileUploadForm
+from .forms import ProcureAffidavitForm, ProcureAttestationBirthForm, ProcureAttestationNotificationForm,\
+    ProcureNewspaperPublicationForm, ProcureEbirthCertificateForm, ProcureAuthenticationForm, \
+        ProcureDeathCertificateForm, ProcurePoliceReportForm, ProcureStateOriginForm, \
+            ProcureBachelorhoodSpinsterhoodForm, ExtraDeathInfoForm
 
+from .models import PassportServiceRequest, ProcurementServiceRequest, ProcurementDeathServiceRequest, \
+    GeneralServiceRequest, ProcureRequestUploadedFile, ServiceCategory, ServiceType
+import uuid, json
 # Create your views here.
 
  
@@ -232,7 +242,7 @@ def doc_procure_select_page(request, service_cat):
     return render(request, "doc_procure_select.html", {"service":service}) 
 
 
-def doc_procure_form_page(request, service_cat, doc_type_index):
+def doc_procure_form_page2(request, service_cat, doc_type_index):
 
     service = {}
     for s in services:
@@ -259,6 +269,123 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
 
     return render(request, "doc_procure_form.html", context) 
 
+
+def validate_file_size(uploaded_file):
+    """Check file size based on type (image vs other)."""
+    max_size_image = 5 * 1024 * 1024   # 5MB
+    max_size_other = 3 * 1024 * 1024   # 3MB
+
+    content_type = uploaded_file.content_type
+    if content_type.startswith("image/"):  # Images
+        if uploaded_file.size > max_size_image:
+            raise ValidationError(f"Image file {uploaded_file.name} exceeds 5MB limit.")
+    else:  # Non-images
+        if uploaded_file.size > max_size_other:
+            raise ValidationError(f"File {uploaded_file.name} exceeds 3MB limit.")
+
+
+def doc_procure_form_page(request, service_cat, doc_type_index):
+    service = {}
+    for s in services:
+        if 'procurement' in s["title"].lower():
+            service = s
+            break
+    if service:
+        selected_doc_type = service["items"][doc_type_index]["desc"]
+        selected_type_exits = ServiceType.objects.filter(description=selected_doc_type).exists()
+        if selected_type_exits:
+            selected_type_object = ServiceType.objects.filter(description=selected_doc_type).first()
+        else:selected_type_object = ServiceType.objects.none()
+        selected_service_cat_object = ServiceCategory.objects.get(title=service['title'])
+        form = service["items"][doc_type_index]["form"]()
+        #extra_death_info_form = ExtraDeathInfoForm()
+        dhl_included = "dhl_excluded" not in service["items"][doc_type_index].keys()
+        service_total_fee = service["items"][doc_type_index]["tot_fee"] 
+        service_dhl_total = (service_total_fee + 120) if dhl_included else service_total_fee
+        death_extra_form = ExtraDeathInfoForm()
+    if request.method == "POST":
+        reference_id = str(uuid.uuid4()).replace("-", "")[:12]
+        payment_required = bool(request.POST.get("payment-required", False))
+        computed_payment = request.POST.get("total-payment", '')
+        computed_payment = computed_payment.strip(" €")
+        context = {
+                    "service":service,
+                    "service_cat": service_cat,
+                    "selected_service_type": selected_doc_type,
+                    "total_payment":computed_payment
+                }
+        if "death" in selected_doc_type.lower():
+            #model = ProcurementDeathServiceRequest
+            form = service["items"][doc_type_index]["form"](request.POST, request.FILES)
+            death_extra_form = ExtraDeathInfoForm(request.POST, request.FILES)
+            if form.is_valid() and death_extra_form.is_valid():
+                service_request = ProcurementDeathServiceRequest.objects.create(
+                    service_type=selected_type_object,
+                    service_category=selected_service_cat_object,
+                    reference_id=reference_id,
+                    computed_service_fee=computed_payment,
+                    initial_payment_required = payment_required,
+                    **form.cleaned_data,
+                    **death_extra_form.cleaned_data
+                )
+
+                messages.success(request, "Service request form submitted successfully!")
+                request.session["request_service_model"] = "ProcurementDeathServiceRequest"
+                return redirect("base:service-payment", service_cat=service_cat, reference_id=reference_id)
+                #return render(request, "service_payment.html", context) 
+            else:
+                messages.error(request, "Please correct the errors in the form.")
+        
+        else:
+            model = ProcurementServiceRequest
+            form = service["items"][doc_type_index]["form"](request.POST, request.FILES)
+            if form.is_valid():
+                service_request = ProcurementServiceRequest.objects.create(
+                    reference_id=reference_id,
+                    service_type=selected_type_object,
+                    service_category=selected_service_cat_object,
+                    computed_service_fee=computed_payment,
+                    initial_payment_required = payment_required,
+                    **form.cleaned_data
+                )
+
+                # Handle dynamically uploaded files
+                extra_files = request.FILES.getlist("file")
+                for f in extra_files:
+                    try:
+                        validate_file_size(f)  # Check file size
+                        ProcureRequestUploadedFile.objects.create(procurement_request=service_request, file=f)
+                    except ValidationError as e:
+                        messages.error(request, str(e))
+                        service_request.delete()  # Rollback if invalid file
+                        #return redirect("base:doc-procure-form-page")
+                        break
+                else:
+                    messages.success(request, "Service request form submitted successfully!")
+                    request.session["request_service_model"] = "ProcurementServiceRequest"
+                    return redirect("base:service-payment", service_cat=service_cat, reference_id=reference_id)
+                    #return render(request, "service_payment.html", context) 
+            else:
+                messages.error(request, "Please correct the errors in the form.")
+    
+    context = {
+            "service":service,
+            "dhl_included": dhl_included,
+            "procure_form": form,
+            "extra_death_info_form": death_extra_form,
+            "selected_doc_type": selected_doc_type,
+            "service_total_fee": service_total_fee,
+            "service_dhl_total": service_dhl_total,
+            "selected_doc_type_index": doc_type_index
+            }
+
+    return render(request, "doc_procure_form.html", context) 
+
+def service_payment(request, service_cat, reference_id):
+    service_request_model_string = request.session["request_service_model"]
+    service_request_model = apps.get_model("base", service_request_model_string)
+    service_request = service_request_model.objects.get(reference_id=reference_id)
+    return render(request, "service_payment.html", {"service_request":service_request}) 
 
 def service_page(request, service_cat):
     if 'procurement' in service_cat:
@@ -308,6 +435,7 @@ def service_page(request, service_cat):
         #return HttpResponse(f"""Hello there!
                             #\rThe detailed page for {service_cat} is not available yet.
                             #\rBye!""")
+
 
 def iye_waka(request):
     current_page = "iye-waka"

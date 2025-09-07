@@ -127,6 +127,10 @@ STATIC_URL = '/static/'  # URL path to access static files
 # Directory where collectstatic will copy files for production
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Use in production
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
 # Additional locations the staticfiles app will traverse
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),  # Use in development

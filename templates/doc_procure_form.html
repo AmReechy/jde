@@ -9,7 +9,6 @@
 
 {% block content %}
 
-
 <div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
     <p class="text-center text-4xl md:text-5xl font-extrabold pb-14">{{service.title}} </p>
     
@@ -89,11 +88,15 @@
 
 <div class="max-w-3xl mx-auto mt-8 bg-white shadow-md rounded-lg p-6 mb-40">
 	<p class="text-lg md:text-xl font-semibold pb-4">
-            Kindly provide all the required information in the form below, 
-            make the appropriate payment for the service fee, 
-            and then submit your service request.
+            Kindly provide all the required information in the Service Request Form below and submit your request.
+            If your form submission is valid, you will be redirected to a page to make the appropriate payment.
+            <p>Note that we will begin processing your service request only after confirming your payment.</p>
+
 	</p>
+    <form action="" method="post">
+        {% csrf_token %}
         <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full my-4">
+            <input type="hidden" name="payment-required" vlaue="{% if service.payment_required %}True{% endif %}">
             {% for field in procure_form %}
                 <div class="my-4">
                     <p class="font-semibold pb-1 md:text-lg field-label">{{field.label}}
@@ -142,18 +145,18 @@
                 class="cursor-not-allowed bg-gray-400 text-white px-4 py-2 rounded font-medium">
 							Pay €{{service_dhl_total}} Fee now
             </button>
-						<input type="hidden" name="" id="service-dhl-fee" value="€{{service_dhl_total}}">
+						<input type="hidden" name="total-payment" id="service-dhl-fee" value="€{{service_dhl_total}}">
             <p id="paymentStatus" class="text-sm text-red-600 mt-2">Payment not yet made.</p>
         </div>
 				
-				<div class="mx-auto text-center py-6">
-        <!-- Submit button (disabled until payment) -->
-        <button type="submit" id="submitBtn"
-						class="text-white px-6 py-2 rounded cursor-not-allowed bg-gray-400">
-            Submit Service Request
-        </button>
-					
-				</div>
+		<div class="mx-auto text-center py-6">
+            <!-- Submit button (disabled until payment) -->
+            <button type="submit" id="submitBtn"
+                            class="text-white px-6 py-2 rounded cursor-not-allowed bg-gray-400">
+                Submit Service Request
+            </button>
+	    </div>
+    </form>
 </div>
 {% endblock %}
 

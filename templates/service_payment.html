@@ -1,0 +1,98 @@
+{% extends "jde_base.html" %}
+
+{% load static %}
+
+{% block title %}Servie Payment {% endblock %}
+
+
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6 mb-40">
+    <p class="text-center text-4xl md:text-5xl font-extrabold pb-14">Payment for Service</p>
+    <div class="pt-2 pb-10 text-xl font-semibold text-green-950">
+        <p>Your Service Request Form has been submitted successfully. You can now proceed to make payment for the service.</p>
+        <p class="pt-3">Please note that we will only begin to process your service request after confirming your payment for the service.</p>    
+    </div>
+    <div class="rounded-xl bg-gradient-to-br from-green-950 via-green-900 to-green-950 p-4 space-y-4 text-white">
+        <p class="text-center font-bold text-2xl pb-4">Requested Service Details</p>
+        <div class="text-xl">
+            <p class="font-bold text-xl">Service Category :</p>
+            <p class="text-lime-100 pt-1 font-medium">{{service_request.service_category.title}}</p>
+        </div>
+        
+        {% if service_request.service_type %}
+            <div class="pt-2 text-xl">
+                <p class="font-bold">Selected Service Type :</p>
+                <p class="font-medium text-lime-100 pt-1">{{service_request.service_type.description}}</p>
+            </div>
+        {% endif %}
+        
+		<div class="text-white font-semibold text-lg md:text-xl text-center pt-3">
+			
+            <p class="inline-block p-3 bg-black"><span>Total amount to pay</span> <span class="inline-block px-3">=</span> €<span class="text-green-500" id="total-payment">{{service_request.computed_service_fee }}</span></p>
+		</div>
+    </div>
+
+    <div class="text-center pt-10">
+        <p class="font-medium md:text-lg flex items-start">
+						<span class="inline-block text-nowrap">
+						<input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5 accent-green-500 "> <span class="required-indicator relative -top-2">*</span> 
+						</span>
+						<span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}" class="underline underline-offset-2">Privacy Policy</a></button>
+						</span>
+						</p>
+            <p class="font-medium md:text-lg flex items-start pb-2">
+						<span class="inline-block text-nowrap">
+						<input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="required-indicator relative -top-2">*</span>
+						</span>
+						<span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}" class="underline underline-offset-2">Terms & Conditions</a></button> of service.</span></p>
+            <div class="text-center">
+                <button type="button" id="payBtn" disabled
+                class="cursor-not-allowed bg-gray-400 text-white px-4 py-2 rounded inline-block">
+                Pay Now
+                </button>
+                <div class="pt-4 hidden" id="payment-info">
+                    <p id="" class="text-green-600 font-semibold text-lg">Payment of €{{service_request.computed_service_fee }} Service Fee was successfull!</p>
+                    <p class="text-center pt-2"><a href="/" class="inline-block px-4 py-2 text-white bg-green-600 font-medium rounded-md">Go Home</a></p>
+
+                </div>
+                
+            </div>
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+    let totalPayment = document.getElementById("total-payment").textContent;
+    const payBtn = document.getElementById("payBtn");
+    const termsCheck = document.getElementById("terms-agree-check");
+    const privacyCheck = document.getElementById("privacy-agree-check");
+    const checks = [termsCheck, privacyCheck]
+
+    checks.forEach(check => {
+        check.addEventListener("input", function(){
+            if (termsCheck.checked && privacyCheck.checked) {
+                    payBtn.disabled = false;
+                    payBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+                    payBtn.classList.add("bg-green-500", "hover:bg-green-700");
+            } else {
+                payBtn.disabled = true;
+                payBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+                payBtn.classList.remove("bg-green-500", "hover:bg-green-700");
+                
+            }
+        })
+    })
+
+    payBtn.addEventListener("click", function(){
+        showFlashMessage("alert-success", `Payment of €${totalPayment} Service Fee was successfull!`, 15000);
+        payBtn.disabled = true;
+        payBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+        payBtn.classList.remove("bg-green-500", "hover:bg-green-700");
+        document.getElementById("payment-info").classList.remove('hidden')
+    })
+</script>
+{% endblock %}

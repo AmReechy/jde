@@ -213,11 +213,11 @@
         <h1 class="text-lg md:text-xl font-bold mb-4">
             
             {% if service.payment_required %}
-            Kindly provide all the required information in the form below, 
-            make the appropriate payment for the service fee, 
-            and then submit your service request.
+            Kindly provide all the required information in the Service Request Form below and submit your request.
+            If your form submission is valid, you will be redirected to a page to make the appropriate payment.
+            <p>Note that we will begin processing your service request only after confirming your payment.</p>
             {% else %}
-            Kindly provide all the required information in the form below and submit your service request.
+            Kindly provide all the required information in the Service Request Form below and submit your service request.
             {% endif %}
                 
              
@@ -412,6 +412,7 @@
             </p>
         </div> -->
         <input type="hidden" name="" id="fee-required" value="{% if service.payment_required %}true{% endif %}">
+        <input type="hidden" name="payment-required" vlaue="{% if service.payment_required %}True{% endif %}">
 
 				{% if service.payment_required %}
         <div class="mt-4">
@@ -441,14 +442,14 @@
 						<span class="inline-block text-nowrap">
 						<input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5 accent-green-500 "> <span class="required-indicator relative -top-2">*</span> 
 						</span>
-						<span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Privacy Policy</a></button>
+						<span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}" class="underline underline-offset-2">Privacy Policy</a></button>
 						</span>
 						</p>
             <p class="font-medium md:text-lg flex items-start pb-2">
 						<span class="inline-block text-nowrap">
 						<input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="required-indicator relative -top-2">*</span>
 						</span>
-						<span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>
+						<span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}" class="underline underline-offset-2">Terms & Conditions</a></button> of service.</span></p>
             
             <!-- <p class="mb-2 font-medium">Make Payment:</p> -->
             <button type="button" id="payBtn" disabled
