@@ -78,6 +78,7 @@ class UserApplication(models.Model):
     nin = models.CharField(max_length=100)
     parent_nin = models.CharField(max_length=100)
 
+
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -205,6 +206,9 @@ class GeneralServiceRequest(models.Model):
     computed_service_fee = models.IntegerField(default=0)
     finalized_service_fee = models.IntegerField(default=0)
 
+    # Extra Detail Info
+    extra_detail_info = models.TextField(null=True, blank=True)
+
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -217,7 +221,7 @@ class GeneralServiceRequest(models.Model):
 
 class GeneralRequestUploadedFile(models.Model):
     """For handling dynamically uploaded extra files for general service requests."""
-    procurement_request = models.ForeignKey(GeneralServiceRequest, on_delete=models.CASCADE, related_name="extra_files")
+    service_request = models.ForeignKey(GeneralServiceRequest, on_delete=models.CASCADE, related_name="extra_files")
     file = models.FileField(upload_to="general_request_uploads/")
 
     def __str__(self):

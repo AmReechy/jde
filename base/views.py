@@ -15,7 +15,7 @@ from .forms import ProcureAffidavitForm, ProcureAttestationBirthForm, ProcureAtt
             ProcureBachelorhoodSpinsterhoodForm, ExtraDeathInfoForm
 
 from .models import PassportServiceRequest, ProcurementServiceRequest, ProcurementDeathServiceRequest, \
-    GeneralServiceRequest, ProcureRequestUploadedFile, ServiceCategory, ServiceType, CustomUser
+    GeneralServiceRequest, ProcureRequestUploadedFile, GeneralRequestUploadedFile, ServiceCategory, ServiceType, CustomUser
 import uuid, json
 # Create your views here.
 
@@ -24,23 +24,23 @@ services = [
         {"title":"Translation Services", "image":"new_translation_service_img.jpg", "fee":"From €40 per page", "slug":"translation-services", "temp": "translation_temp.html", "septemp":"",
          "files_upload":"True", "payment_required":"True", "hidden_first": "true",
          "items":[
-                  'Birth Certificate / Attestation of Birth', 
-                  'Spinsterhood / Bachelorhood Certificate', 
-                  'Marriage Certificate', 
-                  'Divorce Certificate', 
-                  'Adoption Certificate', 
-                  'Police Character Certificate / Report', 
-                  'Legal Document', 
-                  'Court Affidavit', 
-                  'Transcript / Diploma', 
-                  'Driving License',
-                  "Others"],
+                  {"text":'Birth Certificate / Attestation of Birth'}, 
+                  {"text":'Spinsterhood / Bachelorhood Certificate'}, 
+                  {"text":'Marriage Certificate'}, 
+                  {"text":'Divorce Certificate'}, 
+                  {"text":'Adoption Certificate'}, 
+                  {"text":'Police Character Certificate / Report'}, 
+                  {"text":'Legal Document'}, 
+                  {"text":'Court Affidavit'}, 
+                  {"text":'Transcript / Diploma'}, 
+                  {"text":'Driving License'},
+                  {"text":"Others"}],
          "desc": "Certified translations of legal, academic, personal, and professional documents. Includes quality review and optional follow-up."},
         {"title": "Interpretation Services", "image":  "new_interpretation_service_img.jpg", "fee":"Based on request", "slug":"translation-services", "temp": "interpretation_temp.html", "septemp":"",
          "hidden_first": "true", "files_upload":"True", "payment_required":"",
           "desc":"Live interpretation, in-person, via phone or video. Ideal for meetings, legal appointments, interviews, or cross-cultural communication. Clear, accurate, and confidential.",
-          "items":["Administrative -  (Marriage, Prefecture, Association)",
-                   "Legal - (Court, CNDA, OFPRA, etc.)", "Others"]},
+          "items":[{"text":"Administrative -  (Marriage, Prefecture, Association)"},
+                   {"text":"Legal - (Court, CNDA, OFPRA, etc.)"}, {"text":"Others"}]},
         {"title": "Consultancy Services", "image": "new_consultation_service_img.jpg", "fee": "Based on duration", "slug":"translation-services", "temp": "consultation_temp.html", "septemp":"True",
          "hidden_first": "true", "payment_required":"True",
           "desc": "We provide business and administrative advice, available by phone or in-person at our office",
@@ -53,12 +53,12 @@ services = [
         {"title": "Administrative Support", "image": "new_administrative_suppot_img.jpg", "fee": "Based on request", "slug":"translation-services", "temp": "admin_support_temp.html", "septemp":"", "hidden_first": "true",
           "desc": "Document handling, scheduling, form filling, and organizational support for individuals or businesses. Reliable, multilingual assistance.",
           "files_upload":"True", "payment_required":"",
-          "items": ["Writing and formatting administrative letters, CVs, memos, reports etc. for applicants.",
-                    "Assisting with official forms and applications filling e.g.: (French Nationality, CAF, Pole Emploi, URSSAF, Prefecture, Asylum, CNDA, OFPRA, etc…)",
-                    "Proofreading, editing and formatting of all documents",
-                    "Entering and managing data", 
-                    "Preparing presentations and proposals for professional use",
-                    "Managing emails and correspondence"]},
+          "items": [{"text":"Writing and formatting administrative letters, CVs, memos, reports etc. for applicants."},
+                    {"text":"Assisting with official forms and applications filling e.g.: (French Nationality, CAF, Pole Emploi, URSSAF, Prefecture, Asylum, CNDA, OFPRA, etc…)"},
+                    {"text":"Proofreading, editing and formatting of all documents"},
+                    {"text":"Entering and managing data"}, 
+                    {"text":"Preparing presentations and proposals for professional use"},
+                    {"text":"Managing emails and correspondence"}]},
 
         {"title": "Procurement of Official Nigerian Documents", "image": "nigeria_national_logo.png", "fee": "Based on document type", "slug":"translation-services", "temp": "doc_procure_temp.html", "septemp":"True",
          "hidden_first": "true", "files_upload":"", "payment_required":"True",
@@ -129,7 +129,7 @@ services = [
         {"title":"Double Legalisation of Documents", "image":"new_double_legal_img.jpg", "fee": "Based on request", "slug":"translation-services", "temp": "double_legal_temp.html", "septemp":"True",
          "files_upload":"True", "payment_required":"", "hidden_first": "true",
          "desc":"Assistance with multi-stage document legalisation (e.g. Ministry of Foreign Affairs + French Embassy/ Consular legalization) for international use. We coordinate each step for compliance and recognition.",
-         "items": ['Birth certificate', 'Bacherlorhood certificate ', 'Spinsterhood ', 'Marriage certificate ', 'Others']},
+         "items": [{"text":'Birth certificate'}, {"text":'Bacherlorhood certificate '}, {"text":'Spinsterhood '}, {"text":'Marriage certificate '}, {"text":'Others'}]},
         {"title": "Business Investment & Development Opportunities", "image": "new_image_biz_investment.jpg", "fee": "NOT PROVIDED", "slug":"translation-services", "temp": "biz_investment_temp.html", "septemp":"True",
           "desc": "We guide Nigerians in the Diaspora — especially those in France — on how to invest safely and profitably in Nigeria."},
         {"title": "Mentorship Program Master Class", "image": "new_master_class_img.jpg", "fee": "NOT PROVIDED", "slug":"translation-services", "temp": "translation_temp.html", "septemp":"",
@@ -286,6 +286,7 @@ def validate_file_size(uploaded_file):
 
 def doc_procure_form_page(request, service_cat, doc_type_index):
     service = {}
+    current_page = "services"
     for s in services:
         if 'procurement' in s["title"].lower():
             service = s
@@ -394,13 +395,13 @@ def service_payment(request, service_cat, reference_id):
     return render(request, "service_payment.html", {"service_request":service_request}) 
 
 
-def service_page(request, service_cat):
+def general_service_request_page(request, service_cat, service_type_index=-1):
     if 'procurement' in service_cat:
         return redirect("base:doc-procure-select", service_cat=service_cat)
 
     current_page = "services"
     service_info = ''
-    #info_form = PersonalInfoForm()
+    info_form = PersonalInfoForm()
     basic_info_form = BasicInfoForm()
     #documents_form = DocumentsForm()
     #identity_doc_form = IdentityDocumentsForm()
@@ -427,6 +428,7 @@ def service_page(request, service_cat):
     service_info["fee_text"] = fee_text
     context = {"service": service_info, 
                "current_page":current_page,
+               "long_info_form":info_form,
                "passport_doc_form":passport_doc_form,
                "extra_info_form":extra_form,
                "file_form":file_upload_form,
@@ -438,6 +440,124 @@ def service_page(request, service_cat):
         #return HttpResponse(f"""Hello there!
                             #\rThe detailed page for {service_cat} is not available yet.
                             #\rBye!""")
+
+def general_service_form_page(request, service_cat):
+    service = {}
+    current_page = "services"
+    for s in services:
+        if slugify(s['title']) == service_cat:
+            service = s
+            break
+    if service:
+        
+        #form = service["items"][doc_type_index]["form"]()
+        #extra_death_info_form = ExtraDeathInfoForm()
+        #dhl_included = "dhl_excluded" not in service["items"][doc_type_index].keys()
+        #service_total_fee = service["items"][doc_type_index]["tot_fee"] 
+        #service_dhl_total = (service_total_fee + 120) if dhl_included else service_total_fee
+        #death_extra_form = ExtraDeathInfoForm()
+
+        info_form = PersonalInfoForm()
+        basic_info_form = BasicInfoForm()
+        passport_doc_form = PassportDocumentsForm()
+        extra_form = ExtraDetailInfoForm()
+        file_upload_form = FileUploadForm()
+
+        service["current_page"] = "services"
+        service["service_cat"] = service_cat
+
+    if request.method == "POST":
+        selected_service_index = int(request.POST.get("selected-service-index", 1000))
+        try:
+            selected_doc_type = service["items"][selected_service_index]["text"]
+        except:
+            selected_doc_type = ''
+        selected_type_exits = ServiceType.objects.filter(description=selected_doc_type).exists()
+        if selected_type_exits:
+            selected_type_object = ServiceType.objects.filter(description=selected_doc_type).first()
+        else:selected_type_object = ServiceType.objects.none().first()
+        selected_service_cat_object = ServiceCategory.objects.get(title=service['title'])
+
+        reference_id = str(uuid.uuid4()).replace("-", "")[:12]
+        payment_required = bool(request.POST.get("payment-required", False))
+        try:
+            computed_payment = request.POST.get("total-payment", '')
+            computed_payment = int(computed_payment.strip(" €"))
+        except:
+            computed_payment = 0
+
+        if request.user.is_authenticated:
+            user = request.user
+        else:
+            user = CustomUser.objects.none().first()
+        
+        if "passport" in service_cat:
+            #model = ProcurementDeathServiceRequest
+            info_form = PersonalInfoForm(request.POST, request.FILES)
+            passport_doc_form = PassportDocumentsForm(request.POST, request.FILES)
+            if info_form.is_valid() and passport_doc_form.is_valid():
+                service_request = PassportServiceRequest.objects.create(
+                    user=user,
+                    service_type=selected_type_object,
+                    service_category=selected_service_cat_object,
+                    reference_id=reference_id,
+                    computed_service_fee=computed_payment,
+                    initial_payment_required = payment_required,
+                    **info_form.cleaned_data,
+                    **passport_doc_form.cleaned_data
+                )
+
+                messages.success(request, "Service request form submitted successfully!")
+                request.session["request_service_model"] = "ProcurementDeathServiceRequest"
+                return redirect("base:service-payment", service_cat=service_cat, reference_id=reference_id)
+                #return render(request, "service_payment.html", context) 
+            else:
+                messages.error(request, "Please correct the errors in the form.")
+        
+        else:
+            basic_info_form = BasicInfoForm(request.POST)
+            extra_form = ExtraDetailInfoForm(request.POST)
+            #file_upload_form = FileUploadForm()
+            if basic_info_form.is_valid() and extra_form.is_valid():
+                service_request = GeneralServiceRequest.objects.create(
+                    user=user,
+                    reference_id=reference_id,
+                    service_type=selected_type_object,
+                    service_category=selected_service_cat_object,
+                    computed_service_fee=computed_payment,
+                    initial_payment_required = payment_required,
+                    **basic_info_form.cleaned_data,
+                    **extra_form.cleaned_data
+                )
+
+                # Handle dynamically uploaded files
+                extra_files = request.FILES.getlist("file")
+                for f in extra_files:
+                    try:
+                        validate_file_size(f)  # Check file size
+                        GeneralRequestUploadedFile.objects.create(service_request=service_request, file=f)
+                    except ValidationError as e:
+                        messages.error(request, str(e))
+                        service_request.delete()  # Rollback if invalid file
+                        #return redirect("base:doc-procure-form-page")
+                        break
+                else:
+                    messages.success(request, "Service request form submitted successfully!")
+                    request.session["request_service_model"] = "GeneralServiceRequest"
+                    return redirect("base:service-payment", service_cat=service_cat, reference_id=reference_id)
+                    #return render(request, "service_payment.html", context) 
+            else:
+                messages.error(request, "Please correct the errors in the form.")
+    
+    context = {"service": service, 
+               "current_page":current_page,
+               "long_info_form":info_form,
+               "passport_doc_form":passport_doc_form,
+               "extra_info_form":extra_form,
+               "file_form":file_upload_form,
+               "basic_info_form":basic_info_form}
+
+    return render(request, "service_detail.html", context)
 
 
 def iye_waka(request):
