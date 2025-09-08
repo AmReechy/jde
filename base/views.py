@@ -15,7 +15,7 @@ from .forms import ProcureAffidavitForm, ProcureAttestationBirthForm, ProcureAtt
             ProcureBachelorhoodSpinsterhoodForm, ExtraDeathInfoForm
 
 from .models import PassportServiceRequest, ProcurementServiceRequest, ProcurementDeathServiceRequest, \
-    GeneralServiceRequest, ProcureRequestUploadedFile, ServiceCategory, ServiceType
+    GeneralServiceRequest, ProcureRequestUploadedFile, ServiceCategory, ServiceType, CustomUser
 import uuid, json
 # Create your views here.
 
@@ -308,6 +308,10 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
         payment_required = bool(request.POST.get("payment-required", False))
         computed_payment = request.POST.get("total-payment", '')
         computed_payment = computed_payment.strip(" €")
+        if request.user.is_authenticated:
+            user = request.user
+        else:
+            user = CustomUser.objects.none().first()
         context = {
                     "service":service,
                     "service_cat": service_cat,
@@ -320,6 +324,7 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
             death_extra_form = ExtraDeathInfoForm(request.POST, request.FILES)
             if form.is_valid() and death_extra_form.is_valid():
                 service_request = ProcurementDeathServiceRequest.objects.create(
+                    user=user,
                     service_type=selected_type_object,
                     service_category=selected_service_cat_object,
                     reference_id=reference_id,
@@ -341,6 +346,7 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
             form = service["items"][doc_type_index]["form"](request.POST, request.FILES)
             if form.is_valid():
                 service_request = ProcurementServiceRequest.objects.create(
+                    user=user,
                     reference_id=reference_id,
                     service_type=selected_type_object,
                     service_category=selected_service_cat_object,
@@ -387,18 +393,19 @@ def service_payment(request, service_cat, reference_id):
     service_request = service_request_model.objects.get(reference_id=reference_id)
     return render(request, "service_payment.html", {"service_request":service_request}) 
 
+
 def service_page(request, service_cat):
     if 'procurement' in service_cat:
         return redirect("base:doc-procure-select", service_cat=service_cat)
 
     current_page = "services"
     service_info = ''
-    info_form = PersonalInfoForm()
+    #info_form = PersonalInfoForm()
     basic_info_form = BasicInfoForm()
-    documents_form = DocumentsForm()
-    identity_doc_form = IdentityDocumentsForm()
+    #documents_form = DocumentsForm()
+    #identity_doc_form = IdentityDocumentsForm()
     passport_doc_form = PassportDocumentsForm()
-    attest_extra_form = AttestationExtraForm()
+    #attest_extra_form = AttestationExtraForm()
     extra_form = ExtraDetailInfoForm()
     file_upload_form = FileUploadForm()
     for service in services:
@@ -420,13 +427,9 @@ def service_page(request, service_cat):
     service_info["fee_text"] = fee_text
     context = {"service": service_info, 
                "current_page":current_page,
-               "documents_form":documents_form,
-               "identity_doc_form":identity_doc_form,
                "passport_doc_form":passport_doc_form,
-               "attest_extra_form":attest_extra_form,
                "extra_info_form":extra_form,
                "file_form":file_upload_form,
-               "info_form":info_form,
                "basic_info_form":basic_info_form}
 
     return render(request, "service_detail.html", context)

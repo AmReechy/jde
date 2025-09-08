@@ -67,7 +67,7 @@
         <div class="mt-4 mb-2">
             <p class="text-base md:text-lg font-semibold text-amber-500  p-3 bg-black 
 						{% if dhl_included %}inline-flex{% else %}inline-block{% endif %} flex-col md:flex-row rounded-sm">
-                <span class="text-white text-nowrap">Total Fee to pay :</span>
+                <span class="text-white text-nowrap">Total Fee to pay : </span>
 					<span id="totalFee" class="text-green-500 inline-block">
 						€<span id="total-fee-amount">{{service_total_fee}}</span>
                         {% if dhl_included %}
@@ -87,12 +87,12 @@
 
 
 <div class="max-w-3xl mx-auto mt-8 bg-white shadow-md rounded-lg p-6 mb-40">
-	<p class="text-lg md:text-xl font-semibold pb-4">
+	<div class="text-lg md:text-xl font-bold pb-4 text-green-950">
             Kindly provide all the required information in the Service Request Form below and submit your request.
             If your form submission is valid, you will be redirected to a page to make the appropriate payment.
             <p>Note that we will begin processing your service request only after confirming your payment.</p>
 
-	</p>
+    </div>
     <form action="" method="post">
         {% csrf_token %}
         <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full my-4">
