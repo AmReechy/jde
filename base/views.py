@@ -15,7 +15,7 @@ from .forms import ProcureAffidavitForm, ProcureAttestationBirthForm, ProcureAtt
             ProcureBachelorhoodSpinsterhoodForm, ExtraDeathInfoForm
 
 from .models import PassportServiceRequest, ProcurementServiceRequest, ProcurementDeathServiceRequest, \
-    GeneralServiceRequest, ProcureRequestUploadedFile, GeneralRequestUploadedFile, ServiceCategory, ServiceType, CustomUser
+    GeneralServiceRequest, ProcureRequestUploadedFile, GeneralRequestUploadedFile, ServiceCategory, ServiceType, CustomUser, IyeWaka
 import uuid, json
 # Create your views here.
 
@@ -304,11 +304,12 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
         service_total_fee = service["items"][doc_type_index]["tot_fee"] 
         service_dhl_total = (service_total_fee + 120) if dhl_included else service_total_fee
         death_extra_form = ExtraDeathInfoForm()
+
     if request.method == "POST":
         reference_id = str(uuid.uuid4()).replace("-", "")[:12]
         payment_required = bool(request.POST.get("payment-required", False))
-        computed_payment = request.POST.get("total-payment", '')
-        computed_payment = computed_payment.strip(" €")
+        computed_payment = request.POST.get("computed-service-fee", '0')
+        computed_payment = int(computed_payment.strip(" €"))
         if request.user.is_authenticated:
             user = request.user
         else:
@@ -334,7 +335,10 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
                     **form.cleaned_data,
                     **death_extra_form.cleaned_data
                 )
-
+                death_cert = request.FILES.get("death_certificate")
+                if death_cert:
+                    service_request.death_certificate = death_cert
+                    service_request.save(update_fields=["death_certificate"])
                 messages.success(request, "Service request form submitted successfully!")
                 request.session["request_service_model"] = "ProcurementDeathServiceRequest"
                 return redirect("base:service-payment", service_cat=service_cat, reference_id=reference_id)
@@ -370,6 +374,7 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
                 else:
                     messages.success(request, "Service request form submitted successfully!")
                     request.session["request_service_model"] = "ProcurementServiceRequest"
+                    
                     return redirect("base:service-payment", service_cat=service_cat, reference_id=reference_id)
                     #return render(request, "service_payment.html", context) 
             else:
@@ -385,6 +390,7 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
             "service_dhl_total": service_dhl_total,
             "selected_doc_type_index": doc_type_index
             }
+    #print(death_extra_form.as_p())
 
     return render(request, "doc_procure_form.html", context) 
 
@@ -393,6 +399,13 @@ def service_payment(request, service_cat, reference_id):
     service_request_model = apps.get_model("base", service_request_model_string)
     service_request = service_request_model.objects.get(reference_id=reference_id)
     return render(request, "service_payment.html", {"service_request":service_request}) 
+
+
+def submission_success(request, service_cat, reference_id):
+    service_request_model_string = request.session["request_service_model"]
+    service_request_model = apps.get_model("base", service_request_model_string)
+    service_request = service_request_model.objects.get(reference_id=reference_id)
+    return render(request, "request_submission_success.html", {"service_request":service_request})
 
 
 def general_service_request_page(request, service_cat, service_type_index=-1):
@@ -442,6 +455,8 @@ def general_service_request_page(request, service_cat, service_type_index=-1):
                             #\rBye!""")
 
 def general_service_form_page(request, service_cat):
+    if 'procurement' in service_cat:
+        return redirect("base:doc-procure-select", service_cat=service_cat)
     service = {}
     current_page = "services"
     for s in services:
@@ -476,7 +491,7 @@ def general_service_form_page(request, service_cat):
         if selected_type_exits:
             selected_type_object = ServiceType.objects.filter(description=selected_doc_type).first()
         else:selected_type_object = ServiceType.objects.none().first()
-        selected_service_cat_object = ServiceCategory.objects.get(title=service['title'])
+        selected_service_cat_object = ServiceCategory.objects.filter(title=service['title']).first()
 
         reference_id = str(uuid.uuid4()).replace("-", "")[:12]
         payment_required = bool(request.POST.get("payment-required", False))
@@ -508,8 +523,12 @@ def general_service_form_page(request, service_cat):
                 )
 
                 messages.success(request, "Service request form submitted successfully!")
-                request.session["request_service_model"] = "ProcurementDeathServiceRequest"
-                return redirect("base:service-payment", service_cat=service_cat, reference_id=reference_id)
+                request.session["request_service_model"] = "PassportServiceRequest"
+                if payment_required:
+                    return redirect("base:service-payment", service_cat=service_cat, reference_id=reference_id)
+                else:
+                    return redirect("base:submission-success", service_cat=service_cat, reference_id=reference_id)
+
                 #return render(request, "service_payment.html", context) 
             else:
                 messages.error(request, "Please correct the errors in the form.")
@@ -544,9 +563,16 @@ def general_service_form_page(request, service_cat):
                 else:
                     messages.success(request, "Service request form submitted successfully!")
                     request.session["request_service_model"] = "GeneralServiceRequest"
-                    return redirect("base:service-payment", service_cat=service_cat, reference_id=reference_id)
+                    if payment_required:
+                        return redirect("base:service-payment", service_cat=service_cat, reference_id=reference_id)
+                    else:
+                        return redirect("base:submission-success", service_cat=service_cat, reference_id=reference_id)
                     #return render(request, "service_payment.html", context) 
             else:
+                if not basic_info_form.is_valid():
+                    print("Basic info not valid" *10)
+                if not extra_form.is_valid():
+                    print("Extra form not valid" *10)
                 messages.error(request, "Please correct the errors in the form.")
     
     context = {"service": service, 
@@ -562,7 +588,8 @@ def general_service_form_page(request, service_cat):
 
 def iye_waka(request):
     current_page = "iye-waka"
-    return render(request, "iye_waka.html", {"current_page":current_page})
+    videos = IyeWaka.objects.filter(show=True)
+    return render(request, "iye_waka.html", {"current_page":current_page, "videos":videos})
 
 
 def about_jde(request):
@@ -606,7 +633,7 @@ def auth_view(request):
             if login_form.is_valid():
                 user = login_form.get_user()
                 login(request, user)
-                #messages.success(request, f"Welcome back, {user.first_name}!")
+                messages.success(request, f"Welcome back, {user.first_name}!")
                 if next_url:
                     return redirect(next_url)
                 return redirect("base:homepage")  # change to dashboard/homepage
@@ -625,7 +652,7 @@ def auth_view(request):
 
 def user_logout(request):
     logout(request)
-    #messages.error(request, "You have logged out of your Account!")
+    messages.error(request, "You have logged out of your Account!")
     return redirect('base:homepage')
 
 def terms(request):

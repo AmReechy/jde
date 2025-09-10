@@ -1,1 +1,1 @@
-vim -p base.html homepage.html new_index.html index.html ../static/css/src/input.css
+vim -p jde_base.html homepage.html about.html service_detail.html doc_procure_form.html service_payment.html ../static/css/src/input.css

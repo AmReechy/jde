@@ -8,8 +8,11 @@ from .models import (
     ServiceType,
     ProcurementServiceRequest,
     GeneralServiceRequest,
+    GeneralRequestUploadedFile,
     ProcurementDeathServiceRequest,
     PassportServiceRequest,
+    IyeWaka,
+    SocialLink
 )
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
@@ -40,6 +43,16 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
 
+@admin.register(IyeWaka)
+class IyeWakaAdmin(admin.ModelAdmin):
+    list_display = ("title", "url", "show", "position", "added_at")
+
+
+@admin.register(SocialLink)
+class SocialLinkAdmin(admin.ModelAdmin):
+    list_display = ("facebook", "youtube", "instagram", "tiktok", "x")
+
+
 # ==============================
 # Service Type Admin
 # ==============================
@@ -52,7 +65,7 @@ class ServiceTypeAdmin(admin.ModelAdmin):
 
 class ServiceTypeInline(admin.TabularInline):  # or StackedInline if you prefer
     model = ServiceType
-    extra = 1  # how many empty forms to display by default
+    extra = 0  # how many empty forms to display by default
     show_change_link = True  # allow clicking to open ServiceType page
 
     
@@ -198,6 +211,10 @@ class GeneralServiceRequestResource(resources.ModelResource):
         )
         export_order = fields  # keep order in exported file
 
+class GeneralRequestUploadedFileInline(admin.TabularInline):  # or admin.StackedInline for larger fields
+    model = GeneralRequestUploadedFile
+    extra = 0  # no extra empty forms
+
 
 # Use ImportExportModelAdmin instead of normal ModelAdmin
 @admin.register(GeneralServiceRequest)
@@ -216,7 +233,8 @@ class GeneralServiceRequestAdmin(ImportExportModelAdmin):
     )
     list_filter = ("payment_status", "service_category", "service_type", "submitted_at")
     search_fields = ("reference_id", "surname", "first_name", "email", "phone_number")
-    readonly_fields = ("submitted_at",)
+    inlines = [GeneralRequestUploadedFileInline]
+    readonly_fields = ("submitted_at", "service_type", "reference_id", "service_category")
     fieldsets = (
         ("Request Info", {"fields": ("reference_id", "service_type", "service_category", "payment_status")}),
         ("Personal Info", {
@@ -359,3 +377,8 @@ class PassportServiceRequestAdmin(ImportExportModelAdmin):
         }),
         ("Timestamps", {"fields": ("submitted_at",)}),
     )
+
+
+admin.site.site_header = "JDE Consulte Admin Panel"
+admin.site.site_title = "JDE Consulte Administration"
+admin.site.index_title = "Welcome to JDE Admin Panel"

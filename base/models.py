@@ -225,7 +225,10 @@ class GeneralRequestUploadedFile(models.Model):
     file = models.FileField(upload_to="general_request_uploads/")
 
     def __str__(self):
-        return f"File for {self.application} - {self.file.name}"
+        if self.service_request.service_type:
+            return f"File for {self.service_request.service_type.description} - {self.service_request.reference_id} - {self.file.name}"
+        else:
+            return f"File for {self.service_request.service_category.title} - {self.service_request.reference_id} - {self.file.name}"
     
 
 class ProcurementDeathServiceRequest(models.Model):
@@ -263,7 +266,7 @@ class ProcurementDeathServiceRequest(models.Model):
     place_of_death = models.CharField(max_length=100)
     deceased_address = models.CharField(max_length=100)
     name_of_declarant = models.CharField(max_length=100)
-    parent_nin = models.CharField(max_length=100)
+    #parent_nin = models.CharField(max_length=100)
     death_certificate = models.FileField(upload_to="procure_death_request_files/")
 
     # Service Fee
@@ -321,3 +324,24 @@ class PassportServiceRequest(models.Model):
 
     def __str__(self):
         return f"Passport Certificte Request by - {self.surname} {self.first_name}"
+
+
+class IyeWaka(models.Model):
+    title = models.CharField(max_length=250, blank="True", null="True")
+    detail_description = models.TextField()
+    url = models.CharField(max_length=250)
+    position = models.IntegerField(default=100)
+    show = models.BooleanField(default=False)
+    added_at = models.DateTimeField(auto_now_add=True, null=True)
+
+    class Meta:
+        ordering = ["position", "-added_at"]
+
+
+class SocialLink(models.Model):
+    facebook = models.URLField(max_length=500, blank=True, null=True)
+    youtube = models.URLField(max_length=500, blank=True, null=True)
+    instagram = models.URLField(max_length=500, blank=True, null=True)
+    tiktok = models.URLField(max_length=500, blank=True, null=True)
+    x = models.URLField(max_length=500, blank=True, null=True)
+

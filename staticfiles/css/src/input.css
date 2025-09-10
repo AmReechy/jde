@@ -115,3 +115,15 @@ input[type="file"] {
 .service-items-list {
     @apply list-outside list-disc pl-10 text-lime-100
 }
+.alert-info, .info {
+    @apply bg-orange-200 text-black border-orange-500
+}
+.alert-success, .success {
+    @apply bg-green-100 text-green-600 border-green-500
+}
+.alert-error, .error {
+    @apply bg-red-100 text-red-600 border-red-600
+}
+.alert-warning, .warning {
+    @apply bg-yellow-100 text-yellow-600 border-yellow-600
+}

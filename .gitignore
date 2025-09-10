@@ -7,6 +7,8 @@ __pycache__/
 db.sqlite3
 node_modules/
 *.log
+media/
+media
 package-lock.json
 package.json
 *.swp

@@ -25,9 +25,9 @@ class Command(BaseCommand):
                     if isinstance(item, str):
                         st_desc = item
                     elif isinstance(item, dict):
-                        if "consultancy" in s['title'].lower():
+                        if "procurement" not in s['title'].lower():
                             st_desc = item['text']
-                            fee = int(item['fee'])
+                            fee = int(item['fee']) if "consultancy" in s['title'].lower() else None
                         elif 'procurement' in s['title'].lower():
                             st_desc = item['desc']
                             fee = int(item['tot_fee'])

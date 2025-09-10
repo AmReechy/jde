@@ -96,14 +96,14 @@
     <form action="" method="post">
         {% csrf_token %}
         <div class="bg-lime-50 border border-lime-200 p-4 rounded-lg w-full my-4">
-            <input type="hidden" name="payment-required" vlaue="{% if service.payment_required %}True{% endif %}">
+            <input type="hidden" name="payment-required" value="{% if service.payment_required %}True{% endif %}">
+						<input type="hidden" name="computed-service-fee" id="computed-service-fee" value="{{service_dhl_total}}">
             {% for field in procure_form %}
                 <div class="my-4">
                     <p class="font-semibold pb-1 md:text-lg field-label">{{field.label}}
 					{% if field.field.required %}
             <span class="required-indicator">*</span>
         	{% endif %}</p>
-										</p>
                     <div>{{field}} </div>
                 </div>
             {% endfor %}
@@ -117,7 +117,6 @@
 					{% if field.field.required %}
             <span class="required-indicator">*</span>
         	{% endif %}</p>
-										</p>
                     <div>{{field}} </div>
                 </div>
             {% endfor %}
@@ -131,7 +130,7 @@
 						<span class="inline-block text-nowrap">
 						<input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5 accent-green-500 "> <span class="required-indicator relative -top-2">*</span>
 						</span>
-						<span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Privacy Policy</a></button>
+						<span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Privacy Policy</a>.</button>
 						</span>
 						</p>
             <p class="font-medium md:text-lg flex items-start pb-2">
@@ -140,13 +139,13 @@
 						</span>
 						<span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>
             
-            <!-- <p class="mb-2 font-medium">Make Payment:</p> -->
+            <!-- <p class="mb-2 font-medium">Make Payment:</p>
             <button type="button" id="payBtn" disabled
                 class="cursor-not-allowed bg-gray-400 text-white px-4 py-2 rounded font-medium">
 							Pay €{{service_dhl_total}} Fee now
             </button>
 						<input type="hidden" name="total-payment" id="service-dhl-fee" value="€{{service_dhl_total}}">
-            <p id="paymentStatus" class="text-sm text-red-600 mt-2">Payment not yet made.</p>
+						<p id="paymentStatus" class="text-sm text-red-600 mt-2">Payment not yet made.</p>-->
         </div>
 				
 		<div class="mx-auto text-center py-6">
@@ -179,22 +178,22 @@
 </script>
 <script>
   const privacyCheck = document.getElementById("privacy-agree-check");
-	const totalFee = document.getElementById("service-dhl-fee").value;
+	//const totalFee = document.getElementById("service-dhl-fee").value;
   const termsCheck = document.getElementById("terms-agree-check");
-    const payBtn = document.getElementById("payBtn");
+    //const payBtn = document.getElementById("payBtn");
     const submitBtn = document.getElementById("submitBtn");
     const checks = [termsCheck, privacyCheck]
     checks.forEach(check => {
         check.addEventListener('input', () => {
         
 					if (termsCheck.checked && privacyCheck.checked) {
-							payBtn.disabled = false;
-							payBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
-							payBtn.classList.add("bg-green-500", "hover:bg-green-700");
+							submitBtn.disabled = false;
+							submitBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+							submitBtn.classList.add("bg-green-500", "hover:bg-green-700");
 					} else {
-							payBtn.disabled = true;
-							payBtn.classList.add("bg-gray-400", "cursor-not-allowed");
-							payBtn.classList.remove("bg-green-500", "hover:bg-green-700");
+							//payBtn.disabled = true;
+							//payBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+							//payBtn.classList.remove("bg-green-500", "hover:bg-green-700");
 							submitBtn.disabled = true;
 							submitBtn.classList.add("bg-gray-400", "cursor-not-allowed");
 							submitBtn.classList.remove("bg-green-500", "hover:bg-green-700");
@@ -202,7 +201,7 @@
 				});
 		});
 	
-			function makePayment() {
+			/*function makePayment() {
         // Simulate successful payment
         
 				paymentStatus.textContent = `${totalFee} Payment was successful ✔`;
@@ -218,7 +217,7 @@
 				privacyCheck.disabled = true;
 				payBtn.textContent = `${totalFee} fee paid ✔`
     };
-    payBtn.addEventListener("click",makePayment); 
+    payBtn.addEventListener("click",makePayment); */
 
 </script>
 {% endblock %}

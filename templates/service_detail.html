@@ -151,13 +151,14 @@
         <p class="text-base md:text-lg font-semibold text-amber-500 inline-block p-3 bg-black rounded">
             <span class="text-white">Total Fee to pay :</span>
                 <span id="totalFee" class="text-green-500 inline-block">
-                    €<span id="total-fee-amount">40</span>
+                    €<span id="total-fee-amount"></span>
         </p>
         {% else %}
         <p class="text-base md:text-lg font-semibold text-amber-500 inline-block p-3 bg-black rounded">
+					<input type="hidden" name="" id="translation-service" value="">
             <span class="text-white">Fee Calculation :</span>
                 <span id="totalFeeT" class="text-green-500 inline-block">
-                    €<span id="total-fee-amountT">40</span>
+                    €<span id="total-fee-amount">40</span>
                     <span class="inline-block px-3 text-white font-semibold">x</span> 
                     <span class="">total pages of documents uploaded</span>
                 </span>
@@ -179,6 +180,10 @@
         {% csrf_token %}
 
 
+				<input type="hidden" name="selected-service-index" id="selected-service-index" value="">
+				<input type="hidden" name="total-payment" id="total-payment-input" value="">
+        <input type="hidden" name="" id="fee-required" value="{% if service.payment_required %}true{% endif %}">
+        <input type="hidden" name="payment-required" value="{% if service.payment_required %}True{% endif %}">
         <h1 class="text-lg md:text-xl font-bold mb-4 text-green-950">
             
             {% if service.payment_required %}
@@ -282,11 +287,9 @@
 						<span id="" class="text-green-600">{{service.fee_text}}</span>
             </p>
         </div> -->
-        <input type="hidden" name="" id="fee-required" value="{% if service.payment_required %}true{% endif %}">
-        <input type="hidden" name="payment-required" vlaue="{% if service.payment_required %}True{% endif %}">
 
 				{% if service.payment_required %}
-        <div class="mt-4">
+        <!--<div class="mt-4">
             <p class="text-base md:text-lg font-semibold text-amber-500 inline-block p-3 bg-black">
                 <span class="text-white">Total Fee to pay :</span>
 					<span id="totalFee" class="text-green-500 inline-block">
@@ -301,7 +304,7 @@
                             
                     </span>
             </p>
-				</div>
+				</div>-->
 				<input type="hidden" name="" id="fee-amount" value="40">
                 
 
@@ -313,7 +316,7 @@
 						<span class="inline-block text-nowrap">
 						<input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5 accent-green-500 "> <span class="required-indicator relative -top-2">*</span> 
 						</span>
-						<span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}" class="underline underline-offset-2">Privacy Policy</a></button>
+						<span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}" class="underline underline-offset-2">Privacy Policy</a>.</button>
 						</span>
 						</p>
             <p class="font-medium md:text-lg flex items-start pb-2">
@@ -322,12 +325,12 @@
 						</span>
 						<span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}" class="underline underline-offset-2">Terms & Conditions</a></button> of service.</span></p>
             
-            <!-- <p class="mb-2 font-medium">Make Payment:</p> -->
+            <!-- <p class="mb-2 font-medium">Make Payment:</p>
             <button type="button" id="payBtn" disabled
                 class="cursor-not-allowed bg-gray-400 text-white px-4 py-2 rounded">
                 Pay Now
             </button>
-            <p id="paymentStatus" class="text-sm text-red-600 mt-2">Payment not yet made.</p>
+						<p id="paymentStatus" class="text-sm text-red-600 mt-2">Payment not yet made.</p>-->
         </div>
 				{% else %}
 
@@ -390,18 +393,25 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const selectElement2 = document.getElementById("procure-doc-type");
+    const selectedIndexInput = document.getElementById("selected-service-index");
     const infoForm = document.getElementById("info-form");
     const feeInfoCont = document.getElementById("fee-info-cont");
     //const totalFeeValue = document.getElementById("totalFee");
     const totalFeeSpan = document.getElementById("total-fee-amount");
+    const translationService = document.getElementById("translation-service");
+    const totalPayment = document.getElementById("total-payment-input");
     selectElement2.addEventListener("change", function(event) {
         //alert(`New option selected:, ${event.target.value}`);
         if (selectElement2.value) {
             infoForm.classList.remove('hidden')
             feeInfoCont.classList.remove('hidden')
+						selectedIndexInput.value = selectElement2.selectedIndex -1 ;
             
             let costElem = document.querySelector(`#cost-${selectElement2.value}`)
-            if (costElem) totalFeeSpan.textContent = costElem.textContent;
+					if (costElem && !translationService) {
+						totalFeeSpan.textContent = costElem.textContent;
+						totalPayment.value = totalFeeSpan.textContent;
+					}
             let procureTotalFeeSpan = document.getElementById("procure-total-fee");
             if (procureTotalFeeSpan) {
                 procureTotalFeeSpan.textContent = parseInt(costElem.textContent) + 120
@@ -453,7 +463,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const documentsContainer = document.getElementById("documents-container");
     const addDocumentBtn = document.getElementById("addDocumentBtn");
     const totalFeeEl = document.getElementById("total-fee-amount");
-    const payBtn = document.getElementById("payBtn");
+    //const payBtn = document.getElementById("payBtn");
     const paymentStatus = document.getElementById("paymentStatus");
     const submitBtn = document.getElementById("submitBtn");
     const feeRequired = document.getElementById("fee-required").value;
@@ -465,7 +475,7 @@ document.addEventListener("DOMContentLoaded", function () {
     checks.forEach(check => {
         check.addEventListener('input', () => {
         
-            if (feeRequired == "true") {
+            if ("abc" == "true") {
                 if (termsCheck.checked && privacyCheck.checked) {
                     payBtn.disabled = false;
                     payBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
@@ -527,7 +537,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateTotalFee();
     });
 
-    payBtn.addEventListener("click", function () {
+    /*payBtn.addEventListener("click", function () {
         // Simulate successful payment
         
         paymentStatus.textContent = "Payment successful ✔";
@@ -538,13 +548,14 @@ document.addEventListener("DOMContentLoaded", function () {
         submitBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
         submitBtn.classList.add("bg-green-500", "hover:bg-green-700");
         alert("Your payment for the service was successful. Thank you.")
-    });
+    });*/
 
     //updateTotalFee();
 });
 </script>
 
 <script>
+    const translationService2 = document.getElementById("translation-service");
 		const addFileBtn = document.getElementById("add-file-btn")
 			addFileBtn.addEventListener("click", function () {
         const fileInputsDiv = document.getElementById("file-inputs");
@@ -582,6 +593,11 @@ document.addEventListener("DOMContentLoaded", function () {
             wrapper.classList.add("fade-slide-enter-active");
         });
 				let allFiles = document.querySelectorAll(".file-upload-input").length;
+				if (translationService2) {
+    			let totPayment = document.getElementById("total-payment-input");
+					totPayment.value = (allFiles + 1) * 40;
+
+				}
 			if (allFiles == 5) {
 				addFileBtn.disabled = true;
 				addFileBtn.classList.remove("bg-green-600", "hover:bg-green-700");
