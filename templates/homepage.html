@@ -12,7 +12,7 @@
 	
     {% block content %}
         <!-- Hero section -->
-        <section class="">
+        <section class="md:pb-12">
             <div class="container mx-auto px-4 lg:px-12 py-10 text-center ">
                 <div class="jump-in">
                     <p class="text-center font-semibold text-lg lg:text-xl text-green-600 pb-2 jump-in2">WELCOME TO JDE CONSULTE SAS</p>
@@ -73,53 +73,46 @@
         </section> -->
         
         <section class="my-16">
-            <div class="hidden">
-                    <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path id="curvy-shape" fill="#0099ff" fill-opacity="0.8" d="M0,0L40,26.7C80,53,160,107,240,117.3C320,128,400,96,480,85.3C560,75,640,85,720,122.7C800,160,880,224,960,250.7C1040,277,1120,267,1200,224C1280,181,1360,107,1400,69.3L1440,32L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>
-            </div>
-						<!--<div class="wave-strip">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
-    <path fill="#0099ff" d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L0,320Z"></path>
-  </svg>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
-    <path fill="#0099ff" transform="scale(1,-1) translate(0,-320)"
-          d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L0,320Z"></path>
-					</svg>
-						</div>-->
 
             <div class="w-full mx-auto relative z-10">
-								<div class="rotate-180 absolute w-full bottom-[83%] left-0 z-10">
+								<div class="rotate-180 absolute w-full bottom-[83%] md:bottom-[78%] left-0 z-10">
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="green" fill-opacity="1" d="M0,32L60,69.3C120,107,240,181,360,224C480,267,600,277,720,261.3C840,245,960,203,1080,192C1200,181,1320,203,1380,213.3L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
 								</div>
-								<div class="rotate-180 absolute w-full bottom-[84%] left-0 z-10">
+								<div class="rotate-180 absolute w-full bottom-[84%]  md:bottom-[79%] left-0 z-10">
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="1" d="M0,32L60,69.3C120,107,240,181,360,224C480,267,600,277,720,261.3C840,245,960,203,1080,192C1200,181,1320,203,1380,213.3L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
 								</div>
-								<div class="rotate-180 absolute w-full bottom-[85%] left-0 z-10">
+								<div class="rotate-180 absolute w-full bottom-[85%] md:bottom-[80%] left-0 z-10">
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="green" fill-opacity="1" d="M0,32L60,69.3C120,107,240,181,360,224C480,267,600,277,720,261.3C840,245,960,203,1080,192C1200,181,1320,203,1380,213.3L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
 								</div>
-								<div class="rotate-180 absolute w-full bottom-[86%] left-0 z-10">
+								<div class="rotate-180 absolute w-full bottom-[86%] md:bottom-[81%] left-0 z-10">
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="1" d="M0,32L60,69.3C120,107,240,181,360,224C480,267,600,277,720,261.3C840,245,960,203,1080,192C1200,181,1320,203,1380,213.3L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
 								</div>
-                <div class="text-center relative lg:w-3/4 mx-auto">
-                    <img src="{% static 'jde_assets' %}/home_page_pics.jpg" class="inline-block w-full  h-auto" alt="">
+                <div class="text-center relative md:w-4/5 lg:w-3/5 mx-auto">
+                    <img src="{% static 'jde_assets' %}/home_page_pics.jpg" class="block w-full  h-auto mx-auto" alt="">
 								<!--<div class="overlay absolute -top-[60px] left-0 w-full h-[100px] bg-gradient-to-b from-white/0 from-10% via-[#90899c] via-80% to-white/30"></div>-->
 								<div id="" class="overlay absolute top-[50%] left-0 w-full h-[50%] bg-gradient-to-b from-black/0 to-black o-[#90899c] text-center text-green-300 p-6 text-2xl md:text-3xl font-bold white-shadow-small  tracking-wide flex items-center justify-center leading-7">
 										
 								</div>
 										
-									<div id="text1" class="md:pb-12 mx-auto absolute top-[40%] left-0 w-full h-[60%] opacity-0 scale-0 transition duration-1000 ease-in-out text-2xl md:text-4xl flex items-center justify-center text-lime-400 p-6 font-bold white-shadow-small  text-center tracking-wide font-bold">
+									<div id="text1" class="md:pb-12 mx-auto absolute top-[40%] left-0 w-full h-[60%] opacity-0 scale-0 transition duration-1000 ease-in-out text-3xl md:text-4xl flex items-center justify-center text-lime-400 p-6 font-bold white-shadow-small  text-center tracking-wide font-bold">
 											<div class="md:w-3/4 lg:w-3/5 mx-auto md:pt-20">
 										At <span class="font-black">JDE Consulte</span>, we connect people through clear communication and expert advice.<br>
+												
+											</div>
+									</div>
+									<div id="text2" class="md:pb-12 mx-auto absolute top-[40%] left-0 w-full h-[60%] opacity-0 scale-0 transition duration-1000 ease-in-out text-3xl md:text-4xl flex items-center justify-center text-lime-400 p-6 font-bold white-shadow-small  text-center tracking-wide font-bold">
+											<div class="md:w-3/4 lg:w-3/5 mx-auto md:pt-20">
 									<p class="pt-3">With years of experience in interpretation, translation and cultural consulting, we help you navigate multilingual environment with confidence.</p>
 												
 											</div>
 									</div>
-									<div id="text2" class="md:pb-12 mx-auto absolute top-[50%] left-0 w-full h-[50%] opacity-0 scale-0 transition duration-1000 ease-in-out text-3xl md:text-4xl flex items-center justify-center text-lime-400 p-6 font-bold white-shadow-small text-center tracking-wide font-bold">
+									<div id="text3" class="md:pb-12 mx-auto absolute top-[50%] left-0 w-full h-[50%] opacity-0 scale-0 transition duration-1000 ease-in-out text-3xl md:text-4xl flex items-center justify-center text-lime-400 p-6 font-bold white-shadow-small text-center tracking-wide font-bold">
 										<div class="md:w-3/4 lg:w-3/5 mx-auto md:pt-20">
 										Professional interpreting and consulting services for businesses, institutions and individuals.
 											
 										</div>
 									</div>
-									<div id="text3" class="md:pb-12 mx-auto absolute top-[50%] left-0 w-full h-[50%] opacity-0 scale-0 transition duration-1000 ease-in-out text-3xl md:text-4xl flex items-center justify-center text-lime-400 p-6 font-bold white-shadow-small text-center tracking-wide font-bold">
+									<div id="text4" class="md:pb-12 mx-auto absolute top-[50%] left-0 w-full h-[50%] opacity-0 scale-0 transition duration-1000 ease-in-out text-3xl md:text-4xl flex items-center justify-center text-lime-400 p-6 font-bold white-shadow-small text-center tracking-wide font-bold">
 										<div class="md:w-3/4 lg:w-3/5 mx-auto md:pt-20">
 										We are your gateway to seamless communication and hassle-free administration.
 											
@@ -573,7 +566,7 @@
 {% block scripts %}
 {{ block.super }}
 <script>
-  const texts = [document.getElementById("text1"), document.getElementById("text2"),document.getElementById("text3")];
+  const texts = [document.getElementById("text1"), document.getElementById("text2"),document.getElementById("text3"), document.getElementById("text4")];
   let current = 0;
 
   function showText(index) {
