@@ -73,7 +73,26 @@
     </div>
     {% endif %}
 
-    {% if  'interpretation' in service.service_cat %}
+    {% if  service.uname in 'translation interpretation legalisation administrative' %}
+    
+    <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full">
+                
+				<input type="hidden" name="" id="multiple-select" value="">
+        <div class="my-3">
+            <p class="font-bold text-lg lg:text-xl pb-3 md:text-lg leading-6">Please choose all the options that apply to the service request you want to make </p>
+            <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type" multiple>
+							<!--<option value="">--NO SERVICE CATEGORY CHOSEN-- </option>-->
+                
+                {% for option in service.items %}
+                    <option value="{{option.text|slugify}}">{{ option.text}}</option>
+                {% endfor %}
+                    
+            </select>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if  'zadministrative' in service.service_cat %}
     
     <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full">
                 
@@ -91,25 +110,7 @@
     </div>
     {% endif %}
 
-    {% if  'administrative' in service.service_cat %}
-    
-    <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full">
-                
-        <div class="my-3">
-            <p class="font-bold text-lg lg:text-xl pb-1 md:text-lg">Please choose a service category</p>
-            <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type">
-                <option value="">--NO SERVICE CATEGORY CHOSEN-- </option>
-                
-                {% for option in service.items %}
-                    <option value="{{option.text|slugify}}">{{ option.text}}</option>
-                {% endfor %}
-                    
-            </select>
-        </div>
-    </div>
-    {% endif %}
-
-    {% if  'double' in service.service_cat %}
+    {% if  'zdouble' in service.service_cat %}
     
     <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full">
                 
@@ -127,7 +128,7 @@
     </div>
     {% endif %}
     
-		{% if  'translation' in service.service_cat %}
+		{% if  'ztranslation' in service.service_cat %}
     
     <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full">
                 
@@ -166,9 +167,9 @@
         {% endif %}
     {% else %}
         {% if "investment" not in service.service_cat %}
-        <div class="mt-4 bg-black rounded-lg text-red-500 font-medium text-lg p-4">
-            <p>Please note that after submitting your service request, we will calculate the total fee to be paid for the service and communicate with you on how to make the payment. We will begin the processing of the service requested after receiving your payment. </p>
-        </div>    
+        <div class="mt-4 bg-black rounded-lg text-gray-100 font-medium text-base md:text-lg p-4 border-4 border-orange-500">
+            <p>Please note that after submitting your service request, we will calculate the total fee to be paid for the service and communicate with you on how to make the payment. We will begin the processing of the service requested after confirming your payment. </p>
+				</div>   
         {% endif %}
     {% endif %}
     </div>
@@ -335,13 +336,12 @@
 				{% else %}
 
 				{% if "investment" not in service.service_cat %}
-				<div class="mt-4 bg-gray-800 rounded-lg text-white font-semibold p-4">
+				<!--<div class="mt-4 bg-gray-800 rounded-lg text-white font-semibold p-4">
 					<p>Please note that after submitting your service request, we will calculate the total fee to be paid for the service and communicate with you on how to make the payment. We will begin the processing of the service requested after receiving your payment. </p>
-				</div>
+				</div>-->
 				{% endif %}
-                <div>
-                    <!--<p class="font-medium md:text-lg flex items-center"><input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I agree to the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Privacy Policy</a></button></span></p>
-										<p class="font-medium md:text-lg flex items-center"><input type="checkbox" name="" id="terms-agree-check" class="inline-block w-5 h-5  accent-green-500 "> <span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>-->
+
+        <div>
             <p class="font-medium md:text-lg flex items-start">
 						<span class="inline-block text-nowrap">
 						<input type="checkbox" name="" id="privacy-agree-check" class="inline-block w-5 h-5 accent-green-500 "> <span class="required-indicator relative -top-2">*</span>
@@ -355,8 +355,7 @@
 						</span>
 						<span class="inline-block pl-4">I have read, understood and accepted the <button class="font-bold text-blue-600"><a href="{% url 'base:terms' %}">Terms & Conditions</a></button> of service.</span></p>
                 
-                </div>
-                
+        </div>               
 				{% endif %}
 
 				<div class="mx-auto text-center py-4">
@@ -394,6 +393,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const selectElement2 = document.getElementById("procure-doc-type");
     const selectedIndexInput = document.getElementById("selected-service-index");
+    const multipleSelect = document.getElementById("multiple-select");
     const infoForm = document.getElementById("info-form");
     const feeInfoCont = document.getElementById("fee-info-cont");
     //const totalFeeValue = document.getElementById("totalFee");
@@ -405,7 +405,21 @@ document.addEventListener("DOMContentLoaded", function () {
         if (selectElement2.value) {
             infoForm.classList.remove('hidden')
             feeInfoCont.classList.remove('hidden')
+					//alert(selectElement2.value)
+					if (!multipleSelect) {
 						selectedIndexInput.value = selectElement2.selectedIndex -1 ;
+					} 
+					else {
+						let selectedIndexes = Array.from(selectElement2.selectedOptions).map(option => option.index)
+						let indexesString = ""
+						for (let i=0; i<selectedIndexes.length; i++) {
+							indexesString += (i==0?"":"-") + String(selectedIndexes[i])
+						}
+
+						selectedIndexInput.value = indexesString;
+						//alert(selectedIndexInput.value)
+						
+					}
             
             let costElem = document.querySelector(`#cost-${selectElement2.value}`)
 					if (costElem && !translationService) {

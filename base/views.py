@@ -22,7 +22,7 @@ import uuid, json
  
 services = [
         {"title":"Translation Services", "image":"new_translation_service_img.jpg", "fee":"From €40 per page", "slug":"translation-services", "temp": "translation_temp.html", "septemp":"",
-         "files_upload":"True", "payment_required":"True", "hidden_first": "true",
+         "files_upload":"True", "payment_required":"True", "hidden_first": "true", "uname":"translation",
          "items":[
                   {"text":'Birth Certificate / Attestation of Birth'}, 
                   {"text":'Spinsterhood / Bachelorhood Certificate'}, 
@@ -37,20 +37,20 @@ services = [
                   {"text":"Others"}],
          "desc": "Certified translations of legal, academic, personal, and professional documents. Includes quality review and optional follow-up."},
         {"title": "Interpretation Services", "image":  "new_interpretation_service_img.jpg", "fee":"Based on request", "slug":"translation-services", "temp": "interpretation_temp.html", "septemp":"",
-         "hidden_first": "true", "files_upload":"True", "payment_required":"",
+         "hidden_first": "true", "files_upload":"True", "payment_required":"", "uname":"interpretation",
           "desc":"Live interpretation, in-person, via phone or video. Ideal for meetings, legal appointments, interviews, or cross-cultural communication. Clear, accurate, and confidential.",
           "items":[{"text":"Administrative -  (Marriage, Prefecture, Association)"},
                    {"text":"Legal - (Court, CNDA, OFPRA, etc.)"}, {"text":"Others"}]},
         {"title": "Consultancy Services", "image": "new_consultation_service_img.jpg", "fee": "Based on duration", "slug":"translation-services", "temp": "consultation_temp.html", "septemp":"True",
-         "hidden_first": "true", "payment_required":"True",
+         "hidden_first": "true", "payment_required":"True", "uname":"consultancy",
           "desc": "We provide business and administrative advice, available by phone or in-person at our office",
           "items": [
-              {"text":"30minutes to 45minutes", "fee": "50"},
-              {"text":"50minutes to 1hour 30minutes", "fee": "100"},
-              {"text":"1hour 30minutes to 2hours maximum", "fee": "150"},
+              {"text":"30minutes to 45minutes", "fee": "61.00"},
+              {"text":"50minutes to 1hour 30minutes", "fee": "121.75"},
+              {"text":"1hour 30minutes to 2hours maximum", "fee": "182.50"},
               ]
           },
-        {"title": "Administrative Support", "image": "new_administrative_suppot_img.jpg", "fee": "Based on request", "slug":"translation-services", "temp": "admin_support_temp.html", "septemp":"", "hidden_first": "true",
+        {"title": "Administrative Support", "image": "new_administrative_suppot_img.jpg", "fee": "Based on request", "slug":"translation-services", "temp": "admin_support_temp.html", "septemp":"", "hidden_first": "true", "uname":"administrative",
           "desc": "Document handling, scheduling, form filling, and organizational support for individuals or businesses. Reliable, multilingual assistance.",
           "files_upload":"True", "payment_required":"",
           "items": [{"text":"Writing and formatting administrative letters, CVs, memos, reports etc. for applicants."},
@@ -58,10 +58,11 @@ services = [
                     {"text":"Proofreading, editing and formatting of all documents"},
                     {"text":"Entering and managing data"}, 
                     {"text":"Preparing presentations and proposals for professional use"},
-                    {"text":"Managing emails and correspondence"}]},
+                    {"text":"Managing emails and correspondence"},
+                    {"text":"Others"}]},
 
         {"title": "Procurement of Official Nigerian Documents", "image": "nigeria_national_logo.png", "fee": "Based on document type", "slug":"translation-services", "temp": "doc_procure_temp.html", "septemp":"True",
-         "hidden_first": "true", "files_upload":"", "payment_required":"True",
+         "hidden_first": "true", "files_upload":"", "payment_required":"True", "uname":"procurement",
           "desc": "We help clients obtain birth certificates, transcripts, police reports, CAC documents, and more from Nigeria — fast, legally, and securely.",
           "items":[
               {"desc":"All types of Affidavits (Correction of name(s), Correction of date of birth, etc), sworn from any court in Nigeria.", "tot_fee":100, 
@@ -110,29 +111,20 @@ services = [
                 "dhl_excluded":"True",
                "cost_items":[{'item': 'Obtaining of e-Birth Certificate.', 'cost': 30}, {'item': 'Service charge', 'cost': 40}]
                }
-          ],
-          "items2":[{"text":" All types of Affidavits  from any court in Nigeria", "fee1": "70", "fee2": "100"},
-                   {"text":" Authentification of any official document - (Ministry)", "fee1": "50", "fee2": "90"},
-                   {"text":" Attestation of Birth letter (NPC)/Certificate of Birth (NPC) ", "fee1": "80", "fee2": "110"},
-                   {"text":"Bachelorhood Certificate.", "fee1": "80", "fee2": "110"},
-                   {"text":" Spinsterhood certificate", "fee1": "70", "fee2": "110"},
-                   {"text":" Death Certificate", "fee1": "100", "fee2": "130"},
-                   {"text":" News paper publication for any purpose from Nigeria", "fee1": "100", "fee2": ""},
-                   {"text":"Police Character Certificate", "fee1": "135", "fee2": "225", "fee2_info": "plus authentification & translation"},
-                   {"text":" State of Origin/Identification Certificate", "fee1": "100", "fee2": ""},
-                   {"text":" Attestation Notification for NIN enrollment purpise - (online processing alone)", "fee1": "70", "fee2": ""}]},
-        {"title": "Nigerian Passport Application Support", "image":  "new_nigeria_passport_service_img.jpg", "fee": "Based on request", "slug":"translation-services", "temp": "naija_passport_temp.html", 
+         ]
+          },
+        {"title": "Nigerian Passport Application Support", "image":  "new_nigeria_passport_service_img.jpg", "fee": "Based on request", "slug":"translation-services", "temp": "naija_passport_temp.html", "uname":"passport", 
          "septemp":"", "files_upload":"", "payment_required":"",
           "desc": "Step-by-step guidance for online passport applications, renewals, or replacements — including profile creation and appointment booking."},
         #{"title": "Document Preparation Services", "image": "office_two_people.jpg",
         #"desc": "We assist individuals or businesses in drafting, formatting, and organizing official documents, including administrative forms, letters, report, certificates, declarations and more."},
         {"title":"Double Legalisation of Documents", "image":"new_double_legal_img.jpg", "fee": "Based on request", "slug":"translation-services", "temp": "double_legal_temp.html", "septemp":"True",
-         "files_upload":"True", "payment_required":"", "hidden_first": "true",
+         "files_upload":"True", "payment_required":"", "hidden_first": "true", "uname":"legalisation",
          "desc":"Assistance with multi-stage document legalisation (e.g. Ministry of Foreign Affairs + French Embassy/ Consular legalization) for international use. We coordinate each step for compliance and recognition.",
          "items": [{"text":'Birth certificate'}, {"text":'Bacherlorhood certificate '}, {"text":'Spinsterhood '}, {"text":'Marriage certificate '}, {"text":'Others'}]},
-        {"title": "Business Investment & Development Opportunities", "image": "new_image_biz_investment.jpg", "fee": "NOT PROVIDED", "slug":"translation-services", "temp": "biz_investment_temp.html", "septemp":"True",
+        {"title": "Business Investment & Development Opportunities", "image": "new_image_biz_investment.jpg", "fee": "NOT PROVIDED", "slug":"translation-services", "temp": "biz_investment_temp.html", "septemp":"True", "uname":"investment",
           "desc": "We guide Nigerians in the Diaspora — especially those in France — on how to invest safely and profitably in Nigeria."},
-        {"title": "Mentorship Program Master Class", "image": "new_master_class_img.jpg", "fee": "NOT PROVIDED", "slug":"translation-services", "temp": "translation_temp.html", "septemp":"",
+        {"title": "Mentorship Program Master Class", "image": "new_master_class_img.jpg", "fee": "NOT PROVIDED", "slug":"translation-services", "temp": "translation_temp.html", "septemp":"", "uname":"mentorship",
           "desc": "Detailed description of this service category is not yet provided"}
 
 ]
@@ -394,6 +386,7 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
 
     return render(request, "doc_procure_form.html", context) 
 
+
 def service_payment(request, service_cat, reference_id):
     service_request_model_string = request.session["request_service_model"]
     service_request_model = apps.get_model("base", service_request_model_string)
@@ -408,51 +401,6 @@ def submission_success(request, service_cat, reference_id):
     return render(request, "request_submission_success.html", {"service_request":service_request})
 
 
-def general_service_request_page(request, service_cat, service_type_index=-1):
-    if 'procurement' in service_cat:
-        return redirect("base:doc-procure-select", service_cat=service_cat)
-
-    current_page = "services"
-    service_info = ''
-    info_form = PersonalInfoForm()
-    basic_info_form = BasicInfoForm()
-    #documents_form = DocumentsForm()
-    #identity_doc_form = IdentityDocumentsForm()
-    passport_doc_form = PassportDocumentsForm()
-    #attest_extra_form = AttestationExtraForm()
-    extra_form = ExtraDetailInfoForm()
-    file_upload_form = FileUploadForm()
-    for service in services:
-        if slugify(service['title']) == service_cat:
-            service_info = service
-            break
-    if not service_info:
-        return redirect("base:homepage")
-    
-    #if service_cat == "translation-services":
-    fee_text = service_info["fee"].strip()
-    """payment_required = "€" in fee_text
-    fee = fee_text[fee_text.index('€')+1:fee_text.index(" ", fee_text.index("€"))] if payment_required else "€0"
-    service_info["payment_required"] = payment_required
-    service_info["fee_amount"] = fee
-    """
-    service_info["current_page"] = "services"
-    service_info["service_cat"] = service_cat
-    service_info["fee_text"] = fee_text
-    context = {"service": service_info, 
-               "current_page":current_page,
-               "long_info_form":info_form,
-               "passport_doc_form":passport_doc_form,
-               "extra_info_form":extra_form,
-               "file_form":file_upload_form,
-               "basic_info_form":basic_info_form}
-
-    return render(request, "service_detail.html", context)
-    
-    #else:
-        #return HttpResponse(f"""Hello there!
-                            #\rThe detailed page for {service_cat} is not available yet.
-                            #\rBye!""")
 
 def general_service_form_page(request, service_cat):
     if 'procurement' in service_cat:
@@ -482,8 +430,17 @@ def general_service_form_page(request, service_cat):
         service["service_cat"] = service_cat
 
     if request.method == "POST":
-        selected_service_index = int(request.POST.get("selected-service-index", 1000))
-        try:
+        indexes_string = request.POST.get("selected-service-index", "")
+        service_option_indexes = indexes_string.split("-")
+        selected_options_objs = []
+        if service_option_indexes:
+            for ind in service_option_indexes:
+                selected_option_text = service["items"][int(ind)]["text"]
+                selected_option_exits = ServiceType.objects.filter(description=selected_option_text).exists()
+                if selected_option_exits:
+                    selected_option_object = ServiceType.objects.filter(description=selected_option_text).first()
+                    selected_options_objs.append(selected_option_object)
+        """try:
             selected_doc_type = service["items"][selected_service_index]["text"]
         except:
             selected_doc_type = ''
@@ -491,8 +448,9 @@ def general_service_form_page(request, service_cat):
         if selected_type_exits:
             selected_type_object = ServiceType.objects.filter(description=selected_doc_type).first()
         else:selected_type_object = ServiceType.objects.none().first()
-        selected_service_cat_object = ServiceCategory.objects.filter(title=service['title']).first()
+        """
 
+        selected_service_cat_object = ServiceCategory.objects.filter(title=service['title']).first()
         reference_id = str(uuid.uuid4()).replace("-", "")[:12]
         payment_required = bool(request.POST.get("payment-required", False))
         try:
@@ -513,7 +471,7 @@ def general_service_form_page(request, service_cat):
             if info_form.is_valid() and passport_doc_form.is_valid():
                 service_request = PassportServiceRequest.objects.create(
                     user=user,
-                    service_type=selected_type_object,
+                    #service_type=selected_type_object,
                     service_category=selected_service_cat_object,
                     reference_id=reference_id,
                     computed_service_fee=computed_payment,
@@ -521,6 +479,8 @@ def general_service_form_page(request, service_cat):
                     **info_form.cleaned_data,
                     **passport_doc_form.cleaned_data
                 )
+
+                service_request.service_options.add(*selected_options_objs)
 
                 messages.success(request, "Service request form submitted successfully!")
                 request.session["request_service_model"] = "PassportServiceRequest"
@@ -541,13 +501,14 @@ def general_service_form_page(request, service_cat):
                 service_request = GeneralServiceRequest.objects.create(
                     user=user,
                     reference_id=reference_id,
-                    service_type=selected_type_object,
+                    #service_type=selected_type_object,
                     service_category=selected_service_cat_object,
                     computed_service_fee=computed_payment,
                     initial_payment_required = payment_required,
                     **basic_info_form.cleaned_data,
                     **extra_form.cleaned_data
                 )
+                service_request.service_options.add(*selected_options_objs)
 
                 # Handle dynamically uploaded files
                 extra_files = request.FILES.getlist("file")

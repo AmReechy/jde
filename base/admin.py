@@ -90,12 +90,12 @@ class ProcurementServiceRequestAdmin(admin.ModelAdmin):
         "reference_id",
         "surname",
         "first_name",
-        "service_type",
+        "service_options",
         "service_category",
         "payment_status",
         "submitted_at",
     )
-    list_filter = ("payment_status", "service_category", "service_type", "submitted_at")
+    list_filter = ("payment_status", "service_category", "service_options", "submitted_at")
     search_fields = (
         "reference_id",
         "surname",
@@ -107,7 +107,7 @@ class ProcurementServiceRequestAdmin(admin.ModelAdmin):
     readonly_fields = ("submitted_at",)
 
     fieldsets = (
-        ("Request Info", {"fields": ("reference_id", "service_type", "service_category", "payment_status")}),
+        ("Request Info", {"fields": ("reference_id", "service_options", "service_category", "payment_status")}),
         ("Personal Info", {
             "fields": (
                 "surname", "first_name", "middle_name", "sex", "date_of_birth", "marital_status",
@@ -142,7 +142,6 @@ class ProcurementServiceRequestResource(resources.ModelResource):
             "first_name",
             "email",
             "phone_number",
-            "service_type__description",
             "service_category__title",
             "payment_status",
             "submitted_at",
@@ -160,16 +159,15 @@ class ProcurementServiceRequestAdmin(ImportExportModelAdmin):
         "phone_number",
         "surname",
         "first_name",
-        "service_type",
         "service_category",
         "payment_status",
         "submitted_at",
     )
-    list_filter = ("payment_status", "service_category", "service_type", "submitted_at")
+    list_filter = ("payment_status", "service_category", "service_options", "submitted_at")
     search_fields = ("reference_id", "surname", "first_name", "email", "phone_number")
     readonly_fields = ("submitted_at",)
     fieldsets = (
-        ("Request Info", {"fields": ("reference_id", "service_type", "service_category", "payment_status")}),
+        ("Request Info", {"fields": ("reference_id", "service_options", "service_category", "payment_status")}),
         ("Personal Info", {
             "fields": (
                 "surname", "first_name", "middle_name", "sex", "date_of_birth", "marital_status",
@@ -204,7 +202,6 @@ class GeneralServiceRequestResource(resources.ModelResource):
             "first_name",
             "email",
             "phone_number",
-            "service_type__description",
             "service_category__title",
             "payment_status",
             "submitted_at",
@@ -226,17 +223,16 @@ class GeneralServiceRequestAdmin(ImportExportModelAdmin):
         "phone_number",
         "surname",
         "first_name",
-        "service_type",
         "service_category",
         "payment_status",
         "submitted_at",
     )
-    list_filter = ("payment_status", "service_category", "service_type", "submitted_at")
+    list_filter = ("payment_status", "service_category", "service_options", "submitted_at")
     search_fields = ("reference_id", "surname", "first_name", "email", "phone_number")
     inlines = [GeneralRequestUploadedFileInline]
-    readonly_fields = ("submitted_at", "service_type", "reference_id", "service_category")
+    readonly_fields = ("submitted_at", "service_options", "reference_id", "service_category")
     fieldsets = (
-        ("Request Info", {"fields": ("reference_id", "service_type", "service_category", "payment_status")}),
+        ("Request Info", {"fields": ("reference_id", "service_options", "service_category", "payment_status")}),
         ("Personal Info", {
             "fields": (
                 "surname", "first_name", "middle_name", "sex", "email", "phone_number",
@@ -264,7 +260,6 @@ class ProcurementDeathServiceRequestResource(resources.ModelResource):
             "first_name",
             "email",
             "phone_number",
-            "service_type__description",
             "service_category__title",
             "payment_status",
             "submitted_at",
@@ -282,16 +277,15 @@ class ProcurementDeathServiceRequestAdmin(ImportExportModelAdmin):
         "phone_number",
         "surname",
         "first_name",
-        "service_type",
         "service_category",
         "payment_status",
         "submitted_at",
     )
-    list_filter = ("payment_status", "service_category", "service_type", "submitted_at")
+    list_filter = ("payment_status", "service_category", "service_options", "submitted_at")
     search_fields = ("reference_id", "surname", "first_name", "email", "phone_number")
     readonly_fields = ("submitted_at",)
     fieldsets = (
-        ("Request Info", {"fields": ("reference_id", "service_type", "service_category", "payment_status")}),
+        ("Request Info", {"fields": ("reference_id", "service_options", "service_category", "payment_status")}),
         ("Personal Info", {
             "fields": (
                 "surname", "first_name", "middle_name", "sex", "date_of_birth",
@@ -327,7 +321,6 @@ class PassportServiceRequestResource(resources.ModelResource):
             "first_name",
             "email",
             "phone_number",
-            "service_type__description",
             "service_category__title",
             "payment_status",
             "submitted_at",
@@ -345,16 +338,15 @@ class PassportServiceRequestAdmin(ImportExportModelAdmin):
         "phone_number",
         "surname",
         "first_name",
-        "service_type",
         "service_category",
         "payment_status",
         "submitted_at",
     )
-    list_filter = ("payment_status", "service_category", "service_type", "submitted_at")
+    list_filter = ("payment_status", "service_category", "service_options", "submitted_at")
     search_fields = ("reference_id", "surname", "first_name", "email", "phone_number")
     readonly_fields = ("submitted_at",)
     fieldsets = (
-        ("Request Info", {"fields": ("reference_id", "service_type", "service_category", "payment_status")}),
+        ("Request Info", {"fields": ("reference_id", "service_options", "service_category", "payment_status")}),
         ("Personal Info", {
             "fields": (
                 "surname", "first_name", "middle_name", "sex", "date_of_birth",

@@ -224,7 +224,8 @@ class DocumentsForm(forms.Form):
 class FileUploadForm(forms.Form):
     file = forms.FileField(
         label="Upload File",
-        widget=forms.ClearableFileInput(attrs={'class': 'file-input'})
+        widget=forms.ClearableFileInput(attrs={'class': 'file-input'}),
+        required=False
     )
 
 

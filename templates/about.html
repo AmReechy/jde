@@ -1,41 +1,88 @@
 {% extends "jde_base.html" %}
 
-{% load static %}
 
 {% block title %}About Us{% endblock %}
 
 
-
 {% block content %}
-<section class="relative h-[200px] lg:h-[250px]">
-    <div class="relative h-full w-full lg:w-3/4 mx-auto bg-gradient-to-r from-lime-500 via-green-500 to-lime-500  text-center">
-        <div class="h-full flex flex-wrap justify-evenly items-center ">
-        <img src="{% static 'jde_assets' %}/jde_logo_resized.jpg" class="inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
-        <img src="{% static 'jde_assets' %}/jde_logo_resized.jpg" class="inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
-        <img src="{% static 'jde_assets' %}/jde_logo_resized.jpg" class="inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
-        <img src="{% static 'jde_assets' %}/jde_logo_resized.jpg" class="hidden md:inline-block h-2/3 w-auto rounded-full mx-auto" alt="">
-        </div>
-        <div class="grid text-center items-center absolute left-0 top-0 h-full w-full">
-            <div class="text-center font-extrabold text-3xl lg:text-4xl text-lime-100 px-4 white-shadow tracking-wider">
-                <p class="inline-block bg-black bg-opacity-60 p-2">About Us</p>
-                
-            </div>
-        </div>
-    </div>
-
+<!-- Hero Banner -->
+<section class="relative bg-gradient-to-r from-green-600 to-green-800 text-white py-16">
+  <div class="max-w-6xl mx-auto px-6 lg:px-12 text-center">
+    <h1 class="text-4xl lg:text-5xl font-bold mb-4">About Us</h1>
+    <p class="text-lg lg:text-xl opacity-90">
+      JDE CONSULTE – Simplifying Administrative & Linguistic Procedures
+    </p>
+  </div>
 </section>
 
+<!-- Main Content -->
+<section class="max-w-5xl mx-auto px-6 lg:px-12 py-12 space-y-12 text-gray-800">
+  
+  <!-- Company Overview -->
+  <div>
+    <h2 class="text-2xl font-semibold text-green-700 mb-4">1. Company Overview</h2>
+    <p>
+      JDE CONSULTE is a simplified joint-stock company (SAS) registered in France under the RCS of Pontoise with company number 
+      <strong>980 971 725</strong>. Our head office is in <strong>96340, Persan</strong>.
+    </p>
+  </div>
 
-<section id="">
-    <div class="max-w-3xl mx-auto mt-10 bg-lime-50 shadow-md rounded-lg p-6">
-        
-        <div class=" font-semibold text-lg md:text-xl text-green-900">
-            At JDE Consulte, we connect people through clear communication and expert advice. With years of experience in interpretation, translation, and cultural consulting, 
-            we help you navigate multilingual environments with confidence. <br>
-            We offer professional interpreting and consulting services for businesses, institutions and individuals.
-        </div>
-        
-        
-    </div>
+  <!-- Our Expertise -->
+  <div>
+    <h2 class="text-2xl font-semibold text-green-700 mb-4">2. Our Expertise</h2>
+    <p>We specialize in two main areas of activity (NAF/APE code 74.30Z):</p>
+    <ul class="list-disc pl-6 mt-2 space-y-1">
+      <li>Translation and Interpretation Services</li>
+      <li>Administrative Support and Consulting</li>
+    </ul>
+    <p class="mt-3">This dual focus allows us to combine linguistic accuracy with practical assistance in administrative procedures.</p>
+  </div>
+
+  <!-- Legal and Administrative Details -->
+  <div>
+    <h2 class="text-2xl font-semibold text-green-700 mb-4">3. Legal and Administrative Details</h2>
+    <p><strong>Legal status:</strong> SAS (Société par Actions Simplifiée)</p>
+  </div>
+
+  <!-- Leadership -->
+  <div>
+    <h2 class="text-2xl font-semibold text-green-700 mb-4">4. Leadership</h2>
+    <p>
+      <strong>President:</strong> Jumbo Justine<br>
+      <strong>Associate:</strong> JUMBO Emmanuel
+    </p>
+    <p class="mt-2">Their strong experience and multicultural perspective drive the vision and reliability of JDE CONSULTE.</p>
+  </div>
+
+  <!-- Commitment to the Community -->
+  <div>
+    <h2 class="text-2xl font-semibold text-green-700 mb-4">5. Commitment to the Community</h2>
+    <p>
+      Beyond our formal legal registration, we also play an active role in supporting individuals, especially within the Nigerian diaspora in France and abroad. Our services extend to:
+    </p>
+    <ul class="list-disc pl-6 mt-2 space-y-1">
+      <li>Assisting with official Nigerian documents (e.g., birth certificates)</li>
+      <li>Helping with legalization and administrative procedures</li>
+      <li>Providing translation and interpretation for cross-border needs</li>
+      <li>Facilitating document processing between France and Nigeria</li>
+    </ul>
+    <p class="mt-3">This community-oriented focus ensures that our clients can rely on trusted, professional, and culturally aware guidance.</p>
+  </div>
+
+  <!-- Our Mission -->
+  <div>
+    <h2 class="text-2xl font-semibold text-green-700 mb-4">6. Our Mission</h2>
+    <p>
+      At JDE CONSULTE, our mission is clear: To simplify administrative and linguistic procedures for individuals and organizations, offering clarity, trust, and professionalism.
+    </p>
+    <p class="mt-3">We combine:</p>
+    <ul class="list-disc pl-6 mt-2 space-y-1">
+      <li>High-quality translation and interpretation</li>
+      <li>Tailored administrative assistance</li>
+      <li>A people-first approach that understands the challenges faced by multicultural communities</li>
+    </ul>
+  </div>
+
 </section>
-{% endblock content %}
+{% endblock %}
+

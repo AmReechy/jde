@@ -124,7 +124,7 @@ class ServiceType(models.Model):
 
 
     def __str__(self):
-            return f"Description : {self.description}\nCategory : {self.service_category.title}\n"
+            return f"{self.description}"
         
 
 # require separate : procure Death, Other procure, Passport, OtherServices
@@ -133,7 +133,8 @@ class ProcurementServiceRequest(models.Model):
     Model for procurement service requests"""
     # Personal Info
     user = models.ForeignKey(CustomUser, null=True, blank=True, on_delete=models.SET_NULL)
-    service_type = models.ForeignKey(ServiceType, null=True, blank=True, on_delete=models.SET_NULL)
+    #service_type = models.ForeignKey(ServiceType, null=True, blank=True, on_delete=models.SET_NULL)
+    service_options = models.ManyToManyField(ServiceType)
     service_category = models.ForeignKey(ServiceCategory, null=True, blank=True, on_delete=models.SET_NULL)
     reference_id = models.CharField(max_length=50, unique=True)
     payment_status = models.BooleanField(default=False)
@@ -172,10 +173,7 @@ class ProcurementServiceRequest(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        try:
-            return f"{self.service_type.description} requested by - {self.surname} {self.first_name}"
-        except:
-            return f"{self.service_category.title} requested by - {self.surname} {self.first_name}"
+        return f"{self.service_category.title} | requested by - {self.surname} {self.first_name} | reference_id = {self.reference_id}"
 
 
 class ProcureRequestUploadedFile(models.Model):
@@ -184,12 +182,13 @@ class ProcureRequestUploadedFile(models.Model):
     file = models.FileField(upload_to="procurement_request_uploads/")
 
     def __str__(self):
-        return f"File for {self.application} - {self.file.name}"
+        return f"File for {self.procurement_request.service_category.title} | reference_id = {self.service_request.reference_id} | {self.file.name}"
     
 
 class GeneralServiceRequest(models.Model):
     user = models.ForeignKey(CustomUser, null=True, blank=True, on_delete=models.SET_NULL)
-    service_type = models.ForeignKey(ServiceType, null=True, blank=True, on_delete=models.SET_NULL)
+    #service_type = models.ForeignKey(ServiceType, null=True, blank=True, on_delete=models.SET_NULL)
+    service_options = models.ManyToManyField(ServiceType)
     service_category = models.ForeignKey(ServiceCategory, null=True, blank=True, on_delete=models.SET_NULL)
     reference_id = models.CharField(max_length=50, unique=True)
     payment_status = models.BooleanField(default=False)
@@ -212,10 +211,7 @@ class GeneralServiceRequest(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        try:
-            return f"{self.service_type.description} requested by - {self.surname} {self.first_name}"
-        except:
-            return f"{self.service_category.title} requested by - {self.surname} {self.first_name}"
+        return f"{self.service_category.title} | requested by - {self.surname} {self.first_name} | reference_id = {self.reference_id}"
 
 
 
@@ -225,10 +221,7 @@ class GeneralRequestUploadedFile(models.Model):
     file = models.FileField(upload_to="general_request_uploads/")
 
     def __str__(self):
-        if self.service_request.service_type:
-            return f"File for {self.service_request.service_type.description} - {self.service_request.reference_id} - {self.file.name}"
-        else:
-            return f"File for {self.service_request.service_category.title} - {self.service_request.reference_id} - {self.file.name}"
+        return f"File for {self.service_request.service_category.title} | reference_id = {self.service_request.reference_id} | {self.file.name}"
     
 
 class ProcurementDeathServiceRequest(models.Model):
@@ -236,7 +229,8 @@ class ProcurementDeathServiceRequest(models.Model):
     Model for procurement death certificate service requests"""
     # Personal Info
     user = models.ForeignKey(CustomUser, null=True, blank=True, on_delete=models.SET_NULL)
-    service_type = models.ForeignKey(ServiceType, null=True, blank=True, on_delete=models.SET_NULL)
+    #service_type = models.ForeignKey(ServiceType, null=True, blank=True, on_delete=models.SET_NULL)
+    service_options = models.ManyToManyField(ServiceType)
     service_category = models.ForeignKey(ServiceCategory, null=True, blank=True, on_delete=models.SET_NULL)
     reference_id = models.CharField(max_length=50, unique=True)
     payment_status = models.BooleanField(default=False)
@@ -283,7 +277,8 @@ class ProcurementDeathServiceRequest(models.Model):
 class PassportServiceRequest(models.Model):
     # Personal Info
     user = models.ForeignKey(CustomUser, null=True, blank=True, on_delete=models.SET_NULL)
-    service_type = models.ForeignKey(ServiceType, null=True, blank=True, on_delete=models.SET_NULL)
+    #service_type = models.ForeignKey(ServiceType, null=True, blank=True, on_delete=models.SET_NULL)
+    service_options = models.ManyToManyField(ServiceType)
     service_category = models.ForeignKey(ServiceCategory, null=True, blank=True, on_delete=models.SET_NULL)
     reference_id = models.CharField(max_length=50, unique=True)
     payment_status = models.BooleanField(default=False)
@@ -323,7 +318,7 @@ class PassportServiceRequest(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return f"Passport Certificte Request by - {self.surname} {self.first_name}"
+        return f"Passport Certificte Request by - {self.surname} {self.first_name} | reference_id = {self.reference_id}"
 
 
 class IyeWaka(models.Model):

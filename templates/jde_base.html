@@ -141,7 +141,7 @@
                         <div class="flex flex-col h-full overflow-y-auto text-lg pb-32" id="side-menu-cont">
                             <!-- <input type="hidden" name="" value="{{current_page}}" id="current-page"> -->
                             <span class="nav-item2" id="home2"><a href="{% url 'base:homepage'  %}" class=""><span id="home">Home</span></a></span>
-                            <span class="nav-item2" id="about2"><a href="#" class=" ">About</a></span>
+                            <span class="nav-item2" id="about2"><a href="{% url 'base:about-jde'  %}" class=" ">About</a></span>
                             <span class="nav-item2" id="services2"><a href="#" class=" " id=""><span id="services">Services</span></a></span>
                             <!--<a href="#" class="text-gray-800 hover:text-green-700">Apply for a Service</a>
                             <a href="#" class="text-amber-500 hover:text-green-700">Book an Appointment</a> -->
@@ -206,7 +206,7 @@
                 </div>
                 <div>
                     <p class="text-lg lg:text-xl font-bold text-white white-shadow-small mt-6 mb-3">Main Pages on this Website :</p>
-                    <p class="footer-nav-items-cont grid grid-cols-3 gap-x-3 gap-y-1" id="footer-nav-items-parent">
+                    <p class="footer-nav-items-cont grid grid-cols-2 gap-x-3 gap-y-1" id="footer-nav-items-parent">
                         <span>Home</span>
                         <span>About Us</span>
                         <span>Services</span>
