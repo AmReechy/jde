@@ -106,17 +106,23 @@
                     <span class="nav-item" id="services"><a href="{% url 'base:all-services'  %}" class=" " id=""><span id="services">Services</span></a></span>
                     <!--<a href="#" class="text-gray-800 hover:text-green-700">Apply for a Service</a>
                     <a href="#" class="text-amber-500 hover:text-green-700">Book an Appointment</a> -->
-                    <span class="nav-item"><a href="https://calendly.com/ksq-europe/paris?month=2025-08" target="_blank" class=" ">NIN Booking</a></span>
+                    <!-- <span class="nav-item"><a href="https://calendly.com/ksq-europe/paris?month=2025-08" target="_blank" class=" ">NIN/BVN Booking</a></span> -->
+                    <span class="nav-item relative inline-block group z-50">NIN/BVN Booking <i class="fa-solid fa-caret-down"></i>
+                        <span class="absolute hidden top-full right-0 group-hover:inline-flex flex-col text-left text-lime-950 font-semibold z-50 w-max gap-1 bg-lime-100 border border-gray-300">
+                            <a href="https://calendly.com/ksq-europe/paris?month=2025-08" class="transform duration-75 hover:bg-lime-500 hover:text-white hover:font-semibold inline-block px-3 py-1 w-full">NIN Appointment</a>
+                            <a href="https://calendly.com/ksq-europe/paris?month=2025-08" class="transform duration-75 hover:bg-lime-500 hover:text-white hover:font-semibold inline-block px-3 py-1 w-full">BVN Appointment</a>
+                         </span>
+                    </span>
                     <span class="nav-item" id="iye-waka"><a href="/iye-waka" class=" ">Iye Waka</a></span>
                     <span class="nav-item" id="testimonials"><a href="{% url 'base:homepage'  %}#testimonies" class=" ">Testimonials</a></span>
                     <span class="nav-item" id="contact-us"><a href="{% url 'base:contact-us'  %}" class=" ">Contact Us</a></span>
                     <!-- <a href="#" class=" ">Projects</a> -->
                     <!-- <a href="/jde-consulte#videos" class=" ">Videos</a> -->
                     {% if user.is_authenticated %}
-                    <span class="nav-item relative inline-block group">Account <i class="fa-solid fa-caret-down"></i>
-                        <span class="absolute hidden top-full right-0 group-hover:inline-flex flex-col text-left text-lime-950 font-semibold z-50 w-max gap-1 p-2 bg-gray-100 border border-gray-300">
+                    <span class="nav-item relative inline-block group z-50">Account <i class="fa-solid fa-caret-down"></i>
+                        <span class="absolute hidden top-full right-0 group-hover:inline-flex flex-col text-left text-lime-950 font-semibold z-50 w-max gap-1 p-2 bg-lime-100 border border-lime-300">
                             <a href="#" class=" relative"><span class="text-green-500 text-base" id="profile"><i class="fa-solid fa-user"></i> My Profile</span></a>
-                            <a href="{% url 'base:logout'  %}" class=" relative"><span class="text-red-500 text-base">Logout <i class="fa-solid fa-right-from-bracket"></i></span></a>
+                            <a href="" class=" relative"><span class="text-red-500 text-base">Logout <i class="fa-solid fa-right-from-bracket"></i></span></a>
                         </span>
                     </span>
                     

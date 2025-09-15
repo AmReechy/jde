@@ -60,7 +60,7 @@
     <div class="bg-green-500 border border-lime-200 p-4 rounded-lg w-full">
                 
         <div class="my-3">
-            <p class="font-bold text-lg lg:text-xl pb-1 md:text-lg">Please choose a consultation duration option</p>
+            <p class="font-bold text-lg lg:text-xl pb-3 md:text-lg">Please choose a consultation duration option that best suits your need</p>
             <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type">
                 <option value="">--NO DURATION OPTION CHOSEN-- </option>
                 
@@ -79,15 +79,32 @@
                 
 				<input type="hidden" name="" id="multiple-select" value="">
         <div class="my-3">
-            <p class="font-bold text-lg lg:text-xl pb-3 md:text-lg leading-6">Please choose all the options that apply to the service request you want to make </p>
-            <select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type" multiple>
-							<!--<option value="">--NO SERVICE CATEGORY CHOSEN-- </option>-->
+            <p class="font-bold text-lg lg:text-xl pb-3 md:text-lg leading-6">Please choose all the options that apply to the kind of service request you want to make </p>
+            <!--<select name="document_type" class="w-full border rounded p-2 bg-white font-medium text-base lg:text-lg" id="procure-doc-type" multiple>
+							<option value="">--NO SERVICE CATEGORY CHOSEN-- </option>
                 
                 {% for option in service.items %}
                     <option value="{{option.text|slugify}}">{{ option.text}}</option>
                 {% endfor %}
                     
-            </select>
+            </select>-->
+            <div class="px-4">
+                {% for option in service.items %}
+                    <p class="bg-white px-2 py-1.5 mb-1 flex space-x-2 rounded text-green-900 font-medium">
+                        <span class="text-nowrap inline-block pt-0.5">
+                            <input type="checkbox" name="service-opt-check" id="" value="{{ forloop.counter0}}" class="inline-block w-[18px] h-[18px] accent-amber-500 ">
+                        </span>
+                        <span>{{ option.text }}</span>
+                    </p>
+                {% endfor %}
+                <div class="mt-3">
+                    <p class="p-3 inline-block bg-black rounded text-white font-medium text-base md:text-lg">
+                        <span id="selected-total">0</span> <span id="option-plural">options</span> selected <button class="inline-block px-3 py-1.5 rounded ml-3 text-base cursor-not-allowed bg-gray-400" id="selected-okay">Okay</button>
+                    </p>
+                </div>
+            </div>
+
+           
         </div>
     </div>
     {% endif %}
@@ -183,6 +200,7 @@
 
 				<input type="hidden" name="selected-service-index" id="selected-service-index" value="">
 				<input type="hidden" name="total-payment" id="total-payment-input" value="">
+                <input type="hidden" name="service-uname" id="service-uname" value="{{service.uname}}">
         <input type="hidden" name="" id="fee-required" value="{% if service.payment_required %}true{% endif %}">
         <input type="hidden" name="payment-required" value="{% if service.payment_required %}True{% endif %}">
         <h1 class="text-lg md:text-xl font-bold mb-4 text-green-950">
@@ -392,6 +410,12 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const selectElement2 = document.getElementById("procure-doc-type");
+
+    const serviceOptionsCheckboxes = document.querySelectorAll('input[name="service-opt-check"]')
+    const selectedTotal = document.getElementById("selected-total");
+    const optionPlural = document.getElementById("option-plural");
+    const selectedOkay = document.getElementById("selected-okay");
+
     const selectedIndexInput = document.getElementById("selected-service-index");
     const multipleSelect = document.getElementById("multiple-select");
     const infoForm = document.getElementById("info-form");
@@ -400,54 +424,79 @@ document.addEventListener("DOMContentLoaded", function () {
     const totalFeeSpan = document.getElementById("total-fee-amount");
     const translationService = document.getElementById("translation-service");
     const totalPayment = document.getElementById("total-payment-input");
-    selectElement2.addEventListener("change", function(event) {
-        //alert(`New option selected:, ${event.target.value}`);
-        if (selectElement2.value) {
-            infoForm.classList.remove('hidden')
-            feeInfoCont.classList.remove('hidden')
-					//alert(selectElement2.value)
-					if (!multipleSelect) {
-						selectedIndexInput.value = selectElement2.selectedIndex -1 ;
-					} 
-					else {
-						let selectedIndexes = Array.from(selectElement2.selectedOptions).map(option => option.index)
-						let indexesString = ""
-						for (let i=0; i<selectedIndexes.length; i++) {
-							indexesString += (i==0?"":"-") + String(selectedIndexes[i])
-						}
 
-						selectedIndexInput.value = indexesString;
-						//alert(selectedIndexInput.value)
-						
-					}
-            
-            let costElem = document.querySelector(`#cost-${selectElement2.value}`)
-					if (costElem && !translationService) {
-						totalFeeSpan.textContent = costElem.textContent;
-						totalPayment.value = totalFeeSpan.textContent;
-					}
-            let procureTotalFeeSpan = document.getElementById("procure-total-fee");
-            if (procureTotalFeeSpan) {
-                procureTotalFeeSpan.textContent = parseInt(costElem.textContent) + 120
-                const attestExtraFormCont = document.getElementById("attest-extra-form");
-                const attestExtraFormCopy = document.getElementById("attest-extra-form-copy");
-                if (selectElement2.value.includes('attestation') && selectElement2.value.includes('birth')) {
-                    attestExtraFormCont.innerHTML = attestExtraFormCopy.innerHTML;
+    if (serviceOptionsCheckboxes) {
+        serviceOptionsCheckboxes.forEach(optBox => {
+            optBox.addEventListener('change', function(){
+                infoForm.classList.add('hidden')
+                feeInfoCont.classList.add('hidden')
+                let selectedArray = Array.from(document.querySelectorAll('input[name="service-opt-check"]:checked')).map(el => el.value);
+                selectedTotal.textContent = selectedArray.length;
+                optionPlural.textContent = selectedArray.length == 1? 'option':"options"
+                if (selectedArray.length > 0) {
+                    
+                    selectedOkay.classList.remove("bg-gray-400", "cursor-not-allowed")
+                    selectedOkay.classList.add("bg-green-500", "cursor-pointer")
+
+                    let indexesString = ""
+                    for (let i=0; i<selectedArray.length; i++) {
+                        indexesString += (i==0?"":"-") + String(selectedArray[i])
+                    }
+                    selectedIndexInput.value = indexesString;
+                    //alert(selectedIndexInput.value)
+
                 } else {
-                    attestExtraFormCont.innerHTML = '';
+                    selectedIndexInput.value = '';
+                    selectedOkay.classList.add("bg-gray-400", "cursor-not-allowed")
+                    selectedOkay.classList.remove("bg-green-500", "cursor-pointer")
                 }
-            }
-            
-            
-            
-            //alert(totalFeeSpan.textContent)
+            })
+        })
+        if (selectedOkay) {
+            selectedOkay.addEventListener("click", function() {
+                infoForm.classList.remove('hidden')
+                feeInfoCont.classList.remove('hidden')
+            })
         }
-			else {
-				infoForm.classList.add('hidden')
-				feeInfoCont.classList.add('hidden')
+    }
+    
+    if (selectElement2) {
+        selectElement2.addEventListener("change", function(event) {
+            //alert(`New option selected:, ${event.target.value}`);
+            if (selectElement2.value) {
+                //alert(1122)
+                infoForm.classList.remove('hidden')
+                feeInfoCont.classList.remove('hidden')
+                        //alert(selectElement2.value)
+                        if (!multipleSelect) {
+                            selectedIndexInput.value = selectElement2.selectedIndex -1 ;
+                        } 
+                        else {
+                            let selectedIndexes = Array.from(selectElement2.selectedOptions).map(option => option.index)
+                            let indexesString = ""
+                            for (let i=0; i<selectedIndexes.length; i++) {
+                                indexesString += (i==0?"":"-") + String(selectedIndexes[i])
+                            }
 
-			}
-    });
+                            selectedIndexInput.value = indexesString;
+                            //alert(selectedIndexInput.value)
+                            
+                        }
+                
+                let costElem = document.querySelector(`#cost-${selectElement2.value}`)
+                        if (costElem && !translationService) {
+                            totalFeeSpan.textContent = costElem.textContent;
+                            totalPayment.value = totalFeeSpan.textContent;
+                        }
+                
+            }
+                else {
+                    infoForm.classList.add('hidden')
+                    feeInfoCont.classList.add('hidden')
+
+                }
+        });     
+    }
 });
 </script>
 
@@ -551,27 +600,20 @@ document.addEventListener("DOMContentLoaded", function () {
         updateTotalFee();
     });
 
-    /*payBtn.addEventListener("click", function () {
-        // Simulate successful payment
-        
-        paymentStatus.textContent = "Payment successful ✔";
-        paymentStatus.classList.remove("text-red-600");
-        paymentStatus.classList.add("text-green-600");
-
-        submitBtn.disabled = false;
-        submitBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
-        submitBtn.classList.add("bg-green-500", "hover:bg-green-700");
-        alert("Your payment for the service was successful. Thank you.")
-    });*/
-
-    //updateTotalFee();
 });
 </script>
 
 <script>
     const translationService2 = document.getElementById("translation-service");
-		const addFileBtn = document.getElementById("add-file-btn")
-			addFileBtn.addEventListener("click", function () {
+    const addFileBtn = document.getElementById("add-file-btn")
+    if (translationService2) {
+        let totPayment = document.getElementById("total-payment-input");
+        totPayment.value = 40.00;
+    }
+
+    try {
+
+		addFileBtn.addEventListener("click", function () {
         const fileInputsDiv = document.getElementById("file-inputs");
 
         // Wrapper div
@@ -624,7 +666,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 			} 
 
-    });
+    });            
+    } catch {
+        console.log("Error occurred")
+    }
+
 
     function removeFileInput(button) {
         button.parentElement.remove();

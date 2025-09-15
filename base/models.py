@@ -149,7 +149,7 @@ class ProcurementServiceRequest(models.Model):
     email = models.EmailField()
     phone_number = models.CharField(max_length=20)
     postal_address = models.CharField(max_length=200)
-    current_residential_address = models.CharField(max_length=200)
+    #current_residential_address = models.CharField(max_length=200)
     state_of_origin = models.CharField(max_length=100)
     lga_of_origin = models.CharField(max_length=100)
     village_town_origin = models.CharField(max_length=100)
@@ -157,7 +157,7 @@ class ProcurementServiceRequest(models.Model):
     lga_place_of_birth = models.CharField(max_length=100)
     father_name = models.CharField(max_length=100)
     mother_name = models.CharField(max_length=100)
-    mother_maiden_name = models.CharField(max_length=100)
+    #mother_maiden_name = models.CharField(max_length=100)
 
     # Attestation / Extra
     highest_education = models.CharField(max_length=100)
@@ -167,9 +167,10 @@ class ProcurementServiceRequest(models.Model):
 
     # Service Fee
     initial_payment_required = models.BooleanField(default=False)
-    computed_service_fee = models.IntegerField(default=0)
-    finalized_service_fee = models.IntegerField(default=0)
+    computed_service_fee = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
+    finalized_service_fee = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
 
+    reason_for_request = models.TextField(null=True, blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -202,8 +203,8 @@ class GeneralServiceRequest(models.Model):
 
     # Service Fee
     initial_payment_required = models.BooleanField(default=False)
-    computed_service_fee = models.IntegerField(default=0)
-    finalized_service_fee = models.IntegerField(default=0)
+    computed_service_fee = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
+    finalized_service_fee = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
 
     # Extra Detail Info
     extra_detail_info = models.TextField(null=True, blank=True)
@@ -245,12 +246,12 @@ class ProcurementDeathServiceRequest(models.Model):
     phone_number = models.CharField(max_length=20)
     postal_address = models.CharField(max_length=200)
     #current_residential_address = models.CharField(max_length=200)
-    state_of_origin = models.CharField(max_length=100)
-    lga_of_origin = models.CharField(max_length=100)
-    village_town_origin = models.CharField(max_length=100)
-    place_of_birth = models.CharField(max_length=100)
-    lga_place_of_birth = models.CharField(max_length=100)
-    father_name = models.CharField(max_length=100)
+    #state_of_origin = models.CharField(max_length=100)
+    #lga_of_origin = models.CharField(max_length=100)
+    #village_town_origin = models.CharField(max_length=100)
+    #place_of_birth = models.CharField(max_length=100)
+    #lga_place_of_birth = models.CharField(max_length=100)
+    #father_name = models.CharField(max_length=100)
     #mother_name = models.CharField(max_length=100)
     #mother_maiden_name = models.CharField(max_length=100)
 
@@ -265,8 +266,8 @@ class ProcurementDeathServiceRequest(models.Model):
 
     # Service Fee
     initial_payment_required = models.BooleanField(default=False)
-    computed_service_fee = models.IntegerField(default=0)
-    finalized_service_fee = models.IntegerField(default=0)
+    computed_service_fee = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
+    finalized_service_fee = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
 
     submitted_at = models.DateTimeField(auto_now_add=True)
 
@@ -293,7 +294,7 @@ class PassportServiceRequest(models.Model):
     email = models.EmailField()
     phone_number = models.CharField(max_length=20)
     postal_address = models.CharField(max_length=200)
-    current_residential_address = models.CharField(max_length=200)
+    #current_residential_address = models.CharField(max_length=200)
     state_of_origin = models.CharField(max_length=100)
     lga_of_origin = models.CharField(max_length=100)
     village_town_origin = models.CharField(max_length=100)
@@ -301,7 +302,7 @@ class PassportServiceRequest(models.Model):
     lga_place_of_birth = models.CharField(max_length=100)
     father_name = models.CharField(max_length=100)
     mother_name = models.CharField(max_length=100)
-    mother_maiden_name = models.CharField(max_length=100)
+    #mother_maiden_name = models.CharField(max_length=100)
 
     # Passport Extra Files
     birth_certificate = models.FileField(upload_to="passport_request_files/")
@@ -312,8 +313,8 @@ class PassportServiceRequest(models.Model):
 
     # Service Fee
     initial_payment_required = models.BooleanField(default=False)
-    computed_service_fee = models.IntegerField(default=0)
-    finalized_service_fee = models.IntegerField(default=0)
+    computed_service_fee = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
+    finalized_service_fee = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
 
     submitted_at = models.DateTimeField(auto_now_add=True, null=True)
 

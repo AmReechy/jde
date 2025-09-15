@@ -18,7 +18,7 @@ from .models import PassportServiceRequest, ProcurementServiceRequest, Procureme
     GeneralServiceRequest, ProcureRequestUploadedFile, GeneralRequestUploadedFile, ServiceCategory, ServiceType, CustomUser, IyeWaka
 import uuid, json
 # Create your views here.
-
+from decimal import Decimal
  
 services = [
         {"title":"Translation Services", "image":"new_translation_service_img.jpg", "fee":"From €40 per page", "slug":"translation-services", "temp": "translation_temp.html", "septemp":"",
@@ -319,7 +319,6 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
             if form.is_valid() and death_extra_form.is_valid():
                 service_request = ProcurementDeathServiceRequest.objects.create(
                     user=user,
-                    service_type=selected_type_object,
                     service_category=selected_service_cat_object,
                     reference_id=reference_id,
                     computed_service_fee=computed_payment,
@@ -327,10 +326,12 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
                     **form.cleaned_data,
                     **death_extra_form.cleaned_data
                 )
+                service_request.service_options.add(selected_type_object)
+
                 death_cert = request.FILES.get("death_certificate")
                 if death_cert:
                     service_request.death_certificate = death_cert
-                    service_request.save(update_fields=["death_certificate"])
+                    service_request.save()
                 messages.success(request, "Service request form submitted successfully!")
                 request.session["request_service_model"] = "ProcurementDeathServiceRequest"
                 return redirect("base:service-payment", service_cat=service_cat, reference_id=reference_id)
@@ -345,12 +346,13 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
                 service_request = ProcurementServiceRequest.objects.create(
                     user=user,
                     reference_id=reference_id,
-                    service_type=selected_type_object,
                     service_category=selected_service_cat_object,
                     computed_service_fee=computed_payment,
                     initial_payment_required = payment_required,
                     **form.cleaned_data
                 )
+
+                service_request.service_options.add(selected_type_object)
 
                 # Handle dynamically uploaded files
                 extra_files = request.FILES.getlist("file")
@@ -374,6 +376,7 @@ def doc_procure_form_page(request, service_cat, doc_type_index):
     
     context = {
             "service":service,
+            "current_page":current_page,
             "dhl_included": dhl_included,
             "procure_form": form,
             "extra_death_info_form": death_extra_form,
@@ -455,9 +458,9 @@ def general_service_form_page(request, service_cat):
         payment_required = bool(request.POST.get("payment-required", False))
         try:
             computed_payment = request.POST.get("total-payment", '')
-            computed_payment = int(computed_payment.strip(" €"))
+            computed_payment = Decimal(computed_payment.strip(" €"))
         except:
-            computed_payment = 0
+            computed_payment = Decimal('0')
 
         if request.user.is_authenticated:
             user = request.user
@@ -501,7 +504,6 @@ def general_service_form_page(request, service_cat):
                 service_request = GeneralServiceRequest.objects.create(
                     user=user,
                     reference_id=reference_id,
-                    #service_type=selected_type_object,
                     service_category=selected_service_cat_object,
                     computed_service_fee=computed_payment,
                     initial_payment_required = payment_required,
