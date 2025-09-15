@@ -1,0 +1,22 @@
+{% extends "jde_base.html" %}
+
+{% load static %}
+
+{% block title %}Appointment Booking{% endblock %}
+
+{% block content %}
+<section class="max-w-4xl mx-auto px-6 py-12">
+  <h1 class="text-3xl font-bold text-center mb-6">{{appointment_type}} Appointment Booking</h1>
+
+
+  <!-- Calendly inline widget -->
+  <div class="calendly-inline-widget rounded-lg shadow-lg" 
+       data-url="https://calendly.com/ksq-europe/appointment" 
+       style="min-width:320px; height:800px;">
+  </div>
+
+  <script type="text/javascript" 
+          src="https://assets.calendly.com/assets/external/widget.js" async>
+  </script>
+</section>
+{% endblock %}

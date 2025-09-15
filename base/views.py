@@ -549,6 +549,9 @@ def general_service_form_page(request, service_cat):
     return render(request, "service_detail.html", context)
 
 
+def book_appointment(request, appointment_type):
+    return render(request, "appointment_booking.html", {"appointment_type":appointment_type})
+
 def iye_waka(request):
     current_page = "iye-waka"
     videos = IyeWaka.objects.filter(show=True)

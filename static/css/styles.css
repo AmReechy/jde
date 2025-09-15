@@ -2330,6 +2330,10 @@ video {
   padding-right: 1.5rem;
 }
 
+.pt-0\.5 {
+  padding-top: 0.125rem;
+}
+
 .pt-1 {
   padding-top: 0.25rem;
 }
@@ -2360,10 +2364,6 @@ video {
 
 .pt-8 {
   padding-top: 2rem;
-}
-
-.pt-0\.5 {
-  padding-top: 0.125rem;
 }
 
 .text-left {
