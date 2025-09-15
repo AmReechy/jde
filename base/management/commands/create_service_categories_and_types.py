@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from base.views import services
 from base.models import ServiceCategory as SC, ServiceType as ST
+from decimal import Decimal
 
 
 class Command(BaseCommand):
@@ -27,10 +28,10 @@ class Command(BaseCommand):
                     elif isinstance(item, dict):
                         if "procurement" not in s['title'].lower():
                             st_desc = item['text']
-                            fee = int(item['fee']) if "consultancy" in s['title'].lower() else None
+                            fee = Decimal(item['fee']) if "consultancy" in s['title'].lower() else None
                         elif 'procurement' in s['title'].lower():
                             st_desc = item['desc']
-                            fee = int(item['tot_fee'])
+                            fee = Decimal(item['tot_fee'])
                     service_type = ST.objects.create(
                         description=st_desc,
                         service_category =service_cat,

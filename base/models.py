@@ -99,6 +99,7 @@ class ServiceCategory(models.Model):
     title = models.CharField(max_length=250)
     description = models.TextField()
     fee = models.CharField(max_length=100, blank=True, null=True)
+    #computed_service_fee = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
     image = models.FileField(upload_to="documents/", null=True, blank=True)
     slug = models.SlugField(max_length=100, blank=True, null=True)
     temp = models.CharField(max_length=100, blank=True, null=True)
@@ -120,7 +121,8 @@ class ServiceCategory(models.Model):
 class ServiceType(models.Model):
     description = models.CharField(max_length=250)
     service_category = models.ForeignKey(ServiceCategory, null=True, blank=True, on_delete=models.SET_NULL)
-    fee = models.IntegerField(null=True, blank=True)
+    #fee = models.IntegerField(null=True, blank=True)
+    fee = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2)
 
 
     def __str__(self):
