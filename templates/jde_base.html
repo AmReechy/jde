@@ -66,6 +66,28 @@
   height: 20px;           /* match thickness */
   display: block;
 }
+
+.marquee-container {
+    width: 100vw;       /* only as wide as the viewport */
+    overflow: hidden;   /* hide overflowing part */
+    position: relative;
+  }
+
+  .marquee {
+    /*display: inline-block;
+    white-space: nowrap;*/
+    /*padding-left: 50%;  start from outside the right edge */
+    animation: scroll-left 25s linear infinite;
+  }
+
+  @keyframes scroll-left {
+    from {
+      transform: translateX(30vw);
+    }
+    to {
+      transform: translateX(calc(-100% + 100vw));
+    }
+  }
  
 		</style> 
 	</head>

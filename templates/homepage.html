@@ -460,10 +460,9 @@
             <div class="my-10 w-full bg-lime-50">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 py-6 text-center">Our Partners</h2>
 
-                <div class="w-full overflow-x-auto p-6 lg:p-8  text-center">
-                <div class="scroll-wrapper w-max inline-flex flex-row flex-nowrap gap-8 lg:gap-10 relative" id="partnerScrollBox">
+                <div class="w-full overflow-x-auto p-6 lg:p-8  text-center flex flex-nowrap">
+                <div class="scroll-wrapper marquee w-max inline-flex flex-row flex-nowrap gap-8 lg:gap-10 relative" id="partnerScrollBox">
                     
-										<div class="partner invisible">	</div>
                     {% for partner in partners %}
                     <div class="partner rounded-2xl  ump-in2 relative">
                         
@@ -472,10 +471,21 @@
                         </div>
                     </div>
                     {% endfor %}
-										<div class="partner invisible">	</div>
                         
                 </div>
                     
+                <div class="scroll-wrapper marquee w-max inline-flex flex-row flex-nowrap gap-8 lg:gap-10 relative" id="partnerScrollBox2">
+                    
+                    {% for partner in partners %}
+                    <div class="partner rounded-2xl  ump-in2 relative">
+                        
+                        <div class=" text-teal-600 font-bold">
+                            <img src="{% static 'jde_assets/' %}{{partner}}" class="w-full h-auto" alt="">
+                        </div>
+                    </div>
+                    {% endfor %}
+                        
+                </div>
                 </div>
             </div>
 
@@ -512,7 +522,7 @@
 </script>
 
 <script charset="utf-8">
-	const scrollBox = document.getElementById("partnerScrollBox");
+	/*const scrollBox = document.getElementById("partnerScrollBox");
 	let left = 0
 	const lastPartner = scrollBox.lastElementChild
 	setInterval(() => {
@@ -530,7 +540,7 @@
 			rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
 			rect.right <= (window.innerWidth || document.documentElement.clientWidth)
 		);
-	}
+	}*/
 </script>
 
 
