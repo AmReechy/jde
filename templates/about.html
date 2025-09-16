@@ -1,28 +1,58 @@
 {% extends "jde_base.html" %}
 
+{% load static %}
 
 {% block title %}About Us{% endblock %}
 
 
 {% block content %}
 <!-- Hero Banner -->
-<section class="relative bg-gradient-to-r from-green-600 to-green-800 text-white py-16">
+<!--<section class="relative bg-gradient-to-r from-green-600 to-green-800 text-white py-16">
   <div class="max-w-6xl mx-auto px-6 lg:px-12 text-center">
     <h1 class="text-4xl lg:text-5xl font-bold mb-4">About Us</h1>
-    <!--<p class="text-lg lg:text-xl opacity-90">
+    <--<p class="text-lg lg:text-xl opacity-90">
       JDE CONSULTE – Simplifying Administrative & Linguistic Procedures
-		</p>-->
+		</p>--
   </div>
+</section>-->
+
+<section>
+  <div class="w-full mx-auto relative z-10">
+		<div class="md:w-3/4 lg:w-3/5 mx-auto">
+      <img src="{% static 'jde_assets' %}/jde_about_us_image_cropped2.jpg" class="block w-full  h-[60%] mx-auto" alt="">			
+		</div>
+
+		<div class="absolute left-0 top-[70%] w-full">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="green" fill-opacity="1" d="M0,96L40,90.7C80,85,160,75,240,58.7C320,43,400,21,480,53.3C560,85,640,171,720,176C800,181,880,107,960,80C1040,53,1120,75,1200,96C1280,117,1360,139,1400,149.3L1440,160L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>
+		</div>
+		<div class="absolute left-0 top-[71%] w-full">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="1" d="M0,96L40,90.7C80,85,160,75,240,58.7C320,43,400,21,480,53.3C560,85,640,171,720,176C800,181,880,107,960,80C1040,53,1120,75,1200,96C1280,117,1360,139,1400,149.3L1440,160L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>
+		</div>
+		<div class="absolute left-0 top-[72%] w-full">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="green" fill-opacity="1" d="M0,96L40,90.7C80,85,160,75,240,58.7C320,43,400,21,480,53.3C560,85,640,171,720,176C800,181,880,107,960,80C1040,53,1120,75,1200,96C1280,117,1360,139,1400,149.3L1440,160L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>
+		</div>
+		<div class="absolute left-0 top-[73%] w-full">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="1" d="M0,96L40,90.7C80,85,160,75,240,58.7C320,43,400,21,480,53.3C560,85,640,171,720,176C800,181,880,107,960,80C1040,53,1120,75,1200,96C1280,117,1360,139,1400,149.3L1440,160L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>
+		</div>
+
+		<div class="absolute left-0 top-[90%] w-full h-[20%] bg-white text-center">
+			<div class="grid items-center text-center h-full">
+				<p class="text-4xl md:text-5xl font-extrabold text-green-800 mb-4">About Us</p>
+			</div>
+		</div>
+  </div>
+
+	
 </section>
 
 <!-- Main Content -->
-<section class="max-w-5xl mx-auto px-6 lg:px-12 py-12 space-y-12 text-gray-800">
+<section class="max-w-4xl mx-auto px-6 lg:px-12 py-12 space-y-12 text-gray-800 mt-12">
   
   <!-- Company Overview -->
   <div>
     <h2 class="text-2xl font-semibold text-green-700 mb-4">1. Company Overview</h2>
     <p>
-      JDE CONSULTE is a simplified joint-stock company (SAS) registered in France under the RCS of Pontoise with company number 
+      <span class="font-semibold">JDE CONSULTE</span> is a simplified joint-stock company (SAS) registered in France under the RCS of Pontoise with company number 
       <strong>980 971 725</strong>. Our head office is in <strong>96340, Persan</strong>.
     </p>
   </div>

@@ -8,30 +8,32 @@
 
 {% block content %}
 <div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6 mb-40">
-    <p class="text-center text-4xl md:text-5xl font-extrabold pb-14">Payment for Service</p>
-    <div class="pt-2 pb-10 text-xl font-semibold text-green-950">
-        <p>Your Service Request Form has been submitted successfully. You can now proceed to make payment for the service.</p>
-        <p class="pt-3">Please note that we will only begin to process your service request after confirming your payment for the service.</p>    
+    <p class="text-center text-4xl md:text-5xl font-extrabold pb-14 text-green-800">Payment for Service</p>
+    <div class="pt-2 pb-10 text-xl font-semibold text-green-600">
+        <p>Your Service Request Form was submitted successfully. You can now proceed to make payment for the service.</p>
+        <p class="p-4 mt-3 text-red-600 text-base leading-6 border-gray-200 bg-gray-50 shadow-md">Please note that we will only begin to process your service request after confirming your payment for the service.</p>    
     </div>
-    <div class="rounded-xl bg-gradient-to-br from-green-950 via-green-900 to-green-950 p-4 space-y-4 text-white">
+    <div class="rounded-xl bg-gradient-to-br from-green-950 via-green-900 to-green-950 p-4 md:py-6 space-y-4 text-white">
         <p class="text-center font-bold text-2xl pb-4">Requested Service Details</p>
         <div class="text-xl">
             <p class="font-bold text-xl">Service Category :</p>
-            <p class="text-lime-100 pt-1 font-medium">{{service_request.service_category.title}}</p>
+            <p class="text-lime-100 pt-1 font-medium text-base md:text-lg">{{service_request.service_category.title}}</p>
         </div>
         
         {% if service_request.service_options %}
-            <div class="pt-2 text-xl">
-                <p class="font-bold">Selected Service Option(s) :</p>
+            <div class="pt-2">
+                <p class="font-bold text-xl">Selected Service Option(s) :</p>
+								<ul class="list-disc list-outside pl-4">
 								{% for option in service_request.service_options.all %}
-                <p class="font-medium text-lime-100 pt-1">{{option.description}}</p>
-								{% endfor %}
+                <li class="font-medium text-lime-100 pt-2 leading-6 text-base md:text-lg">{{option.description}}</li>
+								{% endfor %}									
+								</ul>
             </div>
         {% endif %}
 
         <div class="text-xl">
             <p class="font-bold text-xl">Reference ID for Service Request :</p>
-            <p class="text-lime-100 pt-1 font-medium">{{service_request.reference_id}}</p>
+            <p class="text-lime-100 pt-1 font-medium text-base md:text-lg">{{service_request.reference_id}}</p>
         </div>
         
 		<div class="text-white font-semibold text-lg md:text-xl text-center pt-3">

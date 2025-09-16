@@ -23,6 +23,7 @@ urlpatterns = [
         path("about/", views.about_jde, name="about-jde"),
         path("appointment/<str:appointment_type>", views.book_appointment, name="book-appointment"),
         path("services/", views.all_services, name="all-services"),
+        path("download/<str:file_id>", views.download_file, name="download-file"),
         path("contact-us/", views.contact_us, name="contact-us"),
         path("terms-and-conditions/", views.terms, name="terms"),
         #path("submit-procure-form/<str:service_cat>/doc-<int:doc_type_index>", views.process_procurement_request_submission, name="procure-form-submit"),

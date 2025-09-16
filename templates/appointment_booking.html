@@ -9,6 +9,13 @@
   <h1 class="text-3xl font-bold text-center mb-6">{{appointment_type}} Appointment Booking</h1>
 
 
+	<div class="w-3/5 mx-auto text-center mb-8">
+		<p class="pb-2"><a href="{% url 'base:download-file' 'BVN' %}" class="underline underline-offset-2 text-green-600 font-semibold italic md:text-lg">Download BVN Enrolment Form</a></p>
+		<div>
+      <img src="{% static 'jde_assets' %}/jde_bvn_enrol_form_image.jpg" class="inline-block w-full  h-auto mx-auto border-2 border-amber-500 rounded-md" alt="">						
+		</div>
+
+	</div>
   <!-- Calendly inline widget -->
   <div class="calendly-inline-widget rounded-lg shadow-lg" 
        data-url="https://calendly.com/ksq-europe/appointment" 

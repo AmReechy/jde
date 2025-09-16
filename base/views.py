@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.shortcuts import render, redirect
 from django.utils.text import slugify
 from django.contrib.auth import login, authenticate, logout
@@ -623,3 +623,9 @@ def user_logout(request):
 
 def terms(request):
     return render(request, "terms_and_conditions.html", {"terms_n_conditions":ts_and_cs})
+
+
+def download_file(request, file_id):
+    file = open("static/jde_assets/jde_bvn_enrol_form.pdf", "rb")
+
+    return FileResponse(file, as_attachment=True)
